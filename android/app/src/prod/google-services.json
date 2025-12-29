@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "30513548056",
+    "project_id": "mycampusinfo-d3308",
+    "storage_bucket": "mycampusinfo-d3308.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30513548056:android:348fbfd8eef222c97a6c6d",
+        "android_client_info": {
+          "package_name": "com.talentconnect.mycampusinfo"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArUUDCmSBPcUaPpdkIj_BZF-xNdytVuUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:30513548056:android:021a1f0b1ed4b66e7a6c6d",
+        "android_client_info": {
+          "package_name": "com.talentconnect.mycampusinfo.debug"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArUUDCmSBPcUaPpdkIj_BZF-xNdytVuUw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
