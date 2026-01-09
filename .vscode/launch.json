@@ -1,26 +1,28 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-    
-        {
-            "name": "mycampusinfo-app",
-            "request": "launch",
-            "type": "dart"
-        },
-        {
-            "name": "mycampusinfo-app (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "mycampusinfo-app (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Stage",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/flavors/main_stage.dart",
+      "args": [
+        "--flavor",
+        "stage",
+        "--dart-define=ENV=stage"
+      ]
+    },
+    {
+      "name": "Prod",
+      "request": "launch",
+      "type": "dart",
+      "flutterMode": "release",
+      "program": "lib/flavors/main_prod.dart",
+      "args": [
+        "--flavor",
+        "prod",
+        "--dart-define=ENV=prod"
+      ]
+    },
+  ]
 }
