@@ -1,0 +1,32 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mycampusinfo_app/common/index.dart';
+import 'package:mycampusinfo_app/features/application/applications/data/entities/applications_model.dart';
+import 'package:mycampusinfo_app/features/application/forms/index.dart';
+import 'package:mycampusinfo_app/features/application/forms/presentation/widgets/date_time_converter.dart';
+import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_model.dart';
+import 'package:mycampusinfo_app/features/payments/data/entities/payment.dart';
+import 'package:mycampusinfo_app/features/payments/utils/convertor.dart';
+import 'package:mycampusinfo_app/features/payments/utils/enum.dart';
+
+part 'form.freezed.dart';
+part 'form.g.dart';
+
+@freezed
+abstract class Form with _$Form {
+  const factory Form({
+    @JsonKey(name: '_id') String? sId,
+    @JsonKey(name: 'schoolId') SchoolModel? school,
+    @JsonKey(name: 'studId') User? user,
+    @JsonKey(name: 'interviewNote') String? interviewNote,
+    @FormStatusConverter() FormStatus? status,
+    @JsonKey(name: 'applicationId') StudentApplication? application,
+    @JsonKey(name: '__v') int? iV,
+    int? amount,
+    @StringOrPaymentStatusConverter() PaymentStatus? payment,
+    Payment? paymentInfo,
+    @DateTimeConverter() DateTime? createdAt,
+    @DateTimeConverter() DateTime? updatedAt,
+  }) = _Form;
+
+  factory Form.fromJson(Map<String, dynamic> json) => _$FormFromJson(json);
+}

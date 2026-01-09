@@ -1,0 +1,75 @@
+import 'package:mycampusinfo_app/core/common/view_state_provider.dart';
+import 'package:mycampusinfo_app/core/network/app_failure.dart';
+import 'package:mycampusinfo_app/features/support/support_service.dart';
+
+class SupportViewModel extends ViewStateProvider {
+  final SupportService _supportService = SupportService();
+
+  Future<Failure?> addSupport({
+    required String category,
+    required String title,
+    required String description,
+    required String studId,
+  }) async {
+    Failure? failure;
+    setViewState(ViewState.busy);
+
+    final result = await _supportService.addSupport(
+      category: category,
+      title: title,
+      description: description,
+      studId: studId,
+    );
+
+    result.fold((exception) {
+      failure = APIFailure.fromException(exception: exception);
+    }, (res) {});
+
+    setViewState(ViewState.complete);
+    return failure;
+  }
+
+  Future<Failure?> getSupportByStudId({required String studId}) async {
+    Failure? failure;
+    setViewState(ViewState.busy);
+
+    final result = await _supportService.getSupportByStudId(studId: studId);
+
+    result.fold((exception) {
+      failure = APIFailure.fromException(exception: exception);
+    }, (res) {});
+
+    setViewState(ViewState.complete);
+    return failure;
+  }
+
+  Future<Failure?> getSupportBySupportId({required String supportId}) async {
+    Failure? failure;
+    setViewState(ViewState.busy);
+
+    final result = await _supportService.getSupportBySupportId(
+      supportId: supportId,
+    );
+
+    result.fold((exception) {
+      failure = APIFailure.fromException(exception: exception);
+    }, (res) {});
+
+    setViewState(ViewState.complete);
+    return failure;
+  }
+
+  Future<Failure?> deleteSupport({required String supportId}) async {
+    Failure? failure;
+    setViewState(ViewState.busy);
+
+    final result = await _supportService.deleteSupport(supportId: supportId);
+
+    result.fold((exception) {
+      failure = APIFailure.fromException(exception: exception);
+    }, (res) {});
+
+    setViewState(ViewState.complete);
+    return failure;
+  }
+}
