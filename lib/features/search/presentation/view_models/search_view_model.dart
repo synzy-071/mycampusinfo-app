@@ -3,24 +3,24 @@ import 'package:flutter/material.dart';
 class SelectionController extends ChangeNotifier {
   final Set<String> _selectedStates = {};
   final Set<String> _selectedCities = {};
-  final Set<String> _selectedBoards = {};
-  final Set<String> _selectedGenders = {};    // ✅ NEW
-  final Set<String> _selectedModes = {};      // ✅ NEW
-  final Set<String> _selectedFeeRange = {};   // ✅ FIXED
+  final Set<String> _selectedStreams = {};
+  final Set<String> _selectedGenders = {}; // ✅ NEW
+  final Set<String> _selectedModes = {}; // ✅ NEW
+  final Set<String> _selectedFeeRange = {}; // ✅ FIXED
 
   Set<String> get selectedStates => _selectedStates;
   Set<String> get selectedCities => _selectedCities;
-  Set<String> get selectedBoards => _selectedBoards;
+  Set<String> get selectedStreams => _selectedStreams;
   Set<String> get selectedGenders => _selectedGenders;
   Set<String> get selectedModes => _selectedModes;
-  Set<String> get selectedFeeRange => _selectedFeeRange;  // ✅ FIXED
+  Set<String> get selectedFeeRange => _selectedFeeRange; // ✅ FIXED
 
   void toggleStates(String state) {
     if (_selectedStates.contains(state)) {
       _selectedStates.remove(state);
       // Clear cities and boards when state is deselected
       _selectedCities.clear();
-      _selectedBoards.clear();
+      _selectedStreams.clear();
     } else {
       _selectedStates.add(state);
     }
@@ -31,18 +31,18 @@ class SelectionController extends ChangeNotifier {
     if (_selectedCities.contains(city)) {
       _selectedCities.remove(city);
       // Clear boards when city is deselected
-      _selectedBoards.clear();
+      _selectedStreams.clear();
     } else {
       _selectedCities.add(city);
     }
     notifyListeners();
   }
 
-  void toggleBoard(String board) {
-    if (_selectedBoards.contains(board)) {
-      _selectedBoards.remove(board);
+  void toggleStream(String board) {
+    if (_selectedStreams.contains(board)) {
+      _selectedStreams.remove(board);
     } else {
-      _selectedBoards.add(board);
+      _selectedStreams.add(board);
     }
     notifyListeners();
   }

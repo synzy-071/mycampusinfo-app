@@ -1,7 +1,7 @@
 class Endpoints {
   // // static const String baseUrl = 'https://backend-tc-sa-v2.onrender.com/api/';
-  // static const String baseUrl = 'https://mycampusinfo-server.onrender.com/api/';
-   static const String baseUrl = 'http://localhost:8080/api/';
+  static const String baseUrl = 'https://mycampusinfo-server.onrender.com/api/';
+  // static const String baseUrl = 'http://localhost:8080/api/';
 
   //Authentication Endpoints
   static const String auth = 'auth';
@@ -30,7 +30,7 @@ class Endpoints {
   static const String nearbySchools = 'admin/schools/nearby';
 
   static const String coursesByCollege = 'colleges/courses/college';
-  static const String placementsByCollege ='colleges/placements/college/';
+  static const String placementsByCollege = 'colleges/placements/college/';
   //School Amenities
   static const String adminSchoolsAmenities = 'colleges/amenities';
   static const String studentApplications = 'applications';
@@ -42,18 +42,15 @@ class Endpoints {
   static const String adminSchoolsActivities = 'colleges/activities';
   static const String adminSchoolsAlumnus = 'colleges/alumni';
   static const String adminInfrastructure = 'colleges/infrastructure';
-  static const String adminfeeAndScholarship =
-      'colleges/fees';
+  static const String adminfeeAndScholarship = 'colleges/fees';
   static const String adminOtherDetails = 'colleges/other-details';
   static const String adminAcademics = 'admin/schools/academics';
   static const String adminTechAdoption = 'admin/schools/technology';
   static const String adminSafetyAndSecurity = 'colleges/safety';
-  static const String adminInternationalExposure =
-      'colleges/international';
+  static const String adminInternationalExposure = 'colleges/international';
   static const String adminFaculty = 'colleges/faculty';
 
-  static const String adminAdmissionTimeline =
-      'colleges/admission';
+  static const String adminAdmissionTimeline = 'colleges/admission';
   static const String reviewsBySchoolAdmin = 'colleges/reviews';
 
   static const String adminBlogs = 'colleges/blogs';
@@ -69,7 +66,7 @@ class Endpoints {
 
   //predictor
   static const String adminPredictSchools = 'admin/predict-schools';
-  static const String adminSearch = 'admin/search';
+  static const String collegesSearch = 'colleges/search';
   static const String notifications = 'notifications';
 
   //Applications

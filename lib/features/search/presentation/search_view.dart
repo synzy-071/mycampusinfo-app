@@ -29,30 +29,15 @@ class _SearchPageState extends State<SearchPage> {
     'Tamil Nadu',
   ];
 
-  final List<String> boards = [
-    'CBSE',
-    'ICSE',
-    'CISCE',
-    'NIOS',
-    'SSC',
-    'IGCSE',
-    'IB',
-    'KVS',
-    'JNV',
-    'DBSE',
-    'MSBSHSE',
-    'UPMSP',
-    'KSEEB',
-    'WBBSE',
-    'GSEB',
-    'RBSE',
-    'BSEB',
-    'PSEB',
-    'BSE',
-    'SEBA',
-    'MPBSE',
-    'STATE',
-    'OTHER',
+  final List<String> streams = [
+    'engineering',
+    'management',
+    'arts',
+    'science',
+    'law',
+    'medical',
+    'design',
+    'humanities',
   ];
 
   final List<String> genders = ["boy", "girl", "co-ed"];
@@ -103,7 +88,7 @@ class _SearchPageState extends State<SearchPage> {
     if (searchCtrl.text.isNotEmpty ||
         controller.selectedStates.isNotEmpty ||
         controller.selectedCities.isNotEmpty ||
-        controller.selectedBoards.isNotEmpty ||
+        controller.selectedStreams.isNotEmpty ||
         controller.selectedGenders.isNotEmpty ||
         controller.selectedModes.isNotEmpty ||
         controller.selectedFeeRange.isNotEmpty) {
@@ -113,7 +98,7 @@ class _SearchPageState extends State<SearchPage> {
           query: searchCtrl.text,
           state: controller.selectedStates.toList(),
           city: controller.selectedCities.toList(),
-          board: controller.selectedBoards.toList(),
+          streams: controller.selectedStreams.toList(),
           genderType: controller.selectedGenders.toList(),
           collegeMode: controller.selectedModes.toList(),
           feeRange: controller.selectedFeeRange.toList(),
@@ -201,25 +186,22 @@ class _SearchPageState extends State<SearchPage> {
             ),
           if (controller.selectedStates.isNotEmpty) const SizedBox(height: 24),
 
-          // Boards
-          if (controller.selectedCities.isNotEmpty)
-            Container(
-              padding: const EdgeInsets.all(12),
-              decoration: BoxDecoration(
-                color: Colors.grey[100],
-                borderRadius: BorderRadius.circular(6),
-              ),
-              child: SearchGridSection(
-                title: "Search by Education Boards",
-                items: boards,
-                selectedItems: controller.selectedBoards,
-                onTap: controller.toggleBoard,
-                selectedColor: filterSelectedColor,
-                isGreyBox: true,
-              ),
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: Colors.grey[100],
+              borderRadius: BorderRadius.circular(6),
             ),
-          if (controller.selectedCities.isNotEmpty) const SizedBox(height: 24),
-
+            child: SearchGridSection(
+              title: "Search by Streams",
+              items: streams,
+              selectedItems: controller.selectedStreams,
+              onTap: controller.toggleStream,
+              selectedColor: filterSelectedColor,
+              isGreyBox: true,
+            ),
+          ),
+          const SizedBox(height: 24),
           // Gender
           Container(
             padding: const EdgeInsets.all(12),
@@ -267,9 +249,8 @@ class _SearchPageState extends State<SearchPage> {
               title: "Search by Fee Range",
               items: feeRanges,
               selectedItems: controller.selectedFeeRange,
-              onTap:
-                  controller
-                      .toggleFeeRange, // make sure this exists in your controller
+              onTap: controller
+                  .toggleFeeRange, // make sure this exists in your controller
               selectedColor: filterSelectedColor,
               isGreyBox: true,
             ),

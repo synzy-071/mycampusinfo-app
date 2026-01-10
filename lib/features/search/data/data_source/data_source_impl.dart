@@ -15,15 +15,17 @@ class SearchDataSourceImpl implements SearchDataSource {
   }) async {
     final request = Request(
       method: RequestMethod.get,
-      endpoint: Endpoints.adminSearch,
+      endpoint: Endpoints.collegesSearch,
       queryParams: {
         if (query != null) 'search': query.query,
         if (query?.state != null) 'state': query?.state,
         if (query?.city != null) 'cities': query?.city,
-        if (query?.board != null) 'boards': query?.board,
-          if (query?.genderType?.isNotEmpty ?? false) 'genderType': query?.genderType,
-    if (query?.collegeMode?.isNotEmpty ?? false) 'collegeMode': query?.collegeMode,
-    if (query?.feeRange != null) 'feeRange': query?.feeRange,
+        if (query?.streams != null) 'streams': query?.streams,
+        if (query?.genderType?.isNotEmpty ?? false)
+          'genderType': query?.genderType,
+        if (query?.collegeMode?.isNotEmpty ?? false)
+          'collegeMode': query?.collegeMode,
+        if (query?.feeRange != null) 'feeRange': query?.feeRange,
         'limit': "10",
         'page': page.toString(),
       },
@@ -34,8 +36,9 @@ class SearchDataSourceImpl implements SearchDataSource {
       final response = result.data['data'] as List<dynamic>;
 
       if (response.isNotEmpty) {
-        final schools =
-            response.map((e) => CollegeCardModel.fromJson(e)).toList();
+        final schools = response
+            .map((e) => CollegeCardModel.fromJson(e))
+            .toList();
         return Right(schools);
       }
     } catch (e) {
