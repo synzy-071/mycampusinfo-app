@@ -7,11 +7,11 @@ class InfrastructureService implements AbstractInfrastructureService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<InfrastructureModel?> getInfrastructureBySchoolId({
-    required String schoolId,
+  ResultFuture<InfrastructureModel?> getInfrastructureBycollegeId({
+    required String collegeId,
   }) async {
     // Assuming you have an endpoint for infrastructure
-    final endpoint = "${Endpoints.adminInfrastructure}/$schoolId";
+    final endpoint = "${Endpoints.adminInfrastructure}/$collegeId";
     
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 
@@ -31,7 +31,7 @@ class InfrastructureService implements AbstractInfrastructureService {
 
   @override
   ResultFuture<InfrastructureModel?> addInfrastructure({
-    required String schoolId,
+    required String collegeId,
     required List<String> labs,
     required List<String> sportsGrounds,
     required int libraryBooks,
@@ -41,7 +41,7 @@ class InfrastructureService implements AbstractInfrastructureService {
       method: RequestMethod.post,
       endpoint: Endpoints.adminInfrastructure,
       body: {
-        "schoolId": schoolId,
+        "collegeId": collegeId,
         "labs": labs,
         "sportsGrounds": sportsGrounds,
         "libraryBooks": libraryBooks,
@@ -64,13 +64,13 @@ class InfrastructureService implements AbstractInfrastructureService {
 
   @override
   ResultFuture<InfrastructureModel?> updateInfrastructure({
-    required String schoolId,
+    required String collegeId,
     List<String>? labs,
     List<String>? sportsGrounds,
     int? libraryBooks,
     int? smartClassrooms,
   }) async {
-    final endpoint = "${Endpoints.adminInfrastructure}/$schoolId";
+    final endpoint = "${Endpoints.adminInfrastructure}/$collegeId";
     
     Request r = Request(
       method: RequestMethod.put,

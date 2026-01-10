@@ -3,7 +3,7 @@
 class AlumniModel {
   // server ids & timestamps
   final String? id;            // maps _id
-  final String? schoolId;      // extracted even if the API sends a populated object
+  final String? collegeId;      // extracted even if the API sends a populated object
   final String? createdAt;
   final String? updatedAt;
   final int? iV;
@@ -20,7 +20,7 @@ class AlumniModel {
 
   const AlumniModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
     this.createdAt,
     this.updatedAt,
     this.iV,
@@ -33,13 +33,13 @@ class AlumniModel {
   });
 
   factory AlumniModel.fromJson(Map<String, dynamic> json) {
-    // schoolId can be a string or a populated object
+    // collegeId can be a string or a populated object
     String? sid;
     String? sName;
     String? sCity;
     String? sState;
 
-    final dynamic schoolRaw = json['schoolId'];
+    final dynamic schoolRaw = json['collegeId'];
     if (schoolRaw is String) {
       sid = schoolRaw;
     } else if (schoolRaw is Map<String, dynamic>) {
@@ -51,7 +51,7 @@ class AlumniModel {
 
     return AlumniModel(
       id: json['_id'] as String?,
-      schoolId: sid,
+      collegeId: sid,
       createdAt: json['createdAt'] as String?,
       updatedAt: json['updatedAt'] as String?,
       iV: json['__v'] is int ? json['__v'] as int : int.tryParse('${json['__v'] ?? ''}'),
@@ -66,7 +66,7 @@ class AlumniModel {
 
   Map<String, dynamic> toJson() => {
         '_id': id,
-        'schoolId': schoolId,
+        'collegeId': collegeId,
         'createdAt': createdAt,
         'updatedAt': updatedAt,
         '__v': iV,

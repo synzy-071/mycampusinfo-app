@@ -14,7 +14,7 @@ _SearchQuery _$SearchQueryFromJson(Map<String, dynamic> json) => _SearchQuery(
   genderType: (json['genderType'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
-  schoolMode: (json['schoolMode'] as List<dynamic>?)
+  collegeMode: (json['collegeMode'] as List<dynamic>?)
       ?.map((e) => e as String)
       .toList(),
   feeRange: (json['feeRange'] as List<dynamic>?)
@@ -29,6 +29,6 @@ Map<String, dynamic> _$SearchQueryToJson(_SearchQuery instance) =>
       'city': instance.city,
       'board': instance.board,
       'genderType': instance.genderType,
-      'schoolMode': instance.schoolMode,
+      'collegeMode': instance.collegeMode,
       'feeRange': instance.feeRange,
     };

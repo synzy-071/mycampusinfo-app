@@ -7,11 +7,11 @@ class AdmissionTimelineService implements AbstractAdmissionTimelineService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<AdmissionTimelineModel?> getAdmissionTimelineBySchoolId({
-    required String schoolId,
+  ResultFuture<AdmissionTimelineModel?> getAdmissionTimelineBycollegeId({
+    required String collegeId,
   }) async {
     // Make sure Endpoints.admissionTimeline is defined
-    final endpoint = "${Endpoints.adminAdmissionTimeline}/$schoolId";
+    final endpoint = "${Endpoints.adminAdmissionTimeline}/$collegeId";
     
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 

@@ -9,8 +9,8 @@ import 'package:mycampusinfo_app/features/detailPages/reviews/presentation/widge
 import 'package:timeago/timeago.dart' as timeago;
 
 class ReviewsView extends StatefulWidget {
-  const ReviewsView({super.key, required this.schoolId});
-  final String schoolId;
+  const ReviewsView({super.key, required this.collegeId});
+  final String collegeId;
 
   @override
   State<ReviewsView> createState() => _ReviewsViewState();
@@ -24,13 +24,13 @@ class _ReviewsViewState extends State<ReviewsView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _vm.getReviews(schoolId: widget.schoolId);
+      _vm.getReviews(collegeId: widget.collegeId);
     });
   }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isNotEmpty) {
-      await _vm.getReviews(schoolId: widget.schoolId);
+    if (widget.collegeId.isNotEmpty) {
+      await _vm.getReviews(collegeId: widget.collegeId);
     }
   }
 
@@ -61,7 +61,7 @@ class _ReviewsViewState extends State<ReviewsView> {
             }
 
             final success = await _vm.addReview(
-              schoolId: widget.schoolId,
+              collegeId: widget.collegeId,
               studentId: studentId,
               rating: rating,
               text: text,

@@ -23,8 +23,8 @@ class ChatbotViewModel extends ViewStateProvider {
   List<RecommendedSchool> _recommendedSchools = [];
   List<RecommendedSchool> get recommendedSchools => _recommendedSchools;
 
-  List<SchoolCardModel> _resolvedSchools = [];
-  List<SchoolCardModel> get resolvedSchools => _resolvedSchools;
+  List<CollegeCardModel> _resolvedSchools = [];
+  List<CollegeCardModel> get resolvedSchools => _resolvedSchools;
 
   bool resolvingCards = false;
 
@@ -66,8 +66,8 @@ class ChatbotViewModel extends ViewStateProvider {
     dbResult.fold(
       (ex) => overallFailure = ex as Failure?,
       (result) async {
-        if (result.schoolIds.isNotEmpty) {
-          await _resolveSchoolCards(result.schoolIds);
+        if (result.collegeIds.isNotEmpty) {
+          await _resolveSchoolCards(result.collegeIds);
         }
       },
     );
@@ -105,7 +105,7 @@ class ChatbotViewModel extends ViewStateProvider {
       final futures = ids.map((id) => _fetchCardById(id)).toList();
       final results = await Future.wait(futures);
 
-      final cards = <SchoolCardModel>[];
+      final cards = <CollegeCardModel>[];
       for (final either in results) {
         either.fold((_) => null, (card) => cards.add(card));
       }
@@ -120,7 +120,7 @@ class ChatbotViewModel extends ViewStateProvider {
     }
   }
 
-  Future<Either<APIException, SchoolCardModel>> _fetchCardById(String id) async {
+  Future<Either<APIException, CollegeCardModel>> _fetchCardById(String id) async {
     final request = Request(
       method: RequestMethod.get,
       endpoint: '${Endpoints.adminSchools}/$id',
@@ -137,7 +137,7 @@ class ChatbotViewModel extends ViewStateProvider {
         return Left(APIException(message: 'Invalid response format', statusCode: 400));
       }
 
-      final String schoolId = (payload['_id'] ?? payload['id'] ?? '').toString();
+      final String collegeId = (payload['_id'] ?? payload['id'] ?? '').toString();
       final String name = (payload['name'] ?? '-') as String;
       final String board = (payload['board'] ?? '-') as String;
       final String feeRange = (payload['feeRange'] ?? '-') as String;
@@ -146,18 +146,18 @@ class ChatbotViewModel extends ViewStateProvider {
         (payload['state'] ?? '') as String
       ].where((e) => e.isNotEmpty).join(', ');
       final String genderType = (payload['genderType'] ?? '-') as String;
-      final String schoolMode = (payload['schoolMode'] ?? '-') as String;
+      final String collegeMode = (payload['collegeMode'] ?? '-') as String;
       final List shifts = (payload['shifts'] is List) ? payload['shifts'] as List : const [];
       final int ratings = _safeInt(payload['ratings'] ?? payload['rating'] ?? 0);
 
-      final card = SchoolCardModel(
-        schoolId: schoolId,
+      final card = CollegeCardModel(
+        collegeId: collegeId,
         name: name,
         board: board,
         feeRange: feeRange,
         location: location,
         genderType: genderType,
-        schoolMode: schoolMode,
+        collegeMode: collegeMode,
         shifts: shifts.map((e) => e.toString()).toList(),
         ratings: ratings,
       );

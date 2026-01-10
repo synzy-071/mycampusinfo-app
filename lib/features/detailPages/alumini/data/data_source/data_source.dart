@@ -4,20 +4,20 @@ import 'package:mycampusinfo_app/features/detailPages/alumini/data/entities/alum
 
 abstract class AbstractAlumniService {
   ResultFuture<AlumniModel?> addAlumni({
-    required String schoolId,
+    required String collegeId,
     required List<AlumniScoreItem> topAlumnis,
     required List<FamousAlumniItem> famousAlumnies,
     required List<AlumniScoreItem> alumnis,
   });
 
-  ResultFuture<AlumniModel?> getAlumniBySchool({required String schoolId});
+  ResultFuture<AlumniModel?> getAlumniBySchool({required String collegeId});
 
   ResultFuture<AlumniModel?> updateAlumniBySchool({
-    required String schoolId,
+    required String collegeId,
     List<AlumniScoreItem>? topAlumnis,
     List<FamousAlumniItem>? famousAlumnies,
     List<AlumniScoreItem>? alumnis,
   });
 
-  ResultFuture<String?> deleteAlumniBySchool({required String schoolId});
+  ResultFuture<String?> deleteAlumniBySchool({required String collegeId});
 }

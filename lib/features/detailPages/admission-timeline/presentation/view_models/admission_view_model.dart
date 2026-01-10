@@ -13,13 +13,13 @@ class AdmissionTimelineViewModel extends ViewStateProvider {
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getAdmissionTimelineBySchoolId({
-    required String schoolId,
+  Future<Failure?> getAdmissionTimelineBycollegeId({
+    required String collegeId,
   }) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getAdmissionTimelineBySchoolId(schoolId: schoolId);
+    final result = await _svc.getAdmissionTimelineBycollegeId(collegeId: collegeId);
 
     result.fold(
       (exception) {

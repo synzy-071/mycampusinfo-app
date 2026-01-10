@@ -14,13 +14,13 @@ class ActivitiesService {
   final NetworkService _networkService = NetworkService();
 
   ResultFuture<ActivitiesModel?> addActivities({
-    required String schoolId,
+    required String collegeId,
     required List<String> activities,
   }) async {
     Request r = Request(
       method: RequestMethod.post,
       endpoint: Endpoints.adminSchoolsActivities,
-      body: {"schoolId": schoolId, "activities": activities},
+      body: {"collegeId": collegeId, "activities": activities},
     );
 
     try {
@@ -40,12 +40,12 @@ class ActivitiesService {
   }
 
   ResultFuture<ActivitiesModel?> updateActivities({
-    required String schoolId,
+    required String collegeId,
     required List<String> activities,
   }) async {
     Request r = Request(
       method: RequestMethod.put,
-      endpoint: "${Endpoints.adminSchoolsActivities}/$schoolId",
+      endpoint: "${Endpoints.adminSchoolsActivities}/$collegeId",
       body: {"activities": activities},
     );
 
@@ -65,12 +65,12 @@ class ActivitiesService {
     return Right(null);
   }
 
-  ResultFuture<ActivitiesModel?> getActivitiesBySchoolId({
-    required String schoolId,
+  ResultFuture<ActivitiesModel?> getActivitiesBycollegeId({
+    required String collegeId,
   }) async {
     Request r = Request(
       method: RequestMethod.get,
-      endpoint: "${Endpoints.adminSchoolsActivities}/$schoolId",
+      endpoint: "${Endpoints.adminSchoolsActivities}/$collegeId",
     );
 
     try {

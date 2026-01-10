@@ -1,6 +1,7 @@
 class Endpoints {
-  // static const String baseUrl = 'https://backend-tc-sa-v2.onrender.com/api/';
-  static const String baseUrl = 'https://api.synzy.in/api/';
+  // // static const String baseUrl = 'https://backend-tc-sa-v2.onrender.com/api/';
+  // static const String baseUrl = 'https://mycampusinfo-server.onrender.com/api/';
+   static const String baseUrl = 'http://localhost:8080/api/';
 
   //Authentication Endpoints
   static const String auth = 'auth';
@@ -24,36 +25,39 @@ class Endpoints {
   static const String usersShortlist = 'users/shortlist';
 
   //School Endpoints
-  static const String adminSchools = 'admin/schools';
-  static const String adminSchoolsStatus = 'admin/schools/status';
+  static const String adminSchools = 'colleges';
+  static const String adminSchoolsStatus = 'colleges';
   static const String nearbySchools = 'admin/schools/nearby';
+
+  static const String coursesByCollege = 'colleges/courses/college';
+  static const String placementsByCollege ='colleges/placements/college/';
   //School Amenities
-  static const String adminSchoolsAmenities = 'admin/schools/amenities';
+  static const String adminSchoolsAmenities = 'colleges/amenities';
   static const String studentApplications = 'applications';
 
   //Chatbot
   static const chatbotBase = '/chatbot';
 
   //School Activities
-  static const String adminSchoolsActivities = 'admin/schools/activities';
-  static const String adminSchoolsAlumnus = 'admin/alumnus';
-  static const String adminInfrastructure = 'admin/schools/infrastructure';
+  static const String adminSchoolsActivities = 'colleges/activities';
+  static const String adminSchoolsAlumnus = 'colleges/alumni';
+  static const String adminInfrastructure = 'colleges/infrastructure';
   static const String adminfeeAndScholarship =
-      'admin/schools/fees-scholarships';
-  static const String adminOtherDetails = 'admin/schools/other-details';
+      'colleges/fees';
+  static const String adminOtherDetails = 'colleges/other-details';
   static const String adminAcademics = 'admin/schools/academics';
-  static const String adminTechAdoption = 'admin/schools/technology-adoption';
-  static const String adminSafetyAndSecurity = 'admin/schools/safety-security';
+  static const String adminTechAdoption = 'admin/schools/technology';
+  static const String adminSafetyAndSecurity = 'colleges/safety';
   static const String adminInternationalExposure =
-      'admin/schools/international-exposure';
-  static const String adminFaculty = 'admin/schools/faculty';
+      'colleges/international';
+  static const String adminFaculty = 'colleges/faculty';
 
   static const String adminAdmissionTimeline =
-      'admin/schools/admission-timeline';
-  static const String reviewsBySchoolAdmin = 'reviews';
+      'colleges/admission';
+  static const String reviewsBySchoolAdmin = 'colleges/reviews';
 
-  static const String adminBlogs = 'admin/blogs';
-  static const String adminCompare = 'admin/compare';
+  static const String adminBlogs = 'colleges/blogs';
+  static const String adminCompare = 'colleges/compare';
 
   //Support Page
   static const String adminSupport = 'admin/support';

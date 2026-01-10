@@ -5,30 +5,30 @@ import 'package:mycampusinfo_app/features/home/data/data_source_impl.dart';
 class SchoolViewModel extends ViewStateProvider {
   final _schoolDataSource = SchoolDataSourceImpl();
 
-  List<SchoolCardModel> _boardSchools = [];
-  List<SchoolCardModel> get boardSchools => _boardSchools;
-  set boardSchools(List<SchoolCardModel> value) {
+  List<CollegeCardModel> _boardSchools = [];
+  List<CollegeCardModel> get boardSchools => _boardSchools;
+  set boardSchools(List<CollegeCardModel> value) {
     _boardSchools = value;
     notifyListeners();
   }
 
-  List<SchoolCardModel> _nearbySchools = [];
-  List<SchoolCardModel> get nearbySchools => _nearbySchools;
-  set nearbySchools(List<SchoolCardModel> value) {
+  List<CollegeCardModel> _nearbySchools = [];
+  List<CollegeCardModel> get nearbySchools => _nearbySchools;
+  set nearbySchools(List<CollegeCardModel> value) {
     _nearbySchools = value;
     notifyListeners();
   }
 
-  List<SchoolCardModel> _stateSchools = [];
-  List<SchoolCardModel> get stateSchools => _stateSchools;
-  set stateSchools(List<SchoolCardModel> value) {
+  List<CollegeCardModel> _stateSchools = [];
+  List<CollegeCardModel> get stateSchools => _stateSchools;
+  set stateSchools(List<CollegeCardModel> value) {
     _stateSchools = value;
     notifyListeners();
   }
 
-  List<SchoolCardModel> _citySchools = [];
-  List<SchoolCardModel> get citySchools => _citySchools;
-  set citySchools(List<SchoolCardModel> value) {
+  List<CollegeCardModel> _citySchools = [];
+  List<CollegeCardModel> get citySchools => _citySchools;
+  set citySchools(List<CollegeCardModel> value) {
     _citySchools = value;
     notifyListeners();
   }
@@ -40,7 +40,7 @@ class SchoolViewModel extends ViewStateProvider {
 
     final result = await _schoolDataSource.getSchools(
       filters: {
-        'board': getIt<AppStateProvider>().userPref?.boards,
+  
         'city': getIt<AppStateProvider>().user?.city,
       },
     );
@@ -87,8 +87,8 @@ class SchoolViewModel extends ViewStateProvider {
       filters: {
         'state': getIt<AppStateProvider>().user?.state,
         'city': getIt<AppStateProvider>().user?.city,
-        'board': getIt<AppStateProvider>().userPref?.boards,
-        'schoolMode': getIt<AppStateProvider>().userPref?.schoolType,
+    
+        'collegeMode': getIt<AppStateProvider>().userPref?.collegeType,
         'genderType': getIt<AppStateProvider>().user?.gender,
       },
     );
@@ -105,37 +105,37 @@ class SchoolViewModel extends ViewStateProvider {
     return failure;
   }
 
-  Future<Failure?> getNearbySchools() async {
-    setViewState(ViewState.busy);
-    Failure? failure;
+  // Future<Failure?> getNearbySchools() async {
+  //   setViewState(ViewState.busy);
+  //   Failure? failure;
 
-    final user = getIt<AppStateProvider>().user;
+  //   final user = getIt<AppStateProvider>().user;
 
-    // Ensure we have all the necessary data from the user model
-    if (user?.latitude == null ||
-        user?.longitude == null ||
-        user?.state == null) {
-      setViewState(ViewState.complete);
-      // Silently fail if location data is missing, or return a specific failure
-      return null;
-    }
+  //   // Ensure we have all the necessary data from the user model
+  //   if (user?.latitude == null ||
+  //       user?.longitude == null ||
+  //       user?.state == null) {
+  //     setViewState(ViewState.complete);
+  //     // Silently fail if location data is missing, or return a specific failure
+  //     return null;
+  //   }
 
-    final result = await _schoolDataSource.getNearbySchools(
-      latitude: user!.latitude!,
-      longitude: user.longitude!,
-      state: user.state!,
-    );
+  //   final result = await _schoolDataSource.getNearbySchools(
+  //     latitude: user!.latitude!,
+  //     longitude: user.longitude!,
+  //     state: user.state!,
+  //   );
 
-    result.fold(
-      (exception) {
-        failure = APIFailure.fromException(exception: exception);
-      },
-      (res) {
-        nearbySchools = res;
-      },
-    );
+  //   result.fold(
+  //     (exception) {
+  //       failure = APIFailure.fromException(exception: exception);
+  //     },
+  //     (res) {
+  //       nearbySchools = res;
+  //     },
+  //   );
 
-    setViewState(ViewState.complete);
-    return failure;
-  }
+  //   setViewState(ViewState.complete);
+  //   return failure;
+  // }
 }

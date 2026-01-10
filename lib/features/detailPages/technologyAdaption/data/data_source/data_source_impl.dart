@@ -8,11 +8,11 @@ class TechnologyAdoptionService implements AbstractTechnologyAdoptionService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<TechnologyAdoptionModel?> getTechnologyAdoptionBySchoolId({
-    required String schoolId,
+  ResultFuture<TechnologyAdoptionModel?> getTechnologyAdoptionBycollegeId({
+    required String collegeId,
   }) async {
     // Make sure Endpoints.technologyAdoption is defined in your constants
-    final endpoint = "${Endpoints.adminTechAdoption}/$schoolId";
+    final endpoint = "${Endpoints.adminTechAdoption}/$collegeId";
     
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 

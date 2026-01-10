@@ -5,17 +5,17 @@ import 'package:mycampusinfo_app/features/users/shortlist/data/data_source/data_
 class ShortlistViewModel extends ViewStateProvider {
   final ShortlistDataSourceImpl _shortlistService = ShortlistDataSourceImpl();
 
-  List<SchoolCardModel> _schools = getIt<AppStateProvider>().shortlistSchools;
-  List<SchoolCardModel> get schools => _schools;
-  set schools(List<SchoolCardModel> values) {
+  List<CollegeCardModel> _schools = getIt<AppStateProvider>().shortlistSchools;
+  List<CollegeCardModel> get schools => _schools;
+  set schools(List<CollegeCardModel> values) {
     _schools = values;
     notifyListeners();
   }
 
-  Future<Failure?> addShortlist({required String schoolId}) async {
+  Future<Failure?> addShortlist({required String collegeId}) async {
     Failure? failure;
     setViewState(ViewState.busy);
-    final result = await _shortlistService.addShortlist(schoolId: schoolId);
+    final result = await _shortlistService.addShortlist(collegeId: collegeId);
 
     result.fold(
       (exception) {
@@ -69,12 +69,12 @@ class ShortlistViewModel extends ViewStateProvider {
     return failure;
   }
 
-  Future<Failure?> removeShortlist({required String schoolId}) async {
+  Future<Failure?> removeShortlist({required String collegeId}) async {
     Failure? failure;
 
     setViewState(ViewState.busy);
 
-    final result = await _shortlistService.removeShortlist(schoolId: schoolId);
+    final result = await _shortlistService.removeShortlist(collegeId: collegeId);
 
     result.fold(
       (exception) {

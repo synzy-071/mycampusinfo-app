@@ -7,9 +7,9 @@ class CompareViewModel extends ViewStateProvider {
   final CompareDataSourceImpl _dataSource = CompareDataSourceImpl();
 
   // optional: hold base school locally (for preview on CompareWith)
-  SchoolCardModel? _baseSchool;
-  SchoolCardModel? get baseSchool => _baseSchool;
-  void setBaseSchool(SchoolCardModel s) {
+  CollegeCardModel? _baseSchool;
+  CollegeCardModel? get baseSchool => _baseSchool;
+  void setBaseSchool(CollegeCardModel s) {
     _baseSchool = s;
     notifyListeners();
   }
@@ -21,15 +21,15 @@ class CompareViewModel extends ViewStateProvider {
   SchoolCompareModel? get school2 => _school2;
 
   Future<Failure?> compareSchools({
-    required String schoolId1,
-    required String schoolId2,
+    required String collegeId1,
+    required String collegeId2,
   }) async {
     setViewState(ViewState.busy);
     Failure? failure;
 
     final result = await _dataSource.compareSchools(
-      schoolId1: schoolId1,
-      schoolId2: schoolId2,
+      collegeId1: collegeId1,
+      collegeId2: collegeId2,
     );
 
     result.fold((ex) => failure = APIFailure.fromException(exception: ex), (

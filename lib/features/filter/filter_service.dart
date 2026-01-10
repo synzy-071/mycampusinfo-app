@@ -12,7 +12,7 @@ import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/ove
 class FilterService {
   final NetworkService _networkService = NetworkService();
 
-  ResultFuture<List<SchoolModel>?> getSchoolsByFeeRange({
+  ResultFuture<List<collegeModel>?> getSchoolsByFeeRange({
     required String feeRange,
   }) async {
     Request r = Request(
@@ -26,8 +26,8 @@ class FilterService {
 
       if (response.isNotEmpty) {
         final List<dynamic> schoolsData = response['data'];
-        final List<SchoolModel> schools =
-            schoolsData.map((json) => SchoolModel.fromJson(json)).toList();
+        final List<collegeModel> schools =
+            schoolsData.map((json) => collegeModel.fromJson(json)).toList();
 
         return Right(schools);
       }
@@ -37,7 +37,7 @@ class FilterService {
     return Right(null);
   }
 
-  ResultFuture<List<SchoolModel>?> getSchoolsByShift({
+  ResultFuture<List<collegeModel>?> getSchoolsByShift({
     required String shifts,
   }) async {
     Request r = Request(
@@ -51,8 +51,8 @@ class FilterService {
 
       if (response.isNotEmpty) {
         final List<dynamic> schoolsData = response['data'];
-        final List<SchoolModel> schools =
-            schoolsData.map((json) => SchoolModel.fromJson(json)).toList();
+        final List<collegeModel> schools =
+            schoolsData.map((json) => collegeModel.fromJson(json)).toList();
 
         return Right(schools);
       }

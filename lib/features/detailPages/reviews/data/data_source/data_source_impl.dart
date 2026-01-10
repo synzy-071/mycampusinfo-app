@@ -8,11 +8,11 @@ class ReviewService implements AbstractReviewService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<List<ReviewModel>> getAcceptedReviewsBySchoolId({
-    required String schoolId,
+  ResultFuture<List<ReviewModel>> getAcceptedReviewsBycollegeId({
+    required String collegeId,
   }) async {
-    // Corresponds to your GET /admin/:schoolId route
-    final endpoint = "${Endpoints.reviewsBySchoolAdmin}/$schoolId";
+    // Corresponds to your GET /admin/:collegeId route
+    final endpoint = "${Endpoints.reviewsBySchoolAdmin}/$collegeId";
     
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 
@@ -34,7 +34,7 @@ class ReviewService implements AbstractReviewService {
 
   @override
   ResultFuture<ReviewModel?> addReview({
-    required String schoolId,
+    required String collegeId,
     required String studentId,
     required String text,
     required double ratings,
@@ -44,7 +44,7 @@ class ReviewService implements AbstractReviewService {
       method: RequestMethod.post,
       endpoint: '${Endpoints.reviewsBySchoolAdmin}/',
       body: {
-        "schoolId": schoolId,
+        "collegeId": collegeId,
         "studentId": studentId,
         "text": text,
         "ratings": ratings,

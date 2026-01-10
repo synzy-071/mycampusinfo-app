@@ -13,7 +13,7 @@ class SchoolListSection extends StatefulWidget {
   });
 
   final String title;
-  final List<SchoolCardModel> schools;
+  final List<CollegeCardModel> schools;
 
   @override
   State<SchoolListSection> createState() => _SchoolListSectionState();

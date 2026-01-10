@@ -7,14 +7,13 @@ part of 'user_pref.dart';
 // **************************************************************************
 
 _UserPref _$UserPrefFromJson(Map<String, dynamic> json) => _UserPref(
-  sId: json['sId'] as String?,
+  sId: json[' _id'] as String?,
   studentId: json['studentId'] as String?,
   state: json['state'] as String?,
   city: json['city'] as String?,
-  boards: json['boards'] as String?,
-  preferredStandard: json['preferredStandard'] as String?,
+  preferredStream: json['preferredStream'] as String?,
   interests: json['interests'] as String?,
-  schoolType: json['schoolType'] as String?,
+  collegeType: json['collegeType'] as String?,
   shift: json['shift'] as String?,
   createdAt: json['createdAt'] as String?,
   updatedAt: json['updatedAt'] as String?,
@@ -22,14 +21,13 @@ _UserPref _$UserPrefFromJson(Map<String, dynamic> json) => _UserPref(
 );
 
 Map<String, dynamic> _$UserPrefToJson(_UserPref instance) => <String, dynamic>{
-  'sId': instance.sId,
+  ' _id': instance.sId,
   'studentId': instance.studentId,
   'state': instance.state,
   'city': instance.city,
-  'boards': instance.boards,
-  'preferredStandard': instance.preferredStandard,
+  'preferredStream': instance.preferredStream,
   'interests': instance.interests,
-  'schoolType': instance.schoolType,
+  'collegeType': instance.collegeType,
   'shift': instance.shift,
   'createdAt': instance.createdAt,
   'updatedAt': instance.updatedAt,

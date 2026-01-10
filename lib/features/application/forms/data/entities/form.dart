@@ -15,7 +15,7 @@ part 'form.g.dart';
 abstract class Form with _$Form {
   const factory Form({
     @JsonKey(name: '_id') String? sId,
-    @JsonKey(name: 'schoolId') SchoolModel? school,
+    @JsonKey(name: 'collegeId') collegeModel? school,
     @JsonKey(name: 'studId') User? user,
     @JsonKey(name: 'interviewNote') String? interviewNote,
     @FormStatusConverter() FormStatus? status,

@@ -1,12 +1,12 @@
 class TechnologyAdoptionModel {
   final String? id;
-  final String? schoolId;
+  final String? collegeId;
   final double? smartClassroomsPercentage;
   final List<String> eLearningPlatforms;
 
   TechnologyAdoptionModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
     this.smartClassroomsPercentage,
     this.eLearningPlatforms = const [],
   });
@@ -14,7 +14,7 @@ class TechnologyAdoptionModel {
   factory TechnologyAdoptionModel.fromJson(Map<String, dynamic> json) {
     return TechnologyAdoptionModel(
       id: json['_id'] as String?,
-      schoolId: json['schoolId'] as String?,
+      collegeId: json['collegeId'] as String?,
       smartClassroomsPercentage: (json['smartClassroomsPercentage'] as num?)?.toDouble(),
       eLearningPlatforms: (json['eLearningPlatforms'] as List<dynamic>?)
           ?.map((e) => e.toString())

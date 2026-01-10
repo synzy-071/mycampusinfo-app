@@ -7,11 +7,11 @@ class FacultyService implements AbstractFacultyService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<FacultyModel?> getFacultyBySchoolId({
-    required String schoolId,
+  ResultFuture<FacultyModel?> getFacultyBycollegeId({
+    required String collegeId,
   }) async {
     // Make sure Endpoints.faculty is defined in your constants
-    final endpoint = "${Endpoints.adminFaculty}/$schoolId";
+    final endpoint = "${Endpoints.adminFaculty}/$collegeId";
     
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 

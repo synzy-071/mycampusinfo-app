@@ -1,18 +1,18 @@
 class FacultyModel {
   final String? id;
-  final String? schoolId;
+  final String? collegeId;
   final List<FacultyMemberModel> facultyMembers;
 
   FacultyModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
     this.facultyMembers = const [],
   });
 
   factory FacultyModel.fromJson(Map<String, dynamic> json) {
     return FacultyModel(
       id: json['_id'] as String?,
-      schoolId: json['schoolId'] as String?,
+      collegeId: json['collegeId'] as String?,
       facultyMembers: (json['facultyMembers'] as List<dynamic>?)
               ?.map((e) => FacultyMemberModel.fromJson(e as Map<String, dynamic>))
               .toList() ??

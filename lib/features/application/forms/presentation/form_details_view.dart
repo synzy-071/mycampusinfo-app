@@ -120,8 +120,8 @@ class _FormDetailsViewState extends State<FormDetailsView> {
                     children: [
                       Expanded(
                         child: _buildLabelValue(
-                          label: 'School Mode:',
-                          value: form?.school?.schoolMode?.toCapitalise ?? '-',
+                          label: 'College Mode:',
+                          value: form?.school?.collegeMode?.toCapitalise ?? '-',
                         ),
                       ),
                       Expanded(

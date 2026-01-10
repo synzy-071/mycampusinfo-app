@@ -7,15 +7,15 @@ import 'package:mycampusinfo_app/features/detailPages/technologyAdaption/present
 
 
 class TechnologyAdoptionView extends StatefulWidget {
-  const TechnologyAdoptionView({super.key,required this.schoolId});
-final String schoolId;
+  const TechnologyAdoptionView({super.key,required this.collegeId});
+final String collegeId;
   @override
   State<TechnologyAdoptionView> createState() => _TechnologyAdoptionViewState();
 }
 
 class _TechnologyAdoptionViewState extends State<TechnologyAdoptionView> {
   final TechnologyAdoptionViewModel _vm = TechnologyAdoptionViewModel();
-  // String _schoolId = '';
+  // String _collegeId = '';
   // String _schoolName = 'Technology Adoption';
   // bool _isInitialized = false;
 
@@ -28,11 +28,11 @@ class _TechnologyAdoptionViewState extends State<TechnologyAdoptionView> {
 
   //   final extra = GoRouterState.of(context).extra;
   //   if (extra is Map) {
-  //     _schoolId = extra['schoolId'] as String? ?? '';
+  //     _collegeId = extra['collegeId'] as String? ?? '';
   //     _schoolName = extra['schoolName'] as String? ?? 'Technology Adoption';
   //   }
 
-  //   if (_schoolId.isNotEmpty) {
+  //   if (_collegeId.isNotEmpty) {
      
   //   }
   // }
@@ -41,13 +41,13 @@ class _TechnologyAdoptionViewState extends State<TechnologyAdoptionView> {
     void initState(){
     super.initState();
  WidgetsBinding.instance.addPostFrameCallback((_) {
-        _vm.getTechnologyAdoptionBySchoolId(schoolId: widget.schoolId);
+        _vm.getTechnologyAdoptionBycollegeId(collegeId: widget.collegeId);
       });
     }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isNotEmpty) {
-      await _vm.getTechnologyAdoptionBySchoolId(schoolId: widget.schoolId);
+    if (widget.collegeId.isNotEmpty) {
+      await _vm.getTechnologyAdoptionBycollegeId(collegeId: widget.collegeId);
     }
   }
 

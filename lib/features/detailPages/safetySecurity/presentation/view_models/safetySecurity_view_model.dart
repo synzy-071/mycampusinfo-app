@@ -13,13 +13,13 @@ class SafetyAndSecurityViewModel extends ViewStateProvider {
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getSafetyAndSecurityBySchoolId({
-    required String schoolId,
+  Future<Failure?> getSafetyAndSecurityBycollegeId({
+    required String collegeId,
   }) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getSafetyAndSecurityBySchoolId(schoolId: schoolId);
+    final result = await _svc.getSafetyAndSecurityBycollegeId(collegeId: collegeId);
 
     result.fold(
       (exception) {

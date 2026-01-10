@@ -7,13 +7,13 @@ class OverviewDataSourceImpl {
   final NetworkService _networkService = NetworkService();
 
   // 🏫 ADD SCHOOL
-  ResultFuture<SchoolModel?> addSchool({
+  ResultFuture<collegeModel?> addSchool({
     required String name,
     required String description,
     required String board,
     required String state,
     required String city,
-    required String schoolMode,
+    required String collegeMode,
     required String genderType,
     required List<String> shifts,
     required String feeRange,
@@ -40,7 +40,7 @@ class OverviewDataSourceImpl {
         "board": board,
         "state": state,
         "city": city,
-        "schoolMode": schoolMode,
+        "collegeMode": collegeMode,
         "genderType": genderType,
         "shifts": shifts,
         "feeRange": feeRange,
@@ -63,7 +63,7 @@ class OverviewDataSourceImpl {
       final result = await _networkService.request(r);
       final response = result.data as Map<String, dynamic>;
       if (response.isNotEmpty) {
-        final school = SchoolModel.fromJson(response['data']);
+        final school = collegeModel.fromJson(response['data']);
         return Right(school);
       }
     } catch (e) {
@@ -75,14 +75,14 @@ class OverviewDataSourceImpl {
   
 
   // 🏫 UPDATE SCHOOL
-  ResultFuture<SchoolModel?> updateSchool({
+  ResultFuture<collegeModel?> updateSchool({
     required String id,
     required String name,
     required String description,
     required String board,
     required String state,
     required String city,
-    required String schoolMode,
+    required String collegeMode,
     required String genderType,
     required List<String> shifts,
     required String feeRange,
@@ -109,7 +109,7 @@ class OverviewDataSourceImpl {
         "board": board,
         "state": state,
         "city": city,
-        "schoolMode": schoolMode,
+        "collegeMode": collegeMode,
         "genderType": genderType,
         "shifts": shifts,
         "feeRange": feeRange,
@@ -132,7 +132,7 @@ class OverviewDataSourceImpl {
       final result = await _networkService.request(r);
       final response = result.data as Map<String, dynamic>;
       if (response.isNotEmpty) {
-        final school = SchoolModel.fromJson(response['data']);
+        final school = collegeModel.fromJson(response['data']);
         return Right(school);
       }
     } catch (e) {
@@ -163,7 +163,7 @@ class OverviewDataSourceImpl {
   }
 
   // 🏫 GET SCHOOL BY ID
-  ResultFuture<SchoolModel?> getSchoolById({required String id}) async {
+  ResultFuture<collegeModel?> getSchoolById({required String id}) async {
     Request r = Request(
       method: RequestMethod.get,
       endpoint: "${Endpoints.adminSchools}/$id",
@@ -173,7 +173,7 @@ class OverviewDataSourceImpl {
       final result = await _networkService.request(r);
       final response = result.data as Map<String, dynamic>;
       if (response.isNotEmpty) {
-        final school = SchoolModel.fromJson(response['data']);
+        final school = collegeModel.fromJson(response['data']);
         return Right(school);
       }
     } catch (e) {
@@ -183,7 +183,7 @@ class OverviewDataSourceImpl {
   }
 
   // 🏫 GET SCHOOLS BY STATUS
-  ResultFuture<List<SchoolModel>?> getSchoolsByStatus({
+  ResultFuture<List<collegeModel>?> getSchoolsByStatus({
     required String status,
   }) async {
     Request r = Request(
@@ -196,8 +196,8 @@ class OverviewDataSourceImpl {
       final response = result.data as Map<String, dynamic>;
       if (response.isNotEmpty) {
         final List<dynamic> schoolsData = response['data'];
-        final List<SchoolModel> schools =
-            schoolsData.map((json) => SchoolModel.fromJson(json)).toList();
+        final List<collegeModel> schools =
+            schoolsData.map((json) => collegeModel.fromJson(json)).toList();
         return Right(schools);
       }
     } catch (e) {
@@ -208,13 +208,13 @@ class OverviewDataSourceImpl {
 
   // 🧾 CHECK IF SCHOOL APPLIED
   ResultFuture<AppliedFormModel?> getIsSchoolApplied({
-    required String schoolId,
+    required String collegeId,
   }) async {
     final studId = getIt<AppStateProvider>().user?.sId;
 
     Request r = Request(
       method: RequestMethod.get,
-      endpoint: "${Endpoints.formIsApplied}/$studId/$schoolId",
+      endpoint: "${Endpoints.formIsApplied}/$studId/$collegeId",
     );
 
     try {

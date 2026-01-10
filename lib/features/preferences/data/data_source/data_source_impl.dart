@@ -21,7 +21,7 @@ class PrefDataSourceImpl implements PrefDataSource {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   }) async {
     Request r = Request(
@@ -31,13 +31,13 @@ class PrefDataSourceImpl implements PrefDataSource {
         "studentId": _appStateProvider.user?.sId,
         "state": _appStateProvider.user?.state,
         "city": _appStateProvider.user?.city,
-        "boards": boards,
-        "preferredStandard":
+  
+        "preferredStream":
             preferredStandard == 'PlaySchool'
                 ? 'playSchool'
                 : preferredStandard.toLowerCase(),
         "interests": interests,
-        "schoolType": schoolType.toLowerCase(),
+        "collegeType": collegeType.toLowerCase(),
         "shift": shift.toLowerCase(),
       },
     );
@@ -62,7 +62,7 @@ class PrefDataSourceImpl implements PrefDataSource {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   }) async {
     Request r = Request(
@@ -72,10 +72,10 @@ class PrefDataSourceImpl implements PrefDataSource {
         "studentId": _appStateProvider.user?.sId,
         "state": _appStateProvider.user?.state,
         "city": _appStateProvider.user?.city,
-        "boards": boards,
-        "preferredStandard": preferredStandard,
+    
+        "preferredStream": preferredStandard,
         "interests": interests,
-        "schoolType": schoolType,
+        "collegeType": collegeType,
         "shift": shift,
       },
     );

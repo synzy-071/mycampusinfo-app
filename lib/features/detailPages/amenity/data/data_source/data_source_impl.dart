@@ -14,7 +14,7 @@ class AmenitiesService {
   final NetworkService _networkService = NetworkService();
 
   ResultFuture<AmenitiesModel?> addAmenities({
-    required String schoolId,
+    required String collegeId,
     required List<String> predefinedAmenities,
     List<String>? customAmenities,
   }) async {
@@ -22,7 +22,7 @@ class AmenitiesService {
       method: RequestMethod.post,
       endpoint: Endpoints.adminSchoolsAmenities,
       body: {
-        "schoolId": schoolId,
+        "collegeId": collegeId,
         "predefinedAmenities": predefinedAmenities,
         "customAmenities": customAmenities,
       },
@@ -45,13 +45,13 @@ class AmenitiesService {
   }
 
   ResultFuture<AmenitiesModel?> updateAmenities({
-    required String schoolId,
+    required String collegeId,
     required List<String> predefinedAmenities,
     List<String>? customAmenities,
   }) async {
     Request r = Request(
       method: RequestMethod.put,
-      endpoint: "${Endpoints.adminSchoolsAmenities}/$schoolId",
+      endpoint: "${Endpoints.adminSchoolsAmenities}/$collegeId",
       body: {
         "predefinedAmenities": predefinedAmenities,
         "customAmenities": customAmenities,
@@ -74,12 +74,12 @@ class AmenitiesService {
     return Right(null);
   }
 
-  ResultFuture<AmenitiesModel?> getAmenitiesBySchoolId({
-    required String schoolId,
+  ResultFuture<AmenitiesModel?> getAmenitiesBycollegeId({
+    required String collegeId,
   }) async {
     Request r = Request(
       method: RequestMethod.get,
-      endpoint: "${Endpoints.adminSchoolsAmenities}/$schoolId",
+      endpoint: "${Endpoints.adminSchoolsAmenities}/$collegeId",
     );
 
     try {

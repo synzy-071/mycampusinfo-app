@@ -11,7 +11,7 @@ abstract class FormDataSource {
   // now requires formId
   ResultFuture<Form?> submitForm({
     required String applicationId,
-    required String schoolId,
+    required String collegeId,
     required String formId,
     required int amount,
   });

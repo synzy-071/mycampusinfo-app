@@ -16,15 +16,15 @@ class OverviewViewModel extends ViewStateProvider {
   }
 
   // STATE
-  SchoolModel? _school;
-  SchoolModel? get school => _school;
-  set school(SchoolModel? val) {
+  collegeModel? _school;
+  collegeModel? get school => _school;
+  set school(collegeModel? val) {
     _school = val;
     notifyListeners();
   }
 
-  List<SchoolModel> _schoolsByStatus = [];
-  List<SchoolModel> get schoolsByStatus => _schoolsByStatus;
+  List<collegeModel> _schoolsByStatus = [];
+  List<collegeModel> get schoolsByStatus => _schoolsByStatus;
 
   String? _message;
   String? get message => _message;
@@ -106,7 +106,7 @@ class OverviewViewModel extends ViewStateProvider {
     required String board,
     required String state,
     required String city,
-    required String schoolMode,
+    required String collegeMode,
     required String genderType,
     required List<String> shifts,
     required String feeRange,
@@ -133,7 +133,7 @@ class OverviewViewModel extends ViewStateProvider {
       board: board,
       state: state,
       city: city,
-      schoolMode: schoolMode,
+      collegeMode: collegeMode,
       genderType: genderType,
       shifts: shifts,
       feeRange: feeRange,
@@ -178,7 +178,7 @@ class OverviewViewModel extends ViewStateProvider {
     required String board,
     required String state,
     required String city,
-    required String schoolMode,
+    required String collegeMode,
     required String genderType,
     required List<String> shifts,
     required String feeRange,
@@ -206,7 +206,7 @@ class OverviewViewModel extends ViewStateProvider {
       board: board,
       state: state,
       city: city,
-      schoolMode: schoolMode,
+      collegeMode: collegeMode,
       genderType: genderType,
       shifts: shifts,
       feeRange: feeRange,
@@ -266,11 +266,11 @@ class OverviewViewModel extends ViewStateProvider {
     return failure;
   }
 
-  Future<Failure?> getIsAppliedSchool({required String schoolId}) async {
+  Future<Failure?> getIsAppliedSchool({required String collegeId}) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _service.getIsSchoolApplied(schoolId: schoolId);
+    final result = await _service.getIsSchoolApplied(collegeId: collegeId);
 
     result.fold(
       (exception) {

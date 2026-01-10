@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mycampusinfo_app/features/detailPages/placement/presentation/placement_view.dart';
 import 'package:provider/provider.dart';
 import 'package:mycampusinfo_app/core/common/theme_provider.dart';
 import 'package:mycampusinfo_app/core/extensions/failure_ext.dart';
@@ -43,9 +44,9 @@ import '../../../users/shortlist/presentation/view_models/shortlist_view_model.d
 import '../data/entities/overview_model.dart';
 
 class SchoolDetailView2 extends StatefulWidget {
-  const SchoolDetailView2({super.key, required this.schoolId, this.distance});
+  const SchoolDetailView2({super.key, required this.collegeId, this.distance});
 
-  final String schoolId;
+  final String collegeId;
   final String? distance;
 
   @override
@@ -96,15 +97,15 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       // 1) load school
       final failure = await overviewViewModel.getSchoolsById(
-        id: widget.schoolId,
+        id: widget.collegeId,
       );
       failure?.showError(context);
 
       // 2) check if user already applied to this school
-      await overviewViewModel.getIsAppliedSchool(schoolId: widget.schoolId);
+      await overviewViewModel.getIsAppliedSchool(collegeId: widget.collegeId);
 
       // 3) shortlist state
-      isSaved.value = getIt<AppStateProvider>().isSaved(widget.schoolId);
+      isSaved.value = getIt<AppStateProvider>().isSaved(widget.collegeId);
 
       // --- NEW: prefetch student's generated PDFs so we know how many applications they have
       try {
@@ -129,7 +130,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
       // --- NEW: fetch admission timeline for this school so we can show application fees
       try {
         // start fetch
-        admissionVm.getAdmissionTimelineBySchoolId(schoolId: widget.schoolId);
+        admissionVm.getAdmissionTimelineBycollegeId(collegeId: widget.collegeId);
 
         // attach a listener so UI refreshes when timeline finishes loading
         _admissionVmListener = () {
@@ -223,11 +224,11 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                                         vIsSaved
                                             ? failure = await shortlistViewModel
                                                 .removeShortlist(
-                                                  schoolId: widget.schoolId,
+                                                  collegeId: widget.collegeId,
                                                 )
                                             : failure = await shortlistViewModel
                                                 .addShortlist(
-                                                  schoolId: widget.schoolId,
+                                                  collegeId: widget.collegeId,
                                                 );
                                         if (failure == null) {
                                           isSaved.value = !vIsSaved;
@@ -439,7 +440,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                                             extra: {
                                               'id':
                                                   school.id?.toString() ??
-                                                  widget.schoolId,
+                                                  widget.collegeId,
                                               'name': school.name ?? 'School',
                                             },
                                           );
@@ -914,8 +915,8 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                                                 final failure =
                                                     await myFormViewModel
                                                         .submitForm(
-                                                          schoolId:
-                                                              widget.schoolId,
+                                                          collegeId:
+                                                              widget.collegeId,
                                                           applicationId:
                                                               applicationId,
                                                           formId: formId,
@@ -1137,24 +1138,25 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                   _scrollToTab(index);
                 },
                 children: [
-                  OverviewTab(school: vm.school as SchoolModel),
-                  AcademicsView(schoolId: widget.schoolId),
-                  FacultyView(schoolId: widget.schoolId),
-                  InfrastructureView(schoolId: widget.schoolId),
-                  TechnologyAdoptionView(schoolId: widget.schoolId),
-                  ActivityView(schoolId: widget.schoolId),
-                  SafetyAndSecurityView(schoolId: widget.schoolId),
-                  InternationalExposureView(schoolId: widget.schoolId),
-                  FeesAndScholarshipsView(schoolId: widget.schoolId),
-                  AdmissionTimelineView(schoolId: widget.schoolId),
+                  OverviewTab(school: vm.school as collegeModel),
+                   CoursesView(collegeId: widget.collegeId),
+                  FacultyView(collegeId: widget.collegeId),
+                  InfrastructureView(collegeId: widget.collegeId),
+                  TechnologyAdoptionView(collegeId: widget.collegeId),
+                  ActivityView(collegeId: widget.collegeId),
+                  SafetyAndSecurityView(collegeId: widget.collegeId),
+                  InternationalExposureView(collegeId: widget.collegeId),
+                  FeesAndScholarshipsView(collegeId: widget.collegeId),
+                  AdmissionTimelineView(collegeId: widget.collegeId),
                   AmenitiesView(
-                    schoolId: widget.schoolId,
+                    collegeId: widget.collegeId,
                     photos: school.photos ?? [],
                   ),
-                  AlumniView(schoolId: widget.schoolId),
-                  ReviewsView(schoolId: widget.schoolId),
-                  OtherDetailsView(schoolId: widget.schoolId),
+                  AlumniView(collegeId: widget.collegeId),
+                  ReviewsView(collegeId: widget.collegeId),
+                  OtherDetailsView(collegeId: widget.collegeId),
                   PhotosView(photos: vm.school?.photos ?? []),
+                  PlacementView(collegeId: widget.collegeId)
                 ],
               ),
             ),
@@ -1266,7 +1268,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
   }
 
   int calculateMatchPercentage({
-    required SchoolModel school,
+    required collegeModel school,
     required UserPref userPref,
   }) {
     int totalCriteria = 6;
@@ -1292,29 +1294,21 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
       }
     }
 
-    // 3. Board
-    if (userPref.boards != null &&
-        userPref.boards!.isNotEmpty &&
-        school.board != null &&
-        school.board!.isNotEmpty) {
-      if (userPref.boards!.toLowerCase() == school.board!.toLowerCase()) {
-        matched++;
-      }
-    }
+  
 
-    // 4. School Type (UserPref) vs School Tags (SchoolModel)
-    if (userPref.schoolType != null &&
-        userPref.schoolType!.isNotEmpty &&
+    // 4. School Type (UserPref) vs School Tags (collegeModel)
+    if (userPref.collegeType != null &&
+        userPref.collegeType!.isNotEmpty &&
         school.tags != null &&
         school.tags!.isNotEmpty) {
       if (school.tags!
           .map((e) => e.toLowerCase())
-          .contains(userPref.schoolType!.toLowerCase())) {
+          .contains(userPref.collegeType!.toLowerCase())) {
         matched++;
       }
     }
 
-    // 5. School Mode / Shift
+    // 5. College Mode / Shift
     if (userPref.shift != null &&
         userPref.shift!.isNotEmpty &&
         school.shifts != null &&

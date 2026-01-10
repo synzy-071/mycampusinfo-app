@@ -7,9 +7,8 @@ part 'school_compare_model.g.dart';
 abstract class SchoolCompareModel with _$SchoolCompareModel {
   const factory SchoolCompareModel({
     required String name,
-    required String board,
     required String feeRange,
-    required String schoolMode,
+    required String collegeMode,
     required List<String> shifts,
     required List<String> predefinedAmenities,
     required List<String> activities,

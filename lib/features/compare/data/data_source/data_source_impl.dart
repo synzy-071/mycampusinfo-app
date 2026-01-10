@@ -8,13 +8,13 @@ class CompareDataSourceImpl implements CompareDataSource {
 
   @override
   ResultFuture<Map<String, SchoolCompareModel>?> compareSchools({
-    required String schoolId1,
-    required String schoolId2,
+    required String collegeId1,
+    required String collegeId2,
   }) async {
     final request = Request(
       method: RequestMethod.post,
       endpoint: Endpoints.adminCompare,
-      body: {'schoolId1': schoolId1, 'schoolId2': schoolId2},
+      body: {'schoolId1': collegeId1, 'schoolId2': collegeId2},
     );
 
     try {

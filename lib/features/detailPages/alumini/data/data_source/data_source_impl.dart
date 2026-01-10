@@ -12,13 +12,13 @@ class AlumniDataSourceImpl implements AbstractAlumniService {
 
   @override
   ResultFuture<AlumniModel?> addAlumni({
-    required String schoolId,
+    required String collegeId,
     required List<AlumniScoreItem> topAlumnis,
     required List<FamousAlumniItem> famousAlumnies,
     required List<AlumniScoreItem> alumnis,
   }) async {
     final body = {
-      'schoolId': schoolId,
+      'collegeId': collegeId,
       'topAlumnis': topAlumnis.map((e) => e.toJson()).toList(),
       'famousAlumnies': famousAlumnies.map((e) => e.toJson()).toList(),
       'alumnis': alumnis.map((e) => e.toJson()).toList(),
@@ -43,10 +43,10 @@ class AlumniDataSourceImpl implements AbstractAlumniService {
   }
 
   @override
-  ResultFuture<AlumniModel?> getAlumniBySchool({required String schoolId}) async {
+  ResultFuture<AlumniModel?> getAlumniBySchool({required String collegeId}) async {
     final req = Request(
       method: RequestMethod.get,
-      endpoint: "${Endpoints.adminSchoolsAlumnus}/$schoolId",
+      endpoint: "${Endpoints.adminSchoolsAlumnus}/$collegeId",
     );
 
     try {
@@ -63,7 +63,7 @@ class AlumniDataSourceImpl implements AbstractAlumniService {
 
   @override
   ResultFuture<AlumniModel?> updateAlumniBySchool({
-    required String schoolId,
+    required String collegeId,
     List<AlumniScoreItem>? topAlumnis,
     List<FamousAlumniItem>? famousAlumnies,
     List<AlumniScoreItem>? alumnis,
@@ -75,7 +75,7 @@ class AlumniDataSourceImpl implements AbstractAlumniService {
 
     final req = Request(
       method: RequestMethod.put,
-      endpoint: "${Endpoints.adminSchoolsAlumnus}/$schoolId",
+      endpoint: "${Endpoints.adminSchoolsAlumnus}/$collegeId",
       body: body,
     );
 
@@ -92,10 +92,10 @@ class AlumniDataSourceImpl implements AbstractAlumniService {
   }
 
   @override
-  ResultFuture<String?> deleteAlumniBySchool({required String schoolId}) async {
+  ResultFuture<String?> deleteAlumniBySchool({required String collegeId}) async {
     final req = Request(
       method: RequestMethod.delete,
-      endpoint: "${Endpoints.adminSchoolsAlumnus}/$schoolId",
+      endpoint: "${Endpoints.adminSchoolsAlumnus}/$collegeId",
     );
 
     try {

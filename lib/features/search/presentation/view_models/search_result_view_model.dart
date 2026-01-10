@@ -7,9 +7,9 @@ import '../../data/data_source/data_source_impl.dart';
 class SearchResultViewModel extends ViewStateProvider {
   final _searchDataSource = SearchDataSourceImpl();
 
-  List<SchoolCardModel> _schools = [];
-  List<SchoolCardModel> get schools => _schools;
-  set schools(List<SchoolCardModel> value) {
+  List<CollegeCardModel> _schools = [];
+  List<CollegeCardModel> get schools => _schools;
+  set schools(List<CollegeCardModel> value) {
     if (value.isEmpty) {
       _schools = [];
     } else {

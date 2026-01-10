@@ -3,7 +3,7 @@ import 'package:mycampusinfo_app/features/detailPages/otherDetails/data/entities
 
 
 abstract class AbstractOtherDetailsService {
-  ResultFuture<OtherDetailsModel?> getOtherDetailsBySchoolId({
-    required String schoolId,
+  ResultFuture<OtherDetailsModel?> getOtherDetailsBycollegeId({
+    required String collegeId,
   });
 }

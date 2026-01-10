@@ -13,13 +13,13 @@ class InternationalExposureViewModel extends ViewStateProvider {
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getInternationalExposureBySchoolId({
-    required String schoolId,
+  Future<Failure?> getInternationalExposureBycollegeId({
+    required String collegeId,
   }) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getInternationalExposureBySchoolId(schoolId: schoolId);
+    final result = await _svc.getInternationalExposureBycollegeId(collegeId: collegeId);
 
     result.fold(
       (exception) {

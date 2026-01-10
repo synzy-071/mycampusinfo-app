@@ -3,7 +3,7 @@ import 'package:mycampusinfo_app/features/detailPages/internationalExposure/data
 
 
 abstract class AbstractInternationalExposureService {
-  ResultFuture<InternationalExposureModel?> getInternationalExposureBySchoolId({
-    required String schoolId,
+  ResultFuture<InternationalExposureModel?> getInternationalExposureBycollegeId({
+    required String collegeId,
   });
 }

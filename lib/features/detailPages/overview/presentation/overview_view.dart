@@ -3,10 +3,7 @@ import 'package:go_router/go_router.dart';
 import 'package:provider/provider.dart';
 import 'package:mycampusinfo_app/common/index.dart';
 import 'package:mycampusinfo_app/core/index.dart';
-import 'package:mycampusinfo_app/features/application/forms/index.dart';
 import 'package:mycampusinfo_app/features/application/forms/presentation/view_models/my_form_view_model.dart';
-import 'package:mycampusinfo_app/features/detailPages/infrastructure/presentation/widgets/title_card.dart';
-import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/applied_form_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/view_models/overview_view_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/widgets/info_chip_widget.dart';
@@ -18,11 +15,11 @@ import 'package:url_launcher/url_launcher.dart';
 class SchoolDetailView extends StatefulWidget {
   const SchoolDetailView({
     super.key,
-    required this.schoolId,
+    required this.collegeId,
     this.distance, // ✅ add this
   });
 
-  final String schoolId;
+  final String collegeId;
   final String? distance;
 
   @override
@@ -67,10 +64,10 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
     _tabController = TabController(length: _tabs.length, vsync: this);
     _tabController.addListener(_handleTabSelection);
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      final failure = await _vm.getSchoolsById(id: widget.schoolId);
+      final failure = await _vm.getSchoolsById(id: widget.collegeId);
       failure?.showError(context);
-      await _vm.getIsAppliedSchool(schoolId: widget.schoolId);
-      isSaved.value = getIt<AppStateProvider>().isSaved(widget.schoolId);
+      await _vm.getIsAppliedSchool(collegeId: widget.collegeId);
+      isSaved.value = getIt<AppStateProvider>().isSaved(widget.collegeId);
     });
   }
 
@@ -79,7 +76,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
       final name = _vm.school?.name ?? 'School';
       final id =
           widget
-              .schoolId; // Using id for clarity, though not strictly needed here
+              .collegeId; // Using id for clarity, though not strictly needed here
 
       switch (_tabController.index) {
         // Index 0: "Overview" - typically not routed, handled by default
@@ -88,7 +85,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 1:
           context.pushNamed(
             RouteNames.academics,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -96,7 +93,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 2:
           context.pushNamed(
             RouteNames.faculty,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -104,7 +101,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 3:
           context.pushNamed(
             RouteNames.infrastructure,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -112,16 +109,16 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 4:
           context.pushNamed(
             RouteNames.techAdaption,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
         // Index 5: "Activities"
         case 5:
-          // Assuming RouteNames.activity expects a map with schoolId and schoolName
+          // Assuming RouteNames.activity expects a map with collegeId and schoolName
           context.pushNamed(
             RouteNames.activity,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -129,7 +126,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 6:
           context.pushNamed(
             RouteNames.safetySecurity,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -137,7 +134,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 7:
           context.pushNamed(
             RouteNames.internationalExposure,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -145,7 +142,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 8:
           context.pushNamed(
             RouteNames.feeAndScholarship,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -153,7 +150,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 9:
           context.pushNamed(
             RouteNames.admissionTimeline,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -161,7 +158,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 10:
           context.pushNamed(
             RouteNames.amenity,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -169,7 +166,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 11:
           context.pushNamed(
             RouteNames.alumini,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -177,7 +174,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 12:
           context.pushNamed(
             RouteNames.review,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -185,7 +182,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         case 13:
           context.pushNamed(
             RouteNames.otherDetails,
-            extra: {'schoolId': widget.schoolId, 'schoolName': name},
+            extra: {'collegeId': widget.collegeId, 'schoolName': name},
           );
           break;
 
@@ -212,11 +209,11 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
   }
 
   int calculateMatchPercentage({
-    required SchoolModel school,
+    required collegeModel school,
     required UserPref userPref,
   }) {
     int totalCriteria =
-        6; // state, city, board, schoolType, schoolMode, specialist/interest
+        6; // state, city, board, collegeType, collegeMode, specialist/interest
     int matched = 0;
 
     // 1. State
@@ -239,29 +236,21 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
       }
     }
 
-    // 3. Board
-    if (userPref.boards != null &&
-        userPref.boards!.isNotEmpty &&
-        school.board != null &&
-        school.board!.isNotEmpty) {
-      if (userPref.boards!.toLowerCase() == school.board!.toLowerCase()) {
-        matched++;
-      }
-    }
+   
 
-    // 4. School Type (UserPref) vs School Tags (SchoolModel)
-    if (userPref.schoolType != null &&
-        userPref.schoolType!.isNotEmpty &&
+    // 4. School Type (UserPref) vs School Tags (collegeModel)
+    if (userPref.collegeType != null &&
+        userPref.collegeType!.isNotEmpty &&
         school.tags != null &&
         school.tags!.isNotEmpty) {
       if (school.tags!
           .map((e) => e.toLowerCase())
-          .contains(userPref.schoolType!.toLowerCase())) {
+          .contains(userPref.collegeType!.toLowerCase())) {
         matched++;
       }
     }
 
-    // 5. School Mode / Shift
+    // 5. College Mode / Shift
     if (userPref.shift != null &&
         userPref.shift!.isNotEmpty &&
         school.shifts != null &&
@@ -344,12 +333,12 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                                         vIsSaved
                                             ? failure = await shortlistViewModel
                                                 .removeShortlist(
-                                                  schoolId:
+                                                  collegeId:
                                                       _vm.school?.id ?? '',
                                                 )
                                             : failure = await shortlistViewModel
                                                 .addShortlist(
-                                                  schoolId:
+                                                  collegeId:
                                                       _vm.school?.id ?? '',
                                                 );
                                         if (failure == null) {
@@ -491,7 +480,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                                           extra: {
                                             'id':
                                                 school.id?.toString() ??
-                                                widget.schoolId,
+                                                widget.collegeId,
                                             'name': school.name ?? 'School',
                                           },
                                         );
@@ -552,9 +541,9 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                                 //                                   .submitForm(
                                 //                                     applicationId:
                                 //                                         '', // You may need to provide a valid ID here
-                                //                                     schoolId:
+                                //                                     collegeId:
                                 //                                         widget
-                                //                                             .schoolId,
+                                //                                             .collegeId,
                                 //                                   );
                                 //                           Toasts.showSuccessOrFailureToast(
                                 //                             context,
@@ -733,7 +722,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
 
 class OverviewTab extends StatelessWidget {
   const OverviewTab({required this.school});
-  final SchoolModel school;
+  final collegeModel school;
   
 
   @override
@@ -771,8 +760,8 @@ class OverviewTab extends StatelessWidget {
               children: [
                 QuickHighlights(
                   icon: Icons.school_outlined,
-                  title: "School Mode",
-                  value: school.schoolMode ?? "-",
+                  title: "College Mode",
+                  value: school.collegeMode ?? "-",
                 ),
                 QuickHighlights(
                   icon: Icons.wc_outlined,

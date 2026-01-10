@@ -1,12 +1,12 @@
 class ActivitiesModel {
-  String? schoolId;
+  String? collegeId;
   List<String>? activities;
   String? createdAt;
   String? updatedAt;
   int? iV;
 
   ActivitiesModel({
-    this.schoolId,
+    this.collegeId,
     this.activities,
     this.createdAt,
     this.updatedAt,
@@ -14,7 +14,7 @@ class ActivitiesModel {
   });
 
   factory ActivitiesModel.fromJson(Map<String, dynamic> json) => ActivitiesModel(
-        schoolId: json['schoolId'] as String?,
+        collegeId: json['collegeId'] as String?,
         activities: (json['activities'] as List?)
                 ?.map((e) => e.toString())
                 .toList() ??
@@ -25,7 +25,7 @@ class ActivitiesModel {
       );
 
   Map<String, dynamic> toJson() => {
-        'schoolId': schoolId,
+        'collegeId': collegeId,
         'activities': activities ?? const [],
         'createdAt': createdAt,
         'updatedAt': updatedAt,

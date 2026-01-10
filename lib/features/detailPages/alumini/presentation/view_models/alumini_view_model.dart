@@ -15,11 +15,11 @@ class AlumniViewModel extends ViewStateProvider {
   String? get message => _message;
 
   // GET
-  Future<Failure?> getAlumniBySchool({required String schoolId}) async {
+  Future<Failure?> getAlumniBySchool({required String collegeId}) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getAlumniBySchool(schoolId: schoolId);
+    final result = await _svc.getAlumniBySchool(collegeId: collegeId);
 
     result.fold((exception) {
       failure = APIFailure.fromException(exception: exception);
@@ -37,7 +37,7 @@ class AlumniViewModel extends ViewStateProvider {
 
   // POST
   Future<Failure?> addAlumni({
-    required String schoolId,
+    required String collegeId,
     required List<AlumniScoreItem> topAlumnis,
     required List<FamousAlumniItem> famousAlumnies,
     required List<AlumniScoreItem> alumnis,
@@ -46,7 +46,7 @@ class AlumniViewModel extends ViewStateProvider {
     setViewState(ViewState.busy);
 
     final result = await _svc.addAlumni(
-      schoolId: schoolId,
+      collegeId: collegeId,
       topAlumnis: topAlumnis,
       famousAlumnies: famousAlumnies,
       alumnis: alumnis,
@@ -67,7 +67,7 @@ class AlumniViewModel extends ViewStateProvider {
 
   // PUT
   Future<Failure?> updateAlumniBySchool({
-    required String schoolId,
+    required String collegeId,
     List<AlumniScoreItem>? topAlumnis,
     List<FamousAlumniItem>? famousAlumnies,
     List<AlumniScoreItem>? alumnis,
@@ -76,7 +76,7 @@ class AlumniViewModel extends ViewStateProvider {
     setViewState(ViewState.busy);
 
     final result = await _svc.updateAlumniBySchool(
-      schoolId: schoolId,
+      collegeId: collegeId,
       topAlumnis: topAlumnis,
       famousAlumnies: famousAlumnies,
       alumnis: alumnis,
@@ -96,11 +96,11 @@ class AlumniViewModel extends ViewStateProvider {
   }
 
   // DELETE
-  Future<Failure?> deleteAlumniBySchool({required String schoolId}) async {
+  Future<Failure?> deleteAlumniBySchool({required String collegeId}) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.deleteAlumniBySchool(schoolId: schoolId);
+    final result = await _svc.deleteAlumniBySchool(collegeId: collegeId);
 
     result.fold((exception) {
       failure = APIFailure.fromException(exception: exception);

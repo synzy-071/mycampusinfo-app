@@ -8,15 +8,15 @@ import 'view_models/faculty_view_model.dart';
 
 
 class FacultyView extends StatefulWidget {
-  const FacultyView({super.key,required this.schoolId});
-final  String schoolId;
+  const FacultyView({super.key,required this.collegeId});
+final  String collegeId;
   @override
   State<FacultyView> createState() => _FacultyViewState();
 }
 
 class _FacultyViewState extends State<FacultyView> {
   final FacultyViewModel _vm = FacultyViewModel();
-  // String _schoolId = '';
+  // String _collegeId = '';
   // String _schoolName = 'Faculty';
   // bool _isInitialized = false;
 
@@ -24,7 +24,7 @@ class _FacultyViewState extends State<FacultyView> {
   void initState(){
       super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _vm.getFacultyBySchoolId(schoolId: widget.schoolId);
+      _vm.getFacultyBycollegeId(collegeId: widget.collegeId);
     });
 }
   // @override
@@ -35,20 +35,20 @@ class _FacultyViewState extends State<FacultyView> {
 
   //   final extra = GoRouterState.of(context).extra;
   //   if (extra is Map) {
-  //     _schoolId = extra['schoolId'] as String? ?? '';
+  //     _collegeId = extra['collegeId'] as String? ?? '';
   //     _schoolName = extra['schoolName'] as String? ?? 'Faculty';
   //   }
 
-  //   if (_schoolId.isNotEmpty) {
+  //   if (_collegeId.isNotEmpty) {
   //     WidgetsBinding.instance.addPostFrameCallback((_) {
-  //       _vm.getFacultyBySchoolId(schoolId: _schoolId);
+  //       _vm.getFacultyBycollegeId(collegeId: _collegeId);
   //     });
   //   }
   // }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isNotEmpty) {
-      await _vm.getFacultyBySchoolId(schoolId: widget.schoolId);
+    if (widget.collegeId.isNotEmpty) {
+      await _vm.getFacultyBycollegeId(collegeId: widget.collegeId);
     }
   }
 

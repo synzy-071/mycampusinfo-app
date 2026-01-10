@@ -8,8 +8,8 @@ import 'package:mycampusinfo_app/features/detailPages/feeAndScholarship/presenta
 import 'package:mycampusinfo_app/features/detailPages/otherDetails/presentation/view_models/otherDetails_view_model.dart';
 
 class FeesAndScholarshipsView extends StatefulWidget {
-  const FeesAndScholarshipsView({super.key, required this.schoolId});
-  final String schoolId;
+  const FeesAndScholarshipsView({super.key, required this.collegeId});
+  final String collegeId;
 
   @override
   State<FeesAndScholarshipsView> createState() =>
@@ -25,17 +25,17 @@ class _FeesAndScholarshipsViewState extends State<FeesAndScholarshipsView> {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       await Future.wait([
-        _feesVm.getFeesAndScholarshipsBySchoolId(schoolId: widget.schoolId),
-        _otherVm.getOtherDetailsBySchoolId(schoolId: widget.schoolId),
+        _feesVm.getFeesAndScholarshipsBycollegeId(collegeId: widget.collegeId),
+        _otherVm.getOtherDetailsBycollegeId(collegeId: widget.collegeId),
       ]);
     });
   }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isNotEmpty) {
+    if (widget.collegeId.isNotEmpty) {
       await Future.wait([
-        _feesVm.getFeesAndScholarshipsBySchoolId(schoolId: widget.schoolId),
-        _otherVm.getOtherDetailsBySchoolId(schoolId: widget.schoolId),
+        _feesVm.getFeesAndScholarshipsBycollegeId(collegeId: widget.collegeId),
+        _otherVm.getOtherDetailsBycollegeId(collegeId: widget.collegeId),
       ]);
     }
   }
@@ -182,7 +182,7 @@ if (feeModel?.classFees.isNotEmpty ?? false)
                 padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 16.0),
                 child: Row(
                   children: const [
-                    Expanded(flex: 2, child: Text('Class', style: TextStyle(fontWeight: FontWeight.bold))),
+                    Expanded(flex: 2, child: Text('Course', style: TextStyle(fontWeight: FontWeight.bold))),
                     Expanded(flex: 2, child: Text('Tuition', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold))),
                     Expanded(flex: 2, child: Text('Activity', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold))),
                     Expanded(flex: 2, child: Text('Transport', textAlign: TextAlign.right, style: TextStyle(fontWeight: FontWeight.bold))),
@@ -214,7 +214,7 @@ if (feeModel?.classFees.isNotEmpty ?? false)
                     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 16.0),
                     child: Row(
                       children: [
-                        Expanded(flex: 2, child: Text(fee.className ?? '-', style: const TextStyle(fontSize: 14))),
+                        Expanded(flex: 2, child: Text(fee.courseName ?? '-', style: const TextStyle(fontSize: 14))),
                         Expanded(flex: 2, child: Text('₹$tuition', textAlign: TextAlign.right, style: const TextStyle(fontSize: 14))),
                         Expanded(flex: 2, child: Text('₹$activity', textAlign: TextAlign.right, style: const TextStyle(fontSize: 14))),
                         Expanded(flex: 2, child: Text('₹$transport', textAlign: TextAlign.right, style: const TextStyle(fontSize: 14))),

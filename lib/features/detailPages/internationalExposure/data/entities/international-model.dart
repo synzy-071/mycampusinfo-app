@@ -1,12 +1,12 @@
 class InternationalExposureModel {
   final String? id;
-  final String? schoolId;
+  final String? collegeId;
   final List<ExchangeProgramModel> exchangePrograms;
   final List<GlobalTieUpModel> globalTieUps;
 
   InternationalExposureModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
     this.exchangePrograms = const [],
     this.globalTieUps = const [],
   });
@@ -14,7 +14,7 @@ class InternationalExposureModel {
   factory InternationalExposureModel.fromJson(Map<String, dynamic> json) {
     return InternationalExposureModel(
       id: json['_id'] as String?,
-      schoolId: json['schoolId'] as String?,
+      collegeId: json['collegeId'] as String?,
       exchangePrograms: (json['exchangePrograms'] as List<dynamic>?)
               ?.map((e) => ExchangeProgramModel.fromJson(e as Map<String, dynamic>))
               .toList() ??

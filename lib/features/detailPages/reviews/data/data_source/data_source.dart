@@ -3,12 +3,12 @@ import 'package:mycampusinfo_app/features/detailPages/reviews/data/entities/revi
 
 
 abstract class AbstractReviewService {
-  ResultFuture<List<ReviewModel>> getAcceptedReviewsBySchoolId({
-    required String schoolId,
+  ResultFuture<List<ReviewModel>> getAcceptedReviewsBycollegeId({
+    required String collegeId,
   });
 
   ResultFuture<ReviewModel?> addReview({
-    required String schoolId,
+    required String collegeId,
     required String studentId, // You'll need to get this from your auth provider
     required String text,
     required double ratings,

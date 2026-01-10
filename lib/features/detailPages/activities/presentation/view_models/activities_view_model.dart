@@ -12,11 +12,11 @@ class ActivitiesViewModel extends ViewStateProvider {
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getActivitiesBySchoolId({required String schoolId}) async {
+  Future<Failure?> getActivitiesBycollegeId({required String collegeId}) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getActivitiesBySchoolId(schoolId: schoolId);
+    final result = await _svc.getActivitiesBycollegeId(collegeId: collegeId);
 
     result.fold((exception) {
       failure = APIFailure.fromException(exception: exception);
@@ -33,13 +33,13 @@ class ActivitiesViewModel extends ViewStateProvider {
   }
 
   Future<Failure?> addActivities({
-    required String schoolId,
+    required String collegeId,
     required List<String> activities,
   }) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.addActivities(schoolId: schoolId, activities: activities);
+    final result = await _svc.addActivities(collegeId: collegeId, activities: activities);
 
     result.fold((exception) {
       failure = APIFailure.fromException(exception: exception);
@@ -55,13 +55,13 @@ class ActivitiesViewModel extends ViewStateProvider {
   }
 
   Future<Failure?> updateActivities({
-    required String schoolId,
+    required String collegeId,
     required List<String> activities,
   }) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.updateActivities(schoolId: schoolId, activities: activities);
+    final result = await _svc.updateActivities(collegeId: collegeId, activities: activities);
 
     result.fold((exception) {
       failure = APIFailure.fromException(exception: exception);

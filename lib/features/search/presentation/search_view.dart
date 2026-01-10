@@ -57,7 +57,7 @@ class _SearchPageState extends State<SearchPage> {
 
   final List<String> genders = ["boy", "girl", "co-ed"];
 
-  final List<String> schoolModes = ["government", "private", "convent"];
+  final List<String> collegeModes = ["government", "private", "convent"];
 
   final List<String> feeRanges = [
     "1000 - 10000",
@@ -115,7 +115,7 @@ class _SearchPageState extends State<SearchPage> {
           city: controller.selectedCities.toList(),
           board: controller.selectedBoards.toList(),
           genderType: controller.selectedGenders.toList(),
-          schoolMode: controller.selectedModes.toList(),
+          collegeMode: controller.selectedModes.toList(),
           feeRange: controller.selectedFeeRange.toList(),
         ),
       );
@@ -238,7 +238,7 @@ class _SearchPageState extends State<SearchPage> {
           ),
           const SizedBox(height: 24),
 
-          // School Mode
+          // College Mode
           Container(
             padding: const EdgeInsets.all(12),
             decoration: BoxDecoration(
@@ -246,8 +246,8 @@ class _SearchPageState extends State<SearchPage> {
               borderRadius: BorderRadius.circular(6),
             ),
             child: SearchGridSection(
-              title: "Search by School Mode",
-              items: schoolModes,
+              title: "Search by College Mode",
+              items: collegeModes,
               selectedItems: controller.selectedModes,
               onTap: controller.toggleMode,
               selectedColor: filterSelectedColor,

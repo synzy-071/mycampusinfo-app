@@ -64,7 +64,7 @@ class CompareWithWidgets {
                 Text(
                   showShortlistedOnly
                       ? "Showing Shortlisted"
-                      : "Shortlisted Schools",
+                      : "Shortlisted Colleges",
                   style: TextStyle(
                     fontSize: 13,
                     color: showShortlistedOnly ? Colors.white : Colors.black,
@@ -103,7 +103,7 @@ class CompareWithWidgets {
 
   // List item tile for a school with the compare button
   static Widget schoolTile(
-    SchoolCardModel s, {
+    CollegeCardModel s, {
     required Future<void> Function(String id) onCompare,
   }) {
     return Container(
@@ -167,7 +167,7 @@ class CompareWithWidgets {
                     const SizedBox(width: 8),
                     _chip(s.genderType ?? 'Gender'),
                     const SizedBox(width: 8),
-                    _chip(s.schoolMode ?? 'Type'),
+                    _chip(s.collegeMode ?? 'Type'),
                   ],
                 ),
                 const SizedBox(height: 8),
@@ -189,7 +189,7 @@ class CompareWithWidgets {
               max: true,
               label: 'Select to Compare',
               onPressed: () {
-                onCompare.call(s.schoolId ?? '');
+                onCompare.call(s.collegeId ?? '');
               },
             ),
           ),

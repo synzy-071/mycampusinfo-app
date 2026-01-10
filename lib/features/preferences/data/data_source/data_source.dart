@@ -6,7 +6,7 @@ abstract class PrefDataSource {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   });
 
@@ -14,7 +14,7 @@ abstract class PrefDataSource {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   });
 

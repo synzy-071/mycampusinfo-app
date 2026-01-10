@@ -1,13 +1,13 @@
 import 'package:mycampusinfo_app/common/index.dart';
 
-class SchoolModel {
+class collegeModel {
   String? id;
   String? name;
   String? description;
   String? board;
   String? state;
   String? city;
-  String? schoolMode;
+  String? collegeMode;
   String? genderType;
   List<Photo>? photos;
   List<String>? shifts;
@@ -31,14 +31,14 @@ class SchoolModel {
   String? twitterHandle;
   String? linkedinHandle;
 
-  SchoolModel({
+  collegeModel({
     this.id,
     this.name,
     this.description,
     this.board,
     this.state,
     this.city,
-    this.schoolMode,
+    this.collegeMode,
     this.genderType,
     this.shifts,
     this.feeRange,
@@ -61,14 +61,14 @@ class SchoolModel {
     this.linkedinHandle,
   });
 
-  factory SchoolModel.fromJson(Map<String, dynamic> json) => SchoolModel(
+  factory collegeModel.fromJson(Map<String, dynamic> json) => collegeModel(
         id: json['_id'] as String?,
         name: json['name'] as String?,
         description: json['description'] as String?,
         board: json['board'] as String?,
         state: json['state'] as String?,
         city: json['city'] as String?,
-        schoolMode: json['schoolMode'] as String?,
+        collegeMode: json['collegeMode'] as String?,
         genderType: json['genderType'] as String?,
         shifts: (json['shifts'] as List?)?.map((e) => e.toString()).toList() ?? const [],
         photos: (json['photos'] as List?)?.map((e)=> Photo.fromJson(e as Map<String,dynamic>)).toList() ?? const [],
@@ -98,7 +98,7 @@ class SchoolModel {
         'board': board,
         'state': state,
         'city': city,
-        'schoolMode': schoolMode,
+        'collegeMode': collegeMode,
         'genderType': genderType,
         'shifts': shifts ?? const [],
         'feeRange': feeRange,

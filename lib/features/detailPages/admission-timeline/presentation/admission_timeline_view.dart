@@ -9,22 +9,22 @@ import 'package:mycampusinfo_app/features/detailPages/admission-timeline/present
 
 
 class AdmissionTimelineView extends StatefulWidget {
-  const AdmissionTimelineView({super.key, required this.schoolId});
-  final String schoolId;
+  const AdmissionTimelineView({super.key, required this.collegeId});
+  final String collegeId;
   @override
   State<AdmissionTimelineView> createState() => _AdmissionTimelineViewState();
 }
 
 class _AdmissionTimelineViewState extends State<AdmissionTimelineView> {
   final AdmissionTimelineViewModel _vm = AdmissionTimelineViewModel();
-  // String _schoolId = '';
+  // String _collegeId = '';
   // String _schoolName = 'Admission Timeline';
   // bool _isInitialized = false;
   @override
 void initState(){
     super.initState();
   WidgetsBinding.instance.addPostFrameCallback((_) {
-        _vm.getAdmissionTimelineBySchoolId(schoolId: widget.schoolId);
+        _vm.getAdmissionTimelineBycollegeId(collegeId: widget.collegeId);
       });
 }
   // @override
@@ -35,20 +35,20 @@ void initState(){
 
   //   final extra = GoRouterState.of(context).extra;
   //   if (extra is Map) {
-  //     _schoolId = extra['schoolId'] as String? ?? '';
+  //     _collegeId = extra['collegeId'] as String? ?? '';
   //     _schoolName = extra['schoolName'] as String? ?? 'Admission Timeline';
   //   }
 
-  //   if (_schoolId.isNotEmpty) {
+  //   if (_collegeId.isNotEmpty) {
   //     WidgetsBinding.instance.addPostFrameCallback((_) {
-  //       _vm.getAdmissionTimelineBySchoolId(schoolId: _schoolId);
+  //       _vm.getAdmissionTimelineBycollegeId(collegeId: _collegeId);
   //     });
   //   }
   // }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isNotEmpty) {
-      await _vm.getAdmissionTimelineBySchoolId(schoolId: widget.schoolId);
+    if (widget.collegeId.isNotEmpty) {
+      await _vm.getAdmissionTimelineBycollegeId(collegeId: widget.collegeId);
     }
   }
 

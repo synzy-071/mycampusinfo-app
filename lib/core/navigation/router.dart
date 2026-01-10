@@ -167,7 +167,7 @@ class AppRouter {
       //   path: '/predictor-result',
       //   name: RouteNames.predictorResult,
       //   builder: (context, state) {
-      //     final predictedSchools = state.extra as List<SchoolModel>? ?? [];
+      //     final predictedSchools = state.extra as List<collegeModel>? ?? [];
       //     return SchoolResultsPage(predictedSchools: predictedSchools);
       //   },
       // ),
@@ -177,19 +177,19 @@ class AppRouter {
         name: RouteNames.overview,
         builder: (context, state) {
           final extras = state.extra as Map<String, dynamic>?;
-          final schoolId = extras?['schoolId'] as String?;
+          final collegeId = extras?['collegeId'] as String?;
           final distance = extras?['distance'] as String?;
 
-          if (schoolId == null) {
+          if (collegeId == null) {
             return NotFoundView(isSchool: true);
           }
 
-          print('<------>ID: $schoolId | Distance: $distance');
+          print('<------>ID: $collegeId | Distance: $distance');
 
-          return SchoolDetailView2(schoolId: schoolId, distance: distance);
+          return SchoolDetailView2(collegeId: collegeId, distance: distance);
         },
       ),
-
+ 
       GoRoute(
         path: '/alumini',
         name: RouteNames.alumini,
@@ -197,10 +197,10 @@ class AppRouter {
           final args =
               (state.extra ?? const <String, dynamic>{})
                   as Map<String, dynamic>;
-          final schoolId = args['schoolId'] as String?;
+          final collegeId = args['collegeId'] as String?;
           final schoolName = args['schoolName'] as String?;
 
-          if (schoolId == null) {
+          if (collegeId == null) {
             return const Scaffold(
               body: Center(child: Text('Missing school context')),
             );
@@ -208,8 +208,8 @@ class AppRouter {
 
           return ChangeNotifierProvider(
             create:
-                (_) => AlumniViewModel()..getAlumniBySchool(schoolId: schoolId),
-            child: AlumniView(schoolId: schoolId, schoolName: schoolName),
+                (_) => AlumniViewModel()..getAlumniBySchool(collegeId: collegeId),
+            child: AlumniView(collegeId: collegeId, schoolName: schoolName),
           );
         },
       ),
@@ -258,7 +258,7 @@ class AppRouter {
       // GoRoute(
       //   path: '/academics',
       //   name: RouteNames.academics,
-      //   builder: (context, state) => const AcademicsView(schoolId: ''),
+      //   builder: (context, state) => const AcademicsView(collegeId: ''),
       // ),
       // GoRoute(
       //   path: '/faculty',
@@ -284,7 +284,7 @@ class AppRouter {
       // GoRoute(
       //   path: '/review',
       //   name: RouteNames.review,
-      //   builder: (context, state) => ReviewsView(schoolId: '',),
+      //   builder: (context, state) => ReviewsView(collegeId: '',),
       // ),
       // GoRoute(
       //   path: '/international-exposure',
@@ -302,7 +302,7 @@ class AppRouter {
         builder: (context, state) {
           final schoolDetails = state.extra as Map<String, String>;
           return CompareWith(
-            schoolId: schoolDetails['id'] ?? '',
+            collegeId: schoolDetails['id'] ?? '',
             schoolName: schoolDetails['name'] ?? '',
           );
         },
@@ -311,10 +311,10 @@ class AppRouter {
         path: '/compare',
         name: RouteNames.compare,
         builder: (context, state) {
-          final schoolIds = state.extra as Map<String, String>;
+          final collegeIds = state.extra as Map<String, String>;
           return CompareSchools(
-            schoolId1: schoolIds['school1'] ?? '',
-            schoolId2: schoolIds['school2'] ?? '',
+            collegeId1: collegeIds['school1'] ?? '',
+            collegeId2: collegeIds['school2'] ?? '',
           );
         },
       ),

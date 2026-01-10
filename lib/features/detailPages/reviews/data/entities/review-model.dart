@@ -1,6 +1,6 @@
 class ReviewModel {
   final String? id;
-  final String? schoolId;
+  final String? collegeId;
   final String? text;
   final double? ratings;
   final int? likes;
@@ -10,7 +10,7 @@ class ReviewModel {
 
   ReviewModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
     this.text,
     this.ratings,
     this.likes,
@@ -22,7 +22,7 @@ class ReviewModel {
   factory ReviewModel.fromJson(Map<String, dynamic> json) {
     return ReviewModel(
       id: json['_id'] as String?,
-      schoolId: json['schoolId'] as String?,
+      collegeId: json['collegeId'] as String?,
       text: json['text'] as String?,
       ratings: (json['ratings'] as num?)?.toDouble(),
       likes: json['likes'] as int?,

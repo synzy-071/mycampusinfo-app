@@ -1,18 +1,18 @@
 class AdmissionTimelineModel {
   final String? id;
-  final String? schoolId;
+  final String? collegeId;
   final List<TimelineEntryModel> timelines;
 
   AdmissionTimelineModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
     this.timelines = const [],
   });
 
   factory AdmissionTimelineModel.fromJson(Map<String, dynamic> json) {
     return AdmissionTimelineModel(
       id: json['_id'] as String?,
-      schoolId: json['schoolId'] as String?,
+      collegeId: json['collegeId'] as String?,
       timelines: (json['timelines'] as List<dynamic>?)
               ?.map((e) => TimelineEntryModel.fromJson(e as Map<String, dynamic>))
               .toList() ??

@@ -8,13 +8,13 @@ import 'package:mycampusinfo_app/features/compare/presentation/widgets/compare_w
 
 class CompareSchools extends StatefulWidget {
   const CompareSchools({
-    required this.schoolId1,
-    required this.schoolId2,
+    required this.collegeId1,
+    required this.collegeId2,
     super.key,
   });
 
-  final String schoolId1;
-  final String schoolId2;
+  final String collegeId1;
+  final String collegeId2;
 
   @override
   State<CompareSchools> createState() => _CompareSchoolsState();
@@ -27,8 +27,8 @@ class _CompareSchoolsState extends State<CompareSchools> {
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       final failure = await compareViewModel.compareSchools(
-        schoolId1: widget.schoolId1,
-        schoolId2: widget.schoolId2,
+        collegeId1: widget.collegeId1,
+        collegeId2: widget.collegeId2,
       );
       failure?.showError(context);
     });
@@ -68,7 +68,7 @@ class _CompareSchoolsState extends State<CompareSchools> {
                 children: [
                   CompareSchoolsWidgets.headerBlock(),
 
-                  CompareSchoolsWidgets.sectionTitle('Compare Schools'),
+                  CompareSchoolsWidgets.sectionTitle('Compare Colleges'),
                   const SizedBox(height: 4),
                   CompareSchoolsWidgets.sectionSubtitle(
                     'Side-by-side comparison to find your best fit.',
@@ -95,17 +95,14 @@ class _CompareSchoolsState extends State<CompareSchools> {
                   ),
                   const SizedBox(height: 20),
 
-                  CompareSchoolsWidgets.dataRow('Board', [
-                    CompareSchoolsWidgets.fmtStr(vm.school1?.board),
-                    CompareSchoolsWidgets.fmtStr(vm.school2?.board),
-                  ]),
+             
                   CompareSchoolsWidgets.dataRow('Fee Range', [
                     CompareSchoolsWidgets.fmtStr(vm.school1?.feeRange),
                     CompareSchoolsWidgets.fmtStr(vm.school2?.feeRange),
                   ]),
-                  CompareSchoolsWidgets.dataRow('School Mode', [
-                    CompareSchoolsWidgets.fmtStr(vm.school1?.schoolMode),
-                    CompareSchoolsWidgets.fmtStr(vm.school2?.schoolMode),
+                  CompareSchoolsWidgets.dataRow('College Mode', [
+                    CompareSchoolsWidgets.fmtStr(vm.school1?.collegeMode),
+                    CompareSchoolsWidgets.fmtStr(vm.school2?.collegeMode),
                   ]),
                   CompareSchoolsWidgets.dataRow('Shifts', [
                     CompareSchoolsWidgets.fmtJoin(vm.school1?.shifts),

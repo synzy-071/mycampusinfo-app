@@ -20,7 +20,7 @@ class _AuthViewState extends State<AuthView> {
   AuthViewModel authViewModel = AuthViewModel();
 
   final TextEditingController emailController = TextEditingController(
-    text: kDebugMode ? 'hasansk2803+enduser@gmail.com' : '',
+    text: kDebugMode ? 'namrahsarfaraz2006@gmail.com' : '',
   );
   final TextEditingController passController = TextEditingController(
     text: kDebugMode ? 'Test@123' : '',

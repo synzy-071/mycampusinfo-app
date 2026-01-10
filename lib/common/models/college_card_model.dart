@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:mycampusinfo_app/common/index.dart';
 
-part 'school_card_model.freezed.dart';
-part 'school_card_model.g.dart';
+part 'college_card_model.freezed.dart';
+part 'college_card_model.g.dart';
 
 @freezed
-abstract class SchoolCardModel with _$SchoolCardModel {
-  factory SchoolCardModel({
-    String? schoolId,
+abstract class CollegeCardModel with _$CollegeCardModel {
+  factory CollegeCardModel({
+    String? collegeId,
     int? ratings,
     String? name,
     String? feeRange,
@@ -21,9 +21,9 @@ abstract class SchoolCardModel with _$SchoolCardModel {
     double? longitude,
     List<String>? shifts,
     List<String>? amenities,
-    String? schoolMode,
-  }) = _SchoolCardModel;
+    String? collegeMode,
+  }) = _CollegeCardModel;
 
-  factory SchoolCardModel.fromJson(Map<String, dynamic> json) =>
-      _$SchoolCardModelFromJson(json);
+  factory CollegeCardModel.fromJson(Map<String, dynamic> json) =>
+      _$CollegeCardModelFromJson(json);
 }

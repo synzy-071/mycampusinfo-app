@@ -13,13 +13,13 @@ class FeesAndScholarshipsViewModel extends ViewStateProvider {
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getFeesAndScholarshipsBySchoolId({
-    required String schoolId,
+  Future<Failure?> getFeesAndScholarshipsBycollegeId({
+    required String collegeId,
   }) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getFeesAndScholarshipsBySchoolId(schoolId: schoolId);
+    final result = await _svc.getFeesAndScholarshipsBycollegeId(collegeId: collegeId);
 
     result.fold(
       (exception) {

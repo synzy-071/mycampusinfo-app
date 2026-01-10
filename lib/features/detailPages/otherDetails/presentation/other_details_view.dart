@@ -6,15 +6,15 @@ import 'package:mycampusinfo_app/features/detailPages/otherDetails/presentation/
 import 'package:mycampusinfo_app/features/detailPages/otherDetails/presentation/widgets/gender_ratio_card.dart';
 
 class OtherDetailsView extends StatefulWidget {
-  const OtherDetailsView({super.key, required this.schoolId});
-  final String schoolId;
+  const OtherDetailsView({super.key, required this.collegeId});
+  final String collegeId;
   @override
   State<OtherDetailsView> createState() => _OtherDetailsViewState();
 }
 
 class _OtherDetailsViewState extends State<OtherDetailsView> {
   final OtherDetailsViewModel _vm = OtherDetailsViewModel();
-  // String _schoolId = '';
+  // String _collegeId = '';
   // String _schoolName = 'Other Details';
   // bool _isInitialized = false;
 
@@ -26,13 +26,13 @@ class _OtherDetailsViewState extends State<OtherDetailsView> {
 
   //   final extra = GoRouterState.of(context).extra;
   //   if (extra is Map) {
-  //     _schoolId = extra['schoolId'] as String? ?? '';
+  //     _collegeId = extra['collegeId'] as String? ?? '';
   //     _schoolName = extra['schoolName'] as String? ?? 'Other Details';
   //   }
 
-  //   if (_schoolId.isNotEmpty) {
+  //   if (_collegeId.isNotEmpty) {
   //     WidgetsBinding.instance.addPostFrameCallback((_) {
-  //       _vm.getOtherDetailsBySchoolId(schoolId: _schoolId);
+  //       _vm.getOtherDetailsBycollegeId(collegeId: _collegeId);
   //     });
   //   }
   // }
@@ -40,13 +40,13 @@ class _OtherDetailsViewState extends State<OtherDetailsView> {
 void initState(){
     super.initState();
   WidgetsBinding.instance.addPostFrameCallback((_) {
-        _vm.getOtherDetailsBySchoolId(schoolId: widget.schoolId);
+        _vm.getOtherDetailsBycollegeId(collegeId: widget.collegeId);
       });
 }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isNotEmpty) {
-      await _vm.getOtherDetailsBySchoolId(schoolId: widget.schoolId);
+    if (widget.collegeId.isNotEmpty) {
+      await _vm.getOtherDetailsBycollegeId(collegeId: widget.collegeId);
     }
   }
 

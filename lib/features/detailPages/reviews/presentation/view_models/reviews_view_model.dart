@@ -43,11 +43,11 @@ class ReviewViewModel extends ViewStateProvider {
     ];
   }
 
-  Future<Failure?> getReviews({required String schoolId}) async {
+  Future<Failure?> getReviews({required String collegeId}) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getAcceptedReviewsBySchoolId(schoolId: schoolId);
+    final result = await _svc.getAcceptedReviewsBycollegeId(collegeId: collegeId);
     result.fold(
       (exception) {
         failure = APIFailure.fromException(exception: exception);
@@ -66,14 +66,14 @@ class ReviewViewModel extends ViewStateProvider {
   }
 
   Future<bool> addReview({
-    required String schoolId,
+    required String collegeId,
     required String studentId,
     required String text,
     required double rating,
   }) async {
     setViewState(ViewState.busy);
     final result = await _svc.addReview(
-      schoolId: schoolId,
+      collegeId: collegeId,
       studentId: studentId,
       text: text,
       ratings: rating,

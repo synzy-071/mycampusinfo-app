@@ -5,7 +5,7 @@ import '../entities/school_compare_model.dart' show SchoolCompareModel;
 
 abstract class CompareDataSource {
   ResultFuture<Map<String, SchoolCompareModel>?> compareSchools({
-    required String schoolId1,
-    required String schoolId2,
+    required String collegeId1,
+    required String collegeId2,
   });
 }

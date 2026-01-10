@@ -8,11 +8,11 @@ class InternationalExposureService implements AbstractInternationalExposureServi
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<InternationalExposureModel?> getInternationalExposureBySchoolId({
-    required String schoolId,
+  ResultFuture<InternationalExposureModel?> getInternationalExposureBycollegeId({
+    required String collegeId,
   }) async {
     // Make sure Endpoints.internationalExposure is defined in your constants
-    final endpoint = "${Endpoints.adminInternationalExposure}/$schoolId";
+    final endpoint = "${Endpoints.adminInternationalExposure}/$collegeId";
     
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 
