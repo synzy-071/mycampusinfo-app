@@ -3,12 +3,12 @@ import 'package:mycampusinfo_app/core/network/index.dart' show ResultFuture;
 import '../entities/infrastructure_model.dart';
 
 abstract class AbstractInfrastructureService {
-  ResultFuture<InfrastructureModel?> getInfrastructureBySchoolId({
-    required String schoolId,
+  ResultFuture<InfrastructureModel?> getInfrastructureBycollegeId({
+    required String collegeId,
   });
 
   ResultFuture<InfrastructureModel?> addInfrastructure({
-    required String schoolId,
+    required String collegeId,
     required List<String> labs,
     required List<String> sportsGrounds,
     required int libraryBooks,
@@ -16,7 +16,7 @@ abstract class AbstractInfrastructureService {
   });
 
   ResultFuture<InfrastructureModel?> updateInfrastructure({
-    required String schoolId,
+    required String collegeId,
     List<String>? labs,
     List<String>? sportsGrounds,
     int? libraryBooks,

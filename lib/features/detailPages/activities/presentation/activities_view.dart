@@ -11,21 +11,21 @@ import 'package:mycampusinfo_app/features/detailPages/activities/presentation/wi
 import 'package:mycampusinfo_app/features/detailPages/activities/presentation/widgets/icon_mapper.dart';
 
 class ActivityView extends StatefulWidget {
-  const ActivityView({super.key, required this.schoolId});
-  final String schoolId;
+  const ActivityView({super.key, required this.collegeId});
+  final String collegeId;
   @override
   State<ActivityView> createState() => _ActivityViewState();
 }
 
 class _ActivityViewState extends State<ActivityView> {
   final ActivitiesViewModel _vm = ActivitiesViewModel();
-  // String _schoolId = '';
+  // String _collegeId = '';
   // bool _parsed = false;
   @override
 void initState(){
     super.initState();
   WidgetsBinding.instance.addPostFrameCallback((_) {
-        _vm.getActivitiesBySchoolId(schoolId: widget.schoolId);
+        _vm.getActivitiesBycollegeId(collegeId: widget.collegeId);
       });
 }
   // @override
@@ -40,22 +40,22 @@ void initState(){
   //   // --- NAVIGATION BUG FIX ---
   //   // Handle both Map (from OverviewView) and String (if pushed directly)
   //   if (extra is Map) {
-  //     _schoolId = extra['schoolId'] as String? ?? '';
+  //     _collegeId = extra['collegeId'] as String? ?? '';
   //   } else if (extra is String && extra.trim().isNotEmpty) {
-  //     _schoolId = extra.trim();
+  //     _collegeId = extra.trim();
   //   }
   //   // --- END FIX ---
 
-  //   if (_schoolId.isEmpty) {
-  //     _schoolId = (state.pathParameters['id'] ?? '').toString();
+  //   if (_collegeId.isEmpty) {
+  //     _collegeId = (state.pathParameters['id'] ?? '').toString();
   //   }
-  //   if (_schoolId.isEmpty) {
-  //     _schoolId = (state.uri.queryParameters['id'] ?? '').toString();
+  //   if (_collegeId.isEmpty) {
+  //     _collegeId = (state.uri.queryParameters['id'] ?? '').toString();
   //   }
 
-  //   if (_schoolId.isNotEmpty) {
+  //   if (_collegeId.isNotEmpty) {
   //     WidgetsBinding.instance.addPostFrameCallback((_) {
-  //       _vm.getActivitiesBySchoolId(schoolId: _schoolId);
+  //       _vm.getActivitiesBycollegeId(collegeId: _collegeId);
   //     });
   //   } else {
   //     _vm.setViewState(ViewState.complete);
@@ -63,8 +63,8 @@ void initState(){
   // }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isEmpty) return;
-    await _vm.getActivitiesBySchoolId(schoolId: widget.schoolId);
+    if (widget.collegeId.isEmpty) return;
+    await _vm.getActivitiesBycollegeId(collegeId: widget.collegeId);
   }
 
 
@@ -96,7 +96,7 @@ void initState(){
               color: colors.amberColor, 
               child: Builder(
                 builder: (_) {
-                  if (widget.schoolId.isEmpty) {
+                  if (widget.collegeId.isEmpty) {
                     return const Center(child: Text('Missing school context'));
                   }
                   if (state == ViewState.busy) {

@@ -3,7 +3,7 @@ import 'package:mycampusinfo_app/features/detailPages/faculty/data/entities/facu
 
 
 abstract class AbstractFacultyService {
-  ResultFuture<FacultyModel?> getFacultyBySchoolId({
-    required String schoolId,
+  ResultFuture<FacultyModel?> getFacultyBycollegeId({
+    required String collegeId,
   });
 }

@@ -8,8 +8,8 @@ import 'package:mycampusinfo_app/features/detailPages/amenity/presentation/view_
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/widgets/recruiter_chip_widget.dart';
 
 class AmenitiesView extends StatefulWidget {
-  const AmenitiesView({super.key, required this.schoolId, required this.photos});
-  final String schoolId;
+  const AmenitiesView({super.key, required this.collegeId, required this.photos});
+  final String collegeId;
   final List<Photo> photos;
 
   @override
@@ -23,13 +23,13 @@ class _AmenitiesViewState extends State<AmenitiesView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _vm.getAmenitiesBySchoolId(schoolId: widget.schoolId);
+      _vm.getAmenitiesBycollegeId(collegeId: widget.collegeId);
     });
   }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isEmpty) return;
-    await _vm.getAmenitiesBySchoolId(schoolId: widget.schoolId);
+    if (widget.collegeId.isEmpty) return;
+    await _vm.getAmenitiesBycollegeId(collegeId: widget.collegeId);
   }
 
   @override
@@ -59,7 +59,7 @@ class _AmenitiesViewState extends State<AmenitiesView> {
               color: colors.amberColor,
               child: Builder(
                 builder: (_) {
-                  if (widget.schoolId.isEmpty) {
+                  if (widget.collegeId.isEmpty) {
                     return const Center(child: Text('Missing school context'));
                   }
 

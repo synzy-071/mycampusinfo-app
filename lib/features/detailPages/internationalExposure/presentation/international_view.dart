@@ -7,8 +7,8 @@ import 'package:mycampusinfo_app/features/detailPages/internationalExposure/data
 import 'package:mycampusinfo_app/features/detailPages/internationalExposure/presentation/view_models/international_view_model.dart';
 
 class InternationalExposureView extends StatefulWidget {
-  const InternationalExposureView({super.key, required this.schoolId});
-  final String schoolId;
+  const InternationalExposureView({super.key, required this.collegeId});
+  final String collegeId;
 
   @override
   State<InternationalExposureView> createState() => _InternationalExposureViewState();
@@ -21,13 +21,13 @@ class _InternationalExposureViewState extends State<InternationalExposureView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _vm.getInternationalExposureBySchoolId(schoolId: widget.schoolId);
+      _vm.getInternationalExposureBycollegeId(collegeId: widget.collegeId);
     });
   }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isNotEmpty) {
-      await _vm.getInternationalExposureBySchoolId(schoolId: widget.schoolId);
+    if (widget.collegeId.isNotEmpty) {
+      await _vm.getInternationalExposureBycollegeId(collegeId: widget.collegeId);
     }
   }
 

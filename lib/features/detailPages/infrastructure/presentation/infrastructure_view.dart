@@ -10,8 +10,8 @@ import 'package:mycampusinfo_app/features/detailPages/infrastructure/presentatio
 import 'package:mycampusinfo_app/features/detailPages/otherDetails/presentation/view_models/otherDetails_view_model.dart';
 
 class InfrastructureView extends StatefulWidget {
-  const InfrastructureView({super.key, required this.schoolId});
-  final String schoolId;
+  const InfrastructureView({super.key, required this.collegeId});
+  final String collegeId;
 
   @override
   State<InfrastructureView> createState() => _InfrastructureViewState();
@@ -25,16 +25,16 @@ class _InfrastructureViewState extends State<InfrastructureView> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      _infraVm.getInfrastructureBySchoolId(schoolId: widget.schoolId);
-      _otherVm.getOtherDetailsBySchoolId(schoolId: widget.schoolId);
+      _infraVm.getInfrastructureBycollegeId(collegeId: widget.collegeId);
+      _otherVm.getOtherDetailsBycollegeId(collegeId: widget.collegeId);
     });
   }
 
   Future<void> _refresh() async {
-    if (widget.schoolId.isNotEmpty) {
+    if (widget.collegeId.isNotEmpty) {
       await Future.wait([
-        _infraVm.getInfrastructureBySchoolId(schoolId: widget.schoolId),
-        _otherVm.getOtherDetailsBySchoolId(schoolId: widget.schoolId),
+        _infraVm.getInfrastructureBycollegeId(collegeId: widget.collegeId),
+        _otherVm.getOtherDetailsBycollegeId(collegeId: widget.collegeId),
       ]);
     }
   }
@@ -68,7 +68,7 @@ class _InfrastructureViewState extends State<InfrastructureView> {
             final infraModel = infraVm.infrastructure;
             final otherModel = otherVm.otherDetails;
 
-            if (widget.schoolId.isEmpty) {
+            if (widget.collegeId.isEmpty) {
               return const Center(child: Text("School ID was not provided."));
             }
 

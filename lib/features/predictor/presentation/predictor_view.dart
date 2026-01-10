@@ -17,7 +17,7 @@ class _PredictorPageState extends State<PredictorPage> {
   // Controllers for each dropdown
   final TextEditingController _feeRangeController = TextEditingController();
   final TextEditingController _boardController = TextEditingController();
-  final TextEditingController _schoolModeController = TextEditingController();
+  final TextEditingController _collegeModeController = TextEditingController();
   final TextEditingController _genderTypeController = TextEditingController();
 
   final viewModel = PrefViewModel();
@@ -30,7 +30,7 @@ class _PredictorPageState extends State<PredictorPage> {
       value: viewModel,
       child: Scaffold(
         appBar: SAppBar(
-          title: 'Predict Schools',
+          title: 'Predict Colleges',
           leading: SIcon(
             icon: Icons.keyboard_arrow_left,
             onTap: () {
@@ -122,12 +122,12 @@ class _PredictorPageState extends State<PredictorPage> {
                   hint: "Select board",
                 ),
 
-                // School Mode dropdown
+                // College Mode dropdown
                 const SizedBox(height: 16),
-                _buildLabel("Select your Preferred SchoolMode"),
+                _buildLabel("Select your Preferred collegeMode"),
                 const SizedBox(height: 8),
                 STextField.dropdown(
-                  controller: _schoolModeController,
+                  controller: _collegeModeController,
                   items: const ['convent', 'private', 'government'],
                   label: "Modes",
                   hint: "Select Modes",
@@ -151,15 +151,15 @@ class _PredictorPageState extends State<PredictorPage> {
                 Center(
                   child: SButton(
                     max: true,
-                    label: "Get Schools",
+                    label: "Get Colleges",
                     onPressed: () async {
                       final filters = {
                         if (_feeRangeController.text.isNotEmpty)
                           'feeRange': _feeRangeController.text,
                         if (_boardController.text.isNotEmpty)
                           'board': _boardController.text,
-                        if (_schoolModeController.text.isNotEmpty)
-                          'schoolMode': _schoolModeController.text,
+                        if (_collegeModeController.text.isNotEmpty)
+                          'collegeMode': _collegeModeController.text,
                         if (_genderTypeController.text.isNotEmpty)
                           'genderType': _genderTypeController.text,
                       };

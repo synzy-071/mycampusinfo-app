@@ -12,11 +12,11 @@ class AmenitiesViewModel extends ViewStateProvider {
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getAmenitiesBySchoolId({required String schoolId}) async {
+  Future<Failure?> getAmenitiesBycollegeId({required String collegeId}) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getAmenitiesBySchoolId(schoolId: schoolId);
+    final result = await _svc.getAmenitiesBycollegeId(collegeId: collegeId);
 
     result.fold((exception) {
       failure = APIFailure.fromException(exception: exception);
@@ -33,7 +33,7 @@ class AmenitiesViewModel extends ViewStateProvider {
   }
 
   Future<Failure?> addAmenities({
-    required String schoolId,
+    required String collegeId,
     required List<String> predefinedAmenities,
     List<String>? customAmenities,
   }) async {
@@ -41,7 +41,7 @@ class AmenitiesViewModel extends ViewStateProvider {
     setViewState(ViewState.busy);
 
     final result = await _svc.addAmenities(
-      schoolId: schoolId,
+      collegeId: collegeId,
       predefinedAmenities: predefinedAmenities,
       customAmenities: customAmenities,
     );
@@ -60,7 +60,7 @@ class AmenitiesViewModel extends ViewStateProvider {
   }
 
   Future<Failure?> updateAmenities({
-    required String schoolId,
+    required String collegeId,
     required List<String> predefinedAmenities,
     List<String>? customAmenities,
   }) async {
@@ -68,7 +68,7 @@ class AmenitiesViewModel extends ViewStateProvider {
     setViewState(ViewState.busy);
 
     final result = await _svc.updateAmenities(
-      schoolId: schoolId,
+      collegeId: collegeId,
       predefinedAmenities: predefinedAmenities,
       customAmenities: customAmenities,
     );

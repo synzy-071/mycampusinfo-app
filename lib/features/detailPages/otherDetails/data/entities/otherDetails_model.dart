@@ -1,13 +1,13 @@
 class OtherDetailsModel {
   final String? id;
-  final String? schoolId;
+  final String? collegeId;
   final GenderRatioModel? genderRatio;
   final ScholarshipDiversityModel? scholarshipDiversity;
   final SpecialNeedsSupportModel? specialNeedsSupport;
 
   OtherDetailsModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
     this.genderRatio,
     this.scholarshipDiversity,
     this.specialNeedsSupport,
@@ -16,7 +16,7 @@ class OtherDetailsModel {
   factory OtherDetailsModel.fromJson(Map<String, dynamic> json) {
     return OtherDetailsModel(
       id: json['_id'] as String?,
-      schoolId: json['schoolId'] as String?,
+      collegeId: json['collegeId'] as String?,
       genderRatio: json['genderRatio'] != null
           ? GenderRatioModel.fromJson(json['genderRatio'])
           : null,

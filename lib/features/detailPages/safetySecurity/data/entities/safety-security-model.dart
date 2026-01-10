@@ -1,6 +1,6 @@
 class SafetyAndSecurityModel {
   final String? id;
-  final String? schoolId;
+  final String? collegeId;
   final double? cctvCoveragePercentage;
   final MedicalFacilityModel? medicalFacility;
   final TransportSafetyModel? transportSafety;
@@ -9,7 +9,7 @@ class SafetyAndSecurityModel {
 
   SafetyAndSecurityModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
     this.cctvCoveragePercentage,
     this.medicalFacility,
     this.transportSafety,
@@ -20,7 +20,7 @@ class SafetyAndSecurityModel {
   factory SafetyAndSecurityModel.fromJson(Map<String, dynamic> json) {
     return SafetyAndSecurityModel(
       id: json['_id'] as String?,
-      schoolId: json['schoolId'] as String?,
+      collegeId: json['collegeId'] as String?,
       cctvCoveragePercentage: (json['cctvCoveragePercentage'] as num?)?.toDouble(),
       medicalFacility: json['medicalFacility'] != null
           ? MedicalFacilityModel.fromJson(json['medicalFacility'])

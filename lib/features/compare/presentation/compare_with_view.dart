@@ -8,11 +8,11 @@ import 'package:mycampusinfo_app/features/home/presentation/view_model/schools_v
 
 class CompareWith extends StatefulWidget {
   const CompareWith({
-    required this.schoolId,
+    required this.collegeId,
     required this.schoolName,
     super.key,
   });
-  final String schoolId;
+  final String collegeId;
   final String schoolName;
 
   @override
@@ -36,14 +36,14 @@ class _CompareWithState extends State<CompareWith> {
     });
   }
 
-  List<SchoolCardModel> _filtered(
-    List<SchoolCardModel> source,
+  List<CollegeCardModel> _filtered(
+    List<CollegeCardModel> source,
     String? excludeId,
   ) {
     var list = showShortlistedOnly ? source.take(20).toList() : source;
 
     if ((excludeId ?? '').isNotEmpty) {
-      list = list.where((s) => s.schoolId != excludeId).toList();
+      list = list.where((s) => s.collegeId != excludeId).toList();
     }
     if (searchText.isNotEmpty) {
       final q = searchText.toLowerCase();
@@ -66,7 +66,7 @@ class _CompareWithState extends State<CompareWith> {
       value: schoolVm,
       child: Consumer<SchoolViewModel>(
         builder: (context, sVm, _) {
-          final candidates = _filtered(sVm.stateSchools, widget.schoolId);
+          final candidates = _filtered(sVm.stateSchools, widget.collegeId);
 
           return Scaffold(
             backgroundColor: Colors.white,
@@ -107,7 +107,7 @@ class _CompareWithState extends State<CompareWith> {
                           ),
                           const SizedBox(height: 4),
                           Text(
-                            "Select From Shortlisted Schools or\nSearch Other",
+                            "Select From Shortlisted Colleges or\nSearch Other",
                             style: TextStyle(
                               fontWeight: FontWeight.w400,
                               fontSize: 16,
@@ -157,7 +157,7 @@ class _CompareWithState extends State<CompareWith> {
                                       context.pushNamed(
                                         RouteNames.compare,
                                         extra: {
-                                          'school1': widget.schoolId,
+                                          'school1': widget.collegeId,
                                           'school2': id,
                                         },
                                       );

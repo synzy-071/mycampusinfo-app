@@ -8,7 +8,7 @@ class PrefViewModel extends ViewStateProvider {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   }) async {
     Failure? failure;
@@ -19,7 +19,7 @@ class PrefViewModel extends ViewStateProvider {
       boards: boards,
       interests: interests,
       preferredStandard: preferredStandard,
-      schoolType: schoolType,
+      collegeType: collegeType,
       shift: shift,
     );
 
@@ -62,7 +62,7 @@ Future<Failure?> fetchPreferences() async {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   }) async {
     Failure? failure;
@@ -73,7 +73,7 @@ Future<Failure?> fetchPreferences() async {
       boards: boards,
       interests: interests,
       preferredStandard: preferredStandard,
-      schoolType: schoolType,
+      collegeType: collegeType,
       shift: shift,
     );
 

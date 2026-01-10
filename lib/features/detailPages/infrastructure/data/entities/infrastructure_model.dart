@@ -1,6 +1,6 @@
 class InfrastructureModel {
   final String? id;
-  final String? schoolId;
+  final String? collegeId;
   final List<String> labs;
   final List<String> sportsGrounds;
   final int? libraryBooks;
@@ -8,7 +8,7 @@ class InfrastructureModel {
 
   InfrastructureModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
     this.labs = const [],
     this.sportsGrounds = const [],
     this.libraryBooks,
@@ -18,7 +18,7 @@ class InfrastructureModel {
   factory InfrastructureModel.fromJson(Map<String, dynamic> json) {
     return InfrastructureModel(
       id: json['_id'] as String?,
-      schoolId: json['schoolId'] as String?,
+      collegeId: json['collegeId'] as String?,
       labs: (json['labs'] as List<dynamic>?)
               ?.map((e) => e.toString())
               .toList() ??
@@ -33,7 +33,7 @@ class InfrastructureModel {
   }
 
   Map<String, dynamic> toJson() => {
-        'schoolId': schoolId,
+        'collegeId': collegeId,
         'labs': labs,
         'sportsGrounds': sportsGrounds,
         'libraryBooks': libraryBooks,

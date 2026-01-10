@@ -184,7 +184,7 @@ class MyFormViewModel extends ViewStateProvider {
   }
 
   Future<Failure?> submitForm({
-    required String schoolId,
+    required String collegeId,
     required String applicationId,
     required String formId, // pdf id
     required int amount,
@@ -194,7 +194,7 @@ class MyFormViewModel extends ViewStateProvider {
 
     final result = await formDataSourceImpl.submitForm(
       applicationId: applicationId,
-      schoolId: schoolId,
+      collegeId: collegeId,
       formId: formId,
       amount: amount,
     );

@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$SchoolCompareModel {
 
- String get name; String get board; String get feeRange; String get schoolMode; List<String> get shifts; List<String> get predefinedAmenities; List<String> get activities;
+ String get name; String get feeRange; String get collegeMode; List<String> get shifts; List<String> get predefinedAmenities; List<String> get activities;
 /// Create a copy of SchoolCompareModel
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -28,16 +28,16 @@ $SchoolCompareModelCopyWith<SchoolCompareModel> get copyWith => _$SchoolCompareM
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is SchoolCompareModel&&(identical(other.name, name) || other.name == name)&&(identical(other.board, board) || other.board == board)&&(identical(other.feeRange, feeRange) || other.feeRange == feeRange)&&(identical(other.schoolMode, schoolMode) || other.schoolMode == schoolMode)&&const DeepCollectionEquality().equals(other.shifts, shifts)&&const DeepCollectionEquality().equals(other.predefinedAmenities, predefinedAmenities)&&const DeepCollectionEquality().equals(other.activities, activities));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is SchoolCompareModel&&(identical(other.name, name) || other.name == name)&&(identical(other.feeRange, feeRange) || other.feeRange == feeRange)&&(identical(other.collegeMode, collegeMode) || other.collegeMode == collegeMode)&&const DeepCollectionEquality().equals(other.shifts, shifts)&&const DeepCollectionEquality().equals(other.predefinedAmenities, predefinedAmenities)&&const DeepCollectionEquality().equals(other.activities, activities));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,board,feeRange,schoolMode,const DeepCollectionEquality().hash(shifts),const DeepCollectionEquality().hash(predefinedAmenities),const DeepCollectionEquality().hash(activities));
+int get hashCode => Object.hash(runtimeType,name,feeRange,collegeMode,const DeepCollectionEquality().hash(shifts),const DeepCollectionEquality().hash(predefinedAmenities),const DeepCollectionEquality().hash(activities));
 
 @override
 String toString() {
-  return 'SchoolCompareModel(name: $name, board: $board, feeRange: $feeRange, schoolMode: $schoolMode, shifts: $shifts, predefinedAmenities: $predefinedAmenities, activities: $activities)';
+  return 'SchoolCompareModel(name: $name, feeRange: $feeRange, collegeMode: $collegeMode, shifts: $shifts, predefinedAmenities: $predefinedAmenities, activities: $activities)';
 }
 
 
@@ -48,7 +48,7 @@ abstract mixin class $SchoolCompareModelCopyWith<$Res>  {
   factory $SchoolCompareModelCopyWith(SchoolCompareModel value, $Res Function(SchoolCompareModel) _then) = _$SchoolCompareModelCopyWithImpl;
 @useResult
 $Res call({
- String name, String board, String feeRange, String schoolMode, List<String> shifts, List<String> predefinedAmenities, List<String> activities
+ String name, String feeRange, String collegeMode, List<String> shifts, List<String> predefinedAmenities, List<String> activities
 });
 
 
@@ -65,12 +65,11 @@ class _$SchoolCompareModelCopyWithImpl<$Res>
 
 /// Create a copy of SchoolCompareModel
 /// with the given fields replaced by the non-null parameter values.
-@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? board = null,Object? feeRange = null,Object? schoolMode = null,Object? shifts = null,Object? predefinedAmenities = null,Object? activities = null,}) {
+@pragma('vm:prefer-inline') @override $Res call({Object? name = null,Object? feeRange = null,Object? collegeMode = null,Object? shifts = null,Object? predefinedAmenities = null,Object? activities = null,}) {
   return _then(_self.copyWith(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,board: null == board ? _self.board : board // ignore: cast_nullable_to_non_nullable
 as String,feeRange: null == feeRange ? _self.feeRange : feeRange // ignore: cast_nullable_to_non_nullable
-as String,schoolMode: null == schoolMode ? _self.schoolMode : schoolMode // ignore: cast_nullable_to_non_nullable
+as String,collegeMode: null == collegeMode ? _self.collegeMode : collegeMode // ignore: cast_nullable_to_non_nullable
 as String,shifts: null == shifts ? _self.shifts : shifts // ignore: cast_nullable_to_non_nullable
 as List<String>,predefinedAmenities: null == predefinedAmenities ? _self.predefinedAmenities : predefinedAmenities // ignore: cast_nullable_to_non_nullable
 as List<String>,activities: null == activities ? _self.activities : activities // ignore: cast_nullable_to_non_nullable
@@ -159,10 +158,10 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String board,  String feeRange,  String schoolMode,  List<String> shifts,  List<String> predefinedAmenities,  List<String> activities)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function( String name,  String feeRange,  String collegeMode,  List<String> shifts,  List<String> predefinedAmenities,  List<String> activities)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _SchoolCompareModel() when $default != null:
-return $default(_that.name,_that.board,_that.feeRange,_that.schoolMode,_that.shifts,_that.predefinedAmenities,_that.activities);case _:
+return $default(_that.name,_that.feeRange,_that.collegeMode,_that.shifts,_that.predefinedAmenities,_that.activities);case _:
   return orElse();
 
 }
@@ -180,10 +179,10 @@ return $default(_that.name,_that.board,_that.feeRange,_that.schoolMode,_that.shi
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String board,  String feeRange,  String schoolMode,  List<String> shifts,  List<String> predefinedAmenities,  List<String> activities)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function( String name,  String feeRange,  String collegeMode,  List<String> shifts,  List<String> predefinedAmenities,  List<String> activities)  $default,) {final _that = this;
 switch (_that) {
 case _SchoolCompareModel():
-return $default(_that.name,_that.board,_that.feeRange,_that.schoolMode,_that.shifts,_that.predefinedAmenities,_that.activities);case _:
+return $default(_that.name,_that.feeRange,_that.collegeMode,_that.shifts,_that.predefinedAmenities,_that.activities);case _:
   throw StateError('Unexpected subclass');
 
 }
@@ -200,10 +199,10 @@ return $default(_that.name,_that.board,_that.feeRange,_that.schoolMode,_that.shi
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String board,  String feeRange,  String schoolMode,  List<String> shifts,  List<String> predefinedAmenities,  List<String> activities)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function( String name,  String feeRange,  String collegeMode,  List<String> shifts,  List<String> predefinedAmenities,  List<String> activities)?  $default,) {final _that = this;
 switch (_that) {
 case _SchoolCompareModel() when $default != null:
-return $default(_that.name,_that.board,_that.feeRange,_that.schoolMode,_that.shifts,_that.predefinedAmenities,_that.activities);case _:
+return $default(_that.name,_that.feeRange,_that.collegeMode,_that.shifts,_that.predefinedAmenities,_that.activities);case _:
   return null;
 
 }
@@ -215,13 +214,12 @@ return $default(_that.name,_that.board,_that.feeRange,_that.schoolMode,_that.shi
 @JsonSerializable()
 
 class _SchoolCompareModel implements SchoolCompareModel {
-  const _SchoolCompareModel({required this.name, required this.board, required this.feeRange, required this.schoolMode, required final  List<String> shifts, required final  List<String> predefinedAmenities, required final  List<String> activities}): _shifts = shifts,_predefinedAmenities = predefinedAmenities,_activities = activities;
+  const _SchoolCompareModel({required this.name, required this.feeRange, required this.collegeMode, required final  List<String> shifts, required final  List<String> predefinedAmenities, required final  List<String> activities}): _shifts = shifts,_predefinedAmenities = predefinedAmenities,_activities = activities;
   factory _SchoolCompareModel.fromJson(Map<String, dynamic> json) => _$SchoolCompareModelFromJson(json);
 
 @override final  String name;
-@override final  String board;
 @override final  String feeRange;
-@override final  String schoolMode;
+@override final  String collegeMode;
  final  List<String> _shifts;
 @override List<String> get shifts {
   if (_shifts is EqualUnmodifiableListView) return _shifts;
@@ -257,16 +255,16 @@ Map<String, dynamic> toJson() {
 
 @override
 bool operator ==(Object other) {
-  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SchoolCompareModel&&(identical(other.name, name) || other.name == name)&&(identical(other.board, board) || other.board == board)&&(identical(other.feeRange, feeRange) || other.feeRange == feeRange)&&(identical(other.schoolMode, schoolMode) || other.schoolMode == schoolMode)&&const DeepCollectionEquality().equals(other._shifts, _shifts)&&const DeepCollectionEquality().equals(other._predefinedAmenities, _predefinedAmenities)&&const DeepCollectionEquality().equals(other._activities, _activities));
+  return identical(this, other) || (other.runtimeType == runtimeType&&other is _SchoolCompareModel&&(identical(other.name, name) || other.name == name)&&(identical(other.feeRange, feeRange) || other.feeRange == feeRange)&&(identical(other.collegeMode, collegeMode) || other.collegeMode == collegeMode)&&const DeepCollectionEquality().equals(other._shifts, _shifts)&&const DeepCollectionEquality().equals(other._predefinedAmenities, _predefinedAmenities)&&const DeepCollectionEquality().equals(other._activities, _activities));
 }
 
 @JsonKey(includeFromJson: false, includeToJson: false)
 @override
-int get hashCode => Object.hash(runtimeType,name,board,feeRange,schoolMode,const DeepCollectionEquality().hash(_shifts),const DeepCollectionEquality().hash(_predefinedAmenities),const DeepCollectionEquality().hash(_activities));
+int get hashCode => Object.hash(runtimeType,name,feeRange,collegeMode,const DeepCollectionEquality().hash(_shifts),const DeepCollectionEquality().hash(_predefinedAmenities),const DeepCollectionEquality().hash(_activities));
 
 @override
 String toString() {
-  return 'SchoolCompareModel(name: $name, board: $board, feeRange: $feeRange, schoolMode: $schoolMode, shifts: $shifts, predefinedAmenities: $predefinedAmenities, activities: $activities)';
+  return 'SchoolCompareModel(name: $name, feeRange: $feeRange, collegeMode: $collegeMode, shifts: $shifts, predefinedAmenities: $predefinedAmenities, activities: $activities)';
 }
 
 
@@ -277,7 +275,7 @@ abstract mixin class _$SchoolCompareModelCopyWith<$Res> implements $SchoolCompar
   factory _$SchoolCompareModelCopyWith(_SchoolCompareModel value, $Res Function(_SchoolCompareModel) _then) = __$SchoolCompareModelCopyWithImpl;
 @override @useResult
 $Res call({
- String name, String board, String feeRange, String schoolMode, List<String> shifts, List<String> predefinedAmenities, List<String> activities
+ String name, String feeRange, String collegeMode, List<String> shifts, List<String> predefinedAmenities, List<String> activities
 });
 
 
@@ -294,12 +292,11 @@ class __$SchoolCompareModelCopyWithImpl<$Res>
 
 /// Create a copy of SchoolCompareModel
 /// with the given fields replaced by the non-null parameter values.
-@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? board = null,Object? feeRange = null,Object? schoolMode = null,Object? shifts = null,Object? predefinedAmenities = null,Object? activities = null,}) {
+@override @pragma('vm:prefer-inline') $Res call({Object? name = null,Object? feeRange = null,Object? collegeMode = null,Object? shifts = null,Object? predefinedAmenities = null,Object? activities = null,}) {
   return _then(_SchoolCompareModel(
 name: null == name ? _self.name : name // ignore: cast_nullable_to_non_nullable
-as String,board: null == board ? _self.board : board // ignore: cast_nullable_to_non_nullable
 as String,feeRange: null == feeRange ? _self.feeRange : feeRange // ignore: cast_nullable_to_non_nullable
-as String,schoolMode: null == schoolMode ? _self.schoolMode : schoolMode // ignore: cast_nullable_to_non_nullable
+as String,collegeMode: null == collegeMode ? _self.collegeMode : collegeMode // ignore: cast_nullable_to_non_nullable
 as String,shifts: null == shifts ? _self._shifts : shifts // ignore: cast_nullable_to_non_nullable
 as List<String>,predefinedAmenities: null == predefinedAmenities ? _self._predefinedAmenities : predefinedAmenities // ignore: cast_nullable_to_non_nullable
 as List<String>,activities: null == activities ? _self._activities : activities // ignore: cast_nullable_to_non_nullable

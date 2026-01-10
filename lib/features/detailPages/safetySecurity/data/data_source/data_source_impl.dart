@@ -8,11 +8,11 @@ class SafetyAndSecurityService implements AbstractSafetyAndSecurityService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<SafetyAndSecurityModel?> getSafetyAndSecurityBySchoolId({
-    required String schoolId,
+  ResultFuture<SafetyAndSecurityModel?> getSafetyAndSecurityBycollegeId({
+    required String collegeId,
   }) async {
     // Make sure Endpoints.safetyAndSecurity is defined in your constants
-    final endpoint = "${Endpoints.adminSafetyAndSecurity}/$schoolId";
+    final endpoint = "${Endpoints.adminSafetyAndSecurity}/$collegeId";
     
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 

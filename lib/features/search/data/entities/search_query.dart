@@ -11,7 +11,7 @@ abstract class SearchQuery with _$SearchQuery {
     List<String>? city,
     List<String>? board,
      List<String>? genderType,   // ✅ NEW
-    List<String>? schoolMode,   // ✅ NEW
+    List<String>? collegeMode,   // ✅ NEW
    List<String>?  feeRange,      
   }) = _SearchQuery;
 

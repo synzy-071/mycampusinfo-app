@@ -3,6 +3,7 @@ enum DetailTabEnum {
   academics,
   facultyDetails,
   infrastructure,
+
   techAdaption,
   activities,
   safetySecurity,
@@ -14,6 +15,7 @@ enum DetailTabEnum {
   reviews,
   otherDetails,
   photos,
+  placement,
 }
 
 extension DetailTabEnumExtension on DetailTabEnum {
@@ -22,7 +24,7 @@ extension DetailTabEnumExtension on DetailTabEnum {
       case DetailTabEnum.overview:
         return 'Overview';
       case DetailTabEnum.academics:
-        return 'Academics';
+        return 'Courses';
       case DetailTabEnum.facultyDetails:
         return 'Faculty Details';
       case DetailTabEnum.infrastructure:
@@ -48,7 +50,9 @@ extension DetailTabEnumExtension on DetailTabEnum {
       case DetailTabEnum.otherDetails:
         return 'Gender Distribution';
       case DetailTabEnum.photos:
-       return 'Media';
+        return 'Media';
+      case DetailTabEnum.placement:
+        return 'Placement';
     }
   }
 }

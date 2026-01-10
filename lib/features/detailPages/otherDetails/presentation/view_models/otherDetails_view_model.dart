@@ -13,13 +13,13 @@ class OtherDetailsViewModel extends ViewStateProvider {
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getOtherDetailsBySchoolId({
-    required String schoolId,
+  Future<Failure?> getOtherDetailsBycollegeId({
+    required String collegeId,
   }) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getOtherDetailsBySchoolId(schoolId: schoolId);
+    final result = await _svc.getOtherDetailsBycollegeId(collegeId: collegeId);
 
     result.fold(
       (exception) {

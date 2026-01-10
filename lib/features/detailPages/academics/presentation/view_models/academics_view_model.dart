@@ -3,31 +3,31 @@ import 'package:mycampusinfo_app/core/network/app_failure.dart';
 import 'package:mycampusinfo_app/features/detailPages/academics/data/data_source/data_source_impl.dart';
 import 'package:mycampusinfo_app/features/detailPages/academics/data/entities/academics_model.dart';
 
-class AcademicsViewModel extends ViewStateProvider {
-  final AcademicsService _svc = AcademicsService();
+class CoursesViewModel extends ViewStateProvider {
+  final coursesDataSourceImpl = CoursesDataSourceImpl();
 
-  AcademicsModel? _academics;
-  AcademicsModel? get academics => _academics;
+  List<CourseModel>? _courses;
+  List<CourseModel>? get courses => _courses;
 
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getAcademicsBySchoolId({
-    required String schoolId,
+  Future<Failure?> getCoursesBycollegeId({
+    required String collegeId,
   }) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getAcademicsBySchoolId(schoolId: schoolId);
+    final result = await coursesDataSourceImpl.getCoursesBycollegeId(collegeId: collegeId);
 
     result.fold(
       (exception) {
         failure = APIFailure.fromException(exception: exception);
         _message = failure?.message;
-        _academics = null;
+        _courses = null;
       },
       (res) {
-        _academics = res;
+        _courses = res;
         _message = null;
       },
     );

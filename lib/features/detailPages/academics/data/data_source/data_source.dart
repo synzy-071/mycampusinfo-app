@@ -1,8 +1,8 @@
-import 'package:mycampusinfo_app/core/network/index.dart' show ResultFuture;
-import '../entities/academics_model.dart';
+import 'package:mycampusinfo_app/core/network/index.dart';
+import 'package:mycampusinfo_app/features/detailPages/academics/data/entities/academics_model.dart';
 
-abstract class AbstractAcademicsService {
-  ResultFuture<AcademicsModel?> getAcademicsBySchoolId({
-    required String schoolId,
+abstract class AbstractCoursesService {
+  ResultFuture<List<CourseModel>?> getCoursesBycollegeId({
+    required String collegeId,
   });
 }

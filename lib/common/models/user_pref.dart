@@ -6,14 +6,14 @@ part 'user_pref.g.dart';
 @freezed
 abstract class UserPref with _$UserPref {
   const factory UserPref({
-    String? sId,
+  @JsonKey(name :" _id") String? sId,
     String? studentId,
     String? state,
     String? city,
-    String? boards,
-    String? preferredStandard,
+    String? preferredStream,
+
     String? interests,
-    String? schoolType,
+    String? collegeType,
     String? shift,
     String? createdAt,
     String? updatedAt,

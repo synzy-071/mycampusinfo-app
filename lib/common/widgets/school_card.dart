@@ -10,7 +10,7 @@ import 'package:mycampusinfo_app/features/users/shortlist/index.dart';
 class SchoolCard extends StatefulWidget {
   const SchoolCard({required this.school, this.width = 0.8, super.key});
 
-  final SchoolCardModel school;
+  final CollegeCardModel school;
   final double width;
 
   @override
@@ -24,7 +24,7 @@ class _SchoolCardState extends State<SchoolCard> {
   /*  @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      isSaved.value = getIt<AppStateProvider>().isSaved(widget.school.schoolId);
+      isSaved.value = getIt<AppStateProvider>().isSaved(widget.school.collegeId);
     });
     super.initState();
   }*/
@@ -34,11 +34,11 @@ class _SchoolCardState extends State<SchoolCard> {
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
       final appState = getIt<AppStateProvider>();
-      isSaved.value = appState.isSaved(widget.school.schoolId);
+      isSaved.value = appState.isSaved(widget.school.collegeId);
 
       // 🔄 Keep in sync with provider changes
       appState.addListener(() {
-        final newState = appState.isSaved(widget.school.schoolId);
+        final newState = appState.isSaved(widget.school.collegeId);
         if (newState != isSaved.value) {
           isSaved.value = newState;
         }
@@ -62,7 +62,7 @@ class _SchoolCardState extends State<SchoolCard> {
             () => context.pushNamed(
               RouteNames.overview,
               extra: {
-                'schoolId': widget.school.schoolId,
+                'collegeId': widget.school.collegeId,
                 'distance': distance.isNotEmpty ? distance : ' N/A',
               },
             ),
@@ -280,7 +280,7 @@ class _SchoolCardState extends State<SchoolCard> {
                                     color: Colors.green.shade100,
                                   ),
                                   child: Text(
-                                    widget.school.schoolMode?.toCapitalise ??
+                                    widget.school.collegeMode?.toCapitalise ??
                                         '',
                                     style: STextStyles.s10W600,
                                   ),
@@ -400,21 +400,21 @@ class _SchoolCardState extends State<SchoolCard> {
                                             Toasts.showLoginToast(context);
                                           } else {
                                             final bool isAdding = !vIsSaved;
-
+debugPrint("-----------------${widget.school.collegeId}");
                                             final failure =
                                                 vIsSaved
                                                     ? await vm.removeShortlist(
-                                                      schoolId:
+                                                      collegeId:
                                                           widget
                                                               .school
-                                                              .schoolId ??
+                                                              .collegeId ??
                                                           '',
                                                     )
                                                     : await vm.addShortlist(
-                                                      schoolId:
+                                                      collegeId:
                                                           widget
                                                               .school
-                                                              .schoolId ??
+                                                              .collegeId ??
                                                           '',
                                                     );
 

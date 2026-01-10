@@ -25,8 +25,8 @@ class _SchoolsViewState extends State<SchoolsView> {
       failure2?.showError(context);
       final failure3 = await schoolViewModel.getBoardsSchools();
       failure3?.showError(context);
-      final failureNearby = await schoolViewModel.getNearbySchools();
-      if (mounted) failureNearby?.showError(context);
+      // final failureNearby = await schoolViewModel.getNearbySchools();
+      // if (mounted) failureNearby?.showError(context);
     });
     super.initState();
   }
@@ -56,63 +56,63 @@ class _SchoolsViewState extends State<SchoolsView> {
                           final failure3 =
                               await schoolViewModel.getBoardsSchools();
                           failure3?.showError(context);
-                          final failure4 =
-                              await schoolViewModel.getNearbySchools();
-                          failure4?.showError(context);
+                          // final failure4 =
+                          // //     await schoolViewModel.getNearbySchools();
+                          // // failure4?.showError(context);
                         },
                         child: SingleChildScrollView(
                           physics: ClampingScrollPhysics(),
                           child: Column(
                             spacing: 16,
                             children: [
-                              Selector<SchoolViewModel, List<SchoolCardModel>>(
+                              Selector<SchoolViewModel, List<CollegeCardModel>>(
                                 selector: (_, vm) => vm.boardSchools,
                                 builder:
                                     (vmContext, schools, _) =>
                                         SchoolListSection(
                                           title:
-                                              'Schools Based on Board & City',
+                                              'Colleges Based on Board & City',
                                           schools: schools,
                                         ),
                               ),
                               NavigatorCard(
-                                title: 'Which Schools match your preferences?',
+                                title: 'Which Colleges match your preferences?',
                                 buttonText: 'Predict Now',
                                 onPressed: () {
                                   context.pushNamed(RouteNames.services);
                                 },
                               ),
-                              Selector<SchoolViewModel, List<SchoolCardModel>>(
+                              Selector<SchoolViewModel, List<CollegeCardModel>>(
                                 selector: (_, vm) => vm.nearbySchools,
                                 builder:
                                     (vmContext, schools, _) =>
                                         SchoolListSection(
-                                          title: 'Schools Near You',
+                                          title: 'Colleges Near You',
                                           schools: schools,
                                         ),
                               ),
-                              Selector<SchoolViewModel, List<SchoolCardModel>>(
+                              Selector<SchoolViewModel, List<CollegeCardModel>>(
                                 selector: (_, vm) => vm.stateSchools,
                                 builder:
                                     (vmContext, schools, _) =>
                                         SchoolListSection(
-                                          title: 'Schools Based on State',
+                                          title: 'Colleges Based on State',
                                           schools: schools,
                                         ),
                               ),
                               NavigatorCard(
-                                title: 'Want the latest insights on Schools?',
+                                title: 'Want the latest Colleges on Colleges?',
                                 buttonText: 'Read Now',
                                 onPressed: () {
                                   context.goNamed(RouteNames.blogs);
                                 },
                               ),
-                              Selector<SchoolViewModel, List<SchoolCardModel>>(
+                              Selector<SchoolViewModel, List<CollegeCardModel>>(
                                 selector: (_, vm) => vm.citySchools,
                                 builder:
                                     (vmContext, schools, _) =>
                                         SchoolListSection(
-                                          title: 'Schools Based on City',
+                                          title: 'Colleges Based on City',
                                           schools: schools,
                                         ),
                               ),

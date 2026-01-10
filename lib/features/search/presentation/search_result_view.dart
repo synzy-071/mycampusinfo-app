@@ -41,7 +41,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
             icon: Icons.keyboard_arrow_left,
             onTap: () => Navigator.of(context).pop(),
           ),
-          title: "Result Schools",
+          title: "Result Colleges",
         ),
         body: Consumer<SearchResultViewModel>(
           builder:
@@ -65,7 +65,7 @@ class _SearchResultsPageState extends State<SearchResultsPage> {
                                   final school = vm.schools[index];
                                   return VisibilityDetector(
                                     key: Key(
-                                      school.schoolId ?? UniqueKey().toString(),
+                                      school.collegeId ?? UniqueKey().toString(),
                                     ),
                                     onVisibilityChanged: (info) {
                                       var visibilityPercentage =

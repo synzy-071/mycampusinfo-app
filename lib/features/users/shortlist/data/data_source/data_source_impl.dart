@@ -17,11 +17,11 @@ class ShortlistDataSourceImpl {
   final String? deviceToken = SharedPrefHelper.getString('deviceToken');
   final String? authId = getIt<AppStateProvider>().authModel?.sId;
 
-  ResultFuture<String?> addShortlist({required String schoolId}) async {
+  ResultFuture<String?> addShortlist({required String collegeId}) async {
     Request r = Request(
       method: RequestMethod.post,
       endpoint: Endpoints.usersShortlist,
-      body: {"authId": authId ?? '', "schoolId": schoolId},
+      body: {"authId": authId ?? '', "collegeId": collegeId},
     );
     try {
       final result = await _networkService.request(r);
@@ -39,7 +39,7 @@ class ShortlistDataSourceImpl {
     return Right(null);
   }
 
-  ResultFuture<List<SchoolCardModel>?> getShortlist() async {
+  ResultFuture<List<CollegeCardModel>?> getShortlist() async {
     Request r = Request(
       method: RequestMethod.get,
       endpoint: "${Endpoints.usersShortlist}/$authId",
@@ -54,7 +54,7 @@ class ShortlistDataSourceImpl {
             body
                 .map(
                   (item) =>
-                      SchoolCardModel.fromJson(item as Map<String, dynamic>),
+                      CollegeCardModel.fromJson(item as Map<String, dynamic>),
                 )
                 .toList();
 
@@ -88,11 +88,11 @@ class ShortlistDataSourceImpl {
     return Right(null);
   }
 
-  ResultFuture<String?> removeShortlist({required String schoolId}) async {
+  ResultFuture<String?> removeShortlist({required String collegeId}) async {
     Request r = Request(
       method: RequestMethod.post,
       endpoint: "${Endpoints.usersShortlist}/remove",
-      body: {"authId": authId, "schoolId": schoolId},
+      body: {"authId": authId, "collegeId": collegeId},
     );
     try {
       final result = await _networkService.request(r);

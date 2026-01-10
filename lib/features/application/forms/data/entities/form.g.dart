@@ -8,9 +8,9 @@ part of 'form.dart';
 
 _Form _$FormFromJson(Map<String, dynamic> json) => _Form(
   sId: json['_id'] as String?,
-  school: json['schoolId'] == null
+  school: json['collegeId'] == null
       ? null
-      : SchoolModel.fromJson(json['schoolId'] as Map<String, dynamic>),
+      : collegeModel.fromJson(json['collegeId'] as Map<String, dynamic>),
   user: json['studId'] == null
       ? null
       : User.fromJson(json['studId'] as Map<String, dynamic>),
@@ -39,7 +39,7 @@ _Form _$FormFromJson(Map<String, dynamic> json) => _Form(
 
 Map<String, dynamic> _$FormToJson(_Form instance) => <String, dynamic>{
   '_id': instance.sId,
-  'schoolId': instance.school,
+  'collegeId': instance.school,
   'studId': instance.user,
   'interviewNote': instance.interviewNote,
   'status': _$JsonConverterToJson<String, FormStatus>(

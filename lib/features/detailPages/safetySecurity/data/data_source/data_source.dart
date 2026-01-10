@@ -3,7 +3,7 @@ import 'package:mycampusinfo_app/features/detailPages/safetySecurity/data/entiti
 
 
 abstract class AbstractSafetyAndSecurityService {
-  ResultFuture<SafetyAndSecurityModel?> getSafetyAndSecurityBySchoolId({
-    required String schoolId,
+  ResultFuture<SafetyAndSecurityModel?> getSafetyAndSecurityBycollegeId({
+    required String collegeId,
   });
 }

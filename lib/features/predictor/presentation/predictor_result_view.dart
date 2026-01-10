@@ -24,8 +24,8 @@ class _SchoolResultPageState extends State<SchoolResultsPage> {
         filters: {
           'state': appStateProvider.user?.state,
           'city': appStateProvider.user?.city,
-          'board': appStateProvider.userPref?.boards,
-          'schoolMode': appStateProvider.userPref?.schoolType,
+
+          'collegeMode': appStateProvider.userPref?.collegeType,
           'genderType': appStateProvider.user?.gender,
         },
       );
@@ -42,7 +42,7 @@ class _SchoolResultPageState extends State<SchoolResultsPage> {
       value: prefViewModel,
       child: Scaffold(
         appBar: SAppBar(
-          title: 'Predicted Schools',
+          title: 'Predicted Colleges',
           leading: SIcon(
             icon: Icons.keyboard_arrow_left,
             onTap: () {

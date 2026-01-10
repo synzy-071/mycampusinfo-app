@@ -4,16 +4,16 @@ import 'package:mycampusinfo_app/features/detailPages/activities/data/entities/a
 
 abstract class AbstractActivitiesService {
   ResultFuture<ActivitiesModel?> addActivities({
-    required String schoolId,
+    required String collegeId,
     required List<String> activities,
   });
 
   ResultFuture<ActivitiesModel?> updateActivities({
-    required String schoolId,
+    required String collegeId,
     required List<String> activities,
   });
 
-  ResultFuture<ActivitiesModel?> getActivitiesBySchoolId({
-    required String schoolId,
+  ResultFuture<ActivitiesModel?> getActivitiesBycollegeId({
+    required String collegeId,
   });
 }

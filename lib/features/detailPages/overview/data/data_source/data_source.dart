@@ -3,13 +3,13 @@ import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/app
 import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_model.dart';
 
 abstract class OverviewDataSource {
-  ResultFuture<SchoolModel?> addSchool({
+  ResultFuture<collegeModel?> addSchool({
     required String name,
     required String description,
     required String board,
     required String state,
     required String city,
-    required String schoolMode,
+    required String collegeMode,
     required String genderType,
     required List<String> shifts,
     required String feeRange,
@@ -28,14 +28,14 @@ abstract class OverviewDataSource {
     String? linkedinHandle,
   });
 
-  ResultFuture<SchoolModel?> updateSchool({
+  ResultFuture<collegeModel?> updateSchool({
     required String id,
     required String name,
     required String description,
     required String board,
     required String state,
     required String city,
-    required String schoolMode,
+    required String collegeMode,
     required String genderType,
     required List<String> shifts,
     required String feeRange,
@@ -56,11 +56,11 @@ abstract class OverviewDataSource {
 
   ResultFuture<String?> deleteSchool({required String id});
 
-  ResultFuture<SchoolModel?> getSchoolById({required String id});
+  ResultFuture<collegeModel?> getSchoolById({required String id});
 
-  ResultFuture<List<SchoolModel>?> getSchoolsByStatus({required String status});
+  ResultFuture<List<collegeModel>?> getSchoolsByStatus({required String status});
 
   ResultFuture<AppliedFormModel?> getIsSchoolApplied({
-    required String schoolId,
+    required String collegeId,
   });
 }

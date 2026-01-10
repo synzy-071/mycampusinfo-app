@@ -13,11 +13,11 @@ class FeesAndScholarshipsService implements AbstractFeesAndScholarshipsService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<FeesAndScholarshipsModel?> getFeesAndScholarshipsBySchoolId({
-    required String schoolId,
+  ResultFuture<FeesAndScholarshipsModel?> getFeesAndScholarshipsBycollegeId({
+    required String collegeId,
   }) async {
     // Make sure Endpoints.feeAndScholarship is defined in your constants
-    final endpoint = "${Endpoints.adminfeeAndScholarship}/$schoolId";
+    final endpoint = "${Endpoints.adminfeeAndScholarship}/$collegeId";
     
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 

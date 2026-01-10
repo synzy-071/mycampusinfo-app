@@ -10,9 +10,9 @@ import 'package:mycampusinfo_app/features/detailPages/alumini/presentation/view_
 import 'package:mycampusinfo_app/features/detailPages/alumini/presentation/widgets/alumni_item_widget.dart';
 
 class AlumniView extends StatefulWidget {
-  const AlumniView({super.key, required this.schoolId, this.schoolName});
+  const AlumniView({super.key, required this.collegeId, this.schoolName});
 
-  final String schoolId;
+  final String collegeId;
   final String? schoolName;
 
   @override
@@ -26,13 +26,13 @@ class _AlumniViewState extends State<AlumniView> {
     super.initState();
 
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      vm.getAlumniBySchool(schoolId: widget.schoolId);
+      vm.getAlumniBySchool(collegeId: widget.collegeId);
     });
   }
 
   Future<void> _refresh(BuildContext context) async {
     await context.read<AlumniViewModel>().getAlumniBySchool(
-      schoolId: widget.schoolId,
+      collegeId: widget.collegeId,
     );
   }
 

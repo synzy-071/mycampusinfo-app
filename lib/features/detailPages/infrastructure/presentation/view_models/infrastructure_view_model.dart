@@ -13,11 +13,11 @@ class InfrastructureViewModel extends ViewStateProvider {
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getInfrastructureBySchoolId({required String schoolId}) async {
+  Future<Failure?> getInfrastructureBycollegeId({required String collegeId}) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getInfrastructureBySchoolId(schoolId: schoolId);
+    final result = await _svc.getInfrastructureBycollegeId(collegeId: collegeId);
 
     result.fold(
       (exception) {

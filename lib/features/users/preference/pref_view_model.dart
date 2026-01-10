@@ -12,7 +12,7 @@ class PrefViewModel extends ViewStateProvider {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   }) async {
     Failure? failure;
@@ -24,7 +24,7 @@ class PrefViewModel extends ViewStateProvider {
       city: city,
       interests: interests,
       preferredStandard: preferredStandard,
-      schoolType: schoolType,
+      collegeType: collegeType,
       shift: shift,
       state: state,
       studentId: studentId,
@@ -46,7 +46,7 @@ class PrefViewModel extends ViewStateProvider {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   }) async {
     Failure? failure;
@@ -58,7 +58,7 @@ class PrefViewModel extends ViewStateProvider {
       city: city,
       interests: interests,
       preferredStandard: preferredStandard,
-      schoolType: schoolType,
+      collegeType: collegeType,
       shift: shift,
       state: state,
       studentId: studentId,

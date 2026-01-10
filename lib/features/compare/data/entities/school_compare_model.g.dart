@@ -9,9 +9,8 @@ part of 'school_compare_model.dart';
 _SchoolCompareModel _$SchoolCompareModelFromJson(Map<String, dynamic> json) =>
     _SchoolCompareModel(
       name: json['name'] as String,
-      board: json['board'] as String,
       feeRange: json['feeRange'] as String,
-      schoolMode: json['schoolMode'] as String,
+      collegeMode: json['collegeMode'] as String,
       shifts: (json['shifts'] as List<dynamic>)
           .map((e) => e as String)
           .toList(),
@@ -26,9 +25,8 @@ _SchoolCompareModel _$SchoolCompareModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$SchoolCompareModelToJson(_SchoolCompareModel instance) =>
     <String, dynamic>{
       'name': instance.name,
-      'board': instance.board,
       'feeRange': instance.feeRange,
-      'schoolMode': instance.schoolMode,
+      'collegeMode': instance.collegeMode,
       'shifts': instance.shifts,
       'predefinedAmenities': instance.predefinedAmenities,
       'activities': instance.activities,

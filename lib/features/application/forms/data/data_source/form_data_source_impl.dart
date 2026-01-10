@@ -68,8 +68,8 @@ class FormDataSourceImpl implements FormDataSource {
               item as Map,
             );
             // replace id strings by small maps so Form.fromJson won't try to cast String->Map
-            if (map.containsKey('schoolId'))
-              map['schoolId'] = _norm(map['schoolId']);
+            if (map.containsKey('collegeId'))
+              map['collegeId'] = _norm(map['collegeId']);
             if (map.containsKey('studId')) map['studId'] = _norm(map['studId']);
             if (map.containsKey('applicationId'))
               map['applicationId'] = _norm(map['applicationId']);
@@ -138,7 +138,7 @@ class FormDataSourceImpl implements FormDataSource {
 
             // Normalize nested fields that Form.fromJson expects as maps
             final schoolObj = _ensureMap(
-              item['schoolId'] ?? item['school'],
+              item['collegeId'] ?? item['school'],
             ); // some APIs use 'school'
             final studObj = _ensureMap(
               item['studId'] ?? item['user'] ?? item['stud'],
@@ -151,7 +151,7 @@ class FormDataSourceImpl implements FormDataSource {
             );
 
             // Replace into item so Form.fromJson sees maps
-            if (schoolObj != null) item['schoolId'] = schoolObj;
+            if (schoolObj != null) item['collegeId'] = schoolObj;
             if (studObj != null) item['studId'] = studObj;
             if (applicationObj != null) item['applicationId'] = applicationObj;
             if (applicationFormObj != null)
@@ -171,7 +171,7 @@ class FormDataSourceImpl implements FormDataSource {
   @override
   ResultFuture<Form?> submitForm({
     required String applicationId,
-    required String schoolId,
+    required String collegeId,
     required int amount,
     required String formId, // pass the pdf/form template id
   }) async {
@@ -184,7 +184,7 @@ class FormDataSourceImpl implements FormDataSource {
       }
 
       final endpoint =
-          'https://backend-tc-sa-v2.onrender.com/api/form/$schoolId/$studId/$formId';
+          'https://backend-tc-sa-v2.onrender.com/api/form/$collegeId/$studId/$formId';
 
       Request request = Request(
         method: RequestMethod.post,
@@ -251,7 +251,7 @@ class FormDataSourceImpl implements FormDataSource {
         // if already a Map, keep as-is
       }
 
-      normalizeIdKey('schoolId');
+      normalizeIdKey('collegeId');
       normalizeIdKey('studId');
       // also normalize applicationId (in case backend returned string)
       normalizeIdKey('applicationId');

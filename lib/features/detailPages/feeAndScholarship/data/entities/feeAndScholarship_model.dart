@@ -1,13 +1,13 @@
 class FeesAndScholarshipsModel {
   final String? id;
-  final String? schoolId;
+  final String? collegeId;
    final double? feesTransparency;
   final List<ClassFeeModel> classFees;
   final List<ScholarshipModel> scholarships;
 
   FeesAndScholarshipsModel({
     this.id,
-    this.schoolId,
+    this.collegeId,
       this.feesTransparency,
     this.classFees = const [],
     this.scholarships = const [],
@@ -16,7 +16,7 @@ class FeesAndScholarshipsModel {
   factory FeesAndScholarshipsModel.fromJson(Map<String, dynamic> json) {
     return FeesAndScholarshipsModel(
       id: json['_id'] as String?,
-      schoolId: json['schoolId'] as String?,
+      collegeId: json['collegeId'] as String?,
         feesTransparency: (json['feesTransparency'] as num?)?.toDouble(),
       classFees: (json['classFees'] as List<dynamic>?)
               ?.map((e) => ClassFeeModel.fromJson(e as Map<String, dynamic>))
@@ -30,7 +30,7 @@ class FeesAndScholarshipsModel {
   }
 
   Map<String, dynamic> toJson() => {
-        'schoolId': schoolId,
+        'collegeId': collegeId,
           'feesTransparency': feesTransparency,
         'classFees': classFees.map((e) => e.toJson()).toList(),
         'scholarships': scholarships.map((e) => e.toJson()).toList(),
@@ -38,7 +38,7 @@ class FeesAndScholarshipsModel {
 }
 
 class ClassFeeModel {
-  final String? className;
+  final String? courseName;
   final int? tuition;
   final int? activity;
   final int? transport;
@@ -46,7 +46,7 @@ class ClassFeeModel {
   final int? misc;
 
   ClassFeeModel({
-    this.className,
+    this.courseName,
     this.tuition,
     this.activity,
     this.transport,
@@ -56,7 +56,7 @@ class ClassFeeModel {
 
   factory ClassFeeModel.fromJson(Map<String, dynamic> json) {
     return ClassFeeModel(
-      className: json['className'] as String?,
+      courseName: json['courseName'] as String?,
       tuition: json['tuition'] as int?,
       activity: json['activity'] as int?,
       transport: json['transport'] as int?,
@@ -66,7 +66,7 @@ class ClassFeeModel {
   }
 
   Map<String, dynamic> toJson() => {
-        'className': className,
+        'courseName': courseName,
         'tuition': tuition,
         'activity': activity,
         'transport': transport,

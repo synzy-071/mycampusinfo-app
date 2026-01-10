@@ -129,37 +129,37 @@ class _ChatbotViewState extends State<ChatbotView> {
           final grouped = _groupByField(vm.questions);
           final sections = <_SectionDef>[
             _SectionDef(
-              title: 'Schools with fee range:',
+              title: 'Colleges with fee range:',
               field: 'feeRange',
               icon: Icons.payments_outlined,
             ),
             _SectionDef(
-              title: 'Schools with board:',
+              title: 'Colleges with board:',
               field: 'board',
               icon: Icons.menu_book_outlined,
             ),
             _SectionDef(
-              title: 'Schools with type:',
-              field: 'schoolMode',
+              title: 'Colleges with type:',
+              field: 'collegeMode',
               icon: Icons.school_outlined,
             ),
             _SectionDef(
-              title: 'Schools with gender:',
+              title: 'Colleges with gender:',
               field: 'genderType',
               icon: Icons.people_outline,
             ),
             _SectionDef(
-              title: 'Schools with transport:',
+              title: 'Colleges with transport:',
               field: 'transportAvailable',
               icon: Icons.directions_bus_outlined,
             ),
             _SectionDef(
-              title: 'Schools in my area only',
+              title: 'Colleges in my area only',
               field: 'area',
               icon: Icons.location_city,
             ),
             _SectionDef(
-              title: 'Schools in my city only',
+              title: 'Colleges in my city only',
               field: 'city',
               icon: Icons.location_city,
             ),
@@ -341,7 +341,7 @@ class _ChatbotViewState extends State<ChatbotView> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Filtered Schools (${vm.resolvedSchools.length})',
+                                'Filtered Colleges (${vm.resolvedSchools.length})',
                                 style: STextStyles.s16W600.copyWith(
                                   color: SColor.secTextColor,
                                 ),

@@ -33,9 +33,9 @@ class AppStateProvider extends ViewStateProvider {
     notifyListeners();
   }
 
-  List<SchoolCardModel> _shortlistSchools = [];
-  List<SchoolCardModel> get shortlistSchools => _shortlistSchools;
-  set shortlistSchools(List<SchoolCardModel> values) {
+  List<CollegeCardModel> _shortlistSchools = [];
+  List<CollegeCardModel> get shortlistSchools => _shortlistSchools;
+  set shortlistSchools(List<CollegeCardModel> values) {
     _shortlistSchools = values;
     notifyListeners();
   }
@@ -52,9 +52,9 @@ class AppStateProvider extends ViewStateProvider {
   bool get isPrefRemaining =>
       user != null && authModel != null && userPref == null;
 
-  bool isSaved(String? schoolId) {
-    for (SchoolCardModel school in shortlistSchools) {
-      if (school.schoolId == schoolId) {
+  bool isSaved(String? collegeId) {
+    for (CollegeCardModel school in shortlistSchools) {
+      if (school.collegeId == collegeId) {
         return true;
       }
     }

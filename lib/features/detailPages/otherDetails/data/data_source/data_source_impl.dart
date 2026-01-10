@@ -8,11 +8,11 @@ class OtherDetailsService implements AbstractOtherDetailsService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<OtherDetailsModel?> getOtherDetailsBySchoolId({
-    required String schoolId,
+  ResultFuture<OtherDetailsModel?> getOtherDetailsBycollegeId({
+    required String collegeId,
   }) async {
     // Make sure Endpoints.otherDetails is defined in your constants
-    final endpoint = "${Endpoints.adminOtherDetails}/$schoolId";
+    final endpoint = "${Endpoints.adminOtherDetails}/$collegeId";
     
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 

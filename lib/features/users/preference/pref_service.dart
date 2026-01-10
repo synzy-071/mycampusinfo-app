@@ -21,7 +21,7 @@ class PrefService {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   }) async {
     Request r = Request(
@@ -34,7 +34,7 @@ class PrefService {
         "boards": boards,
         "preferredStandard": preferredStandard,
         "interests": interests,
-        "schoolType": schoolType,
+        "collegeType": collegeType,
         "shift": shift,
       },
     );
@@ -61,7 +61,7 @@ class PrefService {
     required String boards,
     required String preferredStandard,
     required String interests,
-    required String schoolType,
+    required String collegeType,
     required String shift,
   }) async {
     Request r = Request(
@@ -74,7 +74,7 @@ class PrefService {
         "boards": boards,
         "preferredStandard": preferredStandard,
         "interests": interests,
-        "schoolType": schoolType,
+        "collegeType": collegeType,
         "shift": shift,
       },
     );

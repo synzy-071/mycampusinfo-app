@@ -13,13 +13,13 @@ class TechnologyAdoptionViewModel extends ViewStateProvider {
   String? _message;
   String? get message => _message;
 
-  Future<Failure?> getTechnologyAdoptionBySchoolId({
-    required String schoolId,
+  Future<Failure?> getTechnologyAdoptionBycollegeId({
+    required String collegeId,
   }) async {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getTechnologyAdoptionBySchoolId(schoolId: schoolId);
+    final result = await _svc.getTechnologyAdoptionBycollegeId(collegeId: collegeId);
 
     result.fold(
       (exception) {

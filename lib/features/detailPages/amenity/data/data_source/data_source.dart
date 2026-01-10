@@ -4,18 +4,18 @@ import 'package:mycampusinfo_app/features/detailPages/amenity/data/entities/amen
 
 abstract class AbstractAmenitiesService {
   ResultFuture<AmenitiesModel?> addAmenities({
-    required String schoolId,
+    required String collegeId,
     required List<String> predefinedAmenities,
     List<String>? customAmenities,
   });
 
   ResultFuture<AmenitiesModel?> updateAmenities({
-    required String schoolId,
+    required String collegeId,
     required List<String> predefinedAmenities,
     List<String>? customAmenities,
   });
 
-  ResultFuture<AmenitiesModel?> getAmenitiesBySchoolId({
-    required String schoolId,
+  ResultFuture<AmenitiesModel?> getAmenitiesBycollegeId({
+    required String collegeId,
   });
 }

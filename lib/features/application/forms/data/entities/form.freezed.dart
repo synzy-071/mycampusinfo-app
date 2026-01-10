@@ -15,7 +15,7 @@ T _$identity<T>(T value) => value;
 /// @nodoc
 mixin _$Form {
 
-@JsonKey(name: '_id') String? get sId;@JsonKey(name: 'schoolId') SchoolModel? get school;@JsonKey(name: 'studId') User? get user;@JsonKey(name: 'interviewNote') String? get interviewNote;@FormStatusConverter() FormStatus? get status;@JsonKey(name: 'applicationId') StudentApplication? get application;@JsonKey(name: '__v') int? get iV; int? get amount;@StringOrPaymentStatusConverter() PaymentStatus? get payment; Payment? get paymentInfo;@DateTimeConverter() DateTime? get createdAt;@DateTimeConverter() DateTime? get updatedAt;
+@JsonKey(name: '_id') String? get sId;@JsonKey(name: 'collegeId') collegeModel? get school;@JsonKey(name: 'studId') User? get user;@JsonKey(name: 'interviewNote') String? get interviewNote;@FormStatusConverter() FormStatus? get status;@JsonKey(name: 'applicationId') StudentApplication? get application;@JsonKey(name: '__v') int? get iV; int? get amount;@StringOrPaymentStatusConverter() PaymentStatus? get payment; Payment? get paymentInfo;@DateTimeConverter() DateTime? get createdAt;@DateTimeConverter() DateTime? get updatedAt;
 /// Create a copy of Form
 /// with the given fields replaced by the non-null parameter values.
 @JsonKey(includeFromJson: false, includeToJson: false)
@@ -48,7 +48,7 @@ abstract mixin class $FormCopyWith<$Res>  {
   factory $FormCopyWith(Form value, $Res Function(Form) _then) = _$FormCopyWithImpl;
 @useResult
 $Res call({
-@JsonKey(name: '_id') String? sId,@JsonKey(name: 'schoolId') SchoolModel? school,@JsonKey(name: 'studId') User? user,@JsonKey(name: 'interviewNote') String? interviewNote,@FormStatusConverter() FormStatus? status,@JsonKey(name: 'applicationId') StudentApplication? application,@JsonKey(name: '__v') int? iV, int? amount,@StringOrPaymentStatusConverter() PaymentStatus? payment, Payment? paymentInfo,@DateTimeConverter() DateTime? createdAt,@DateTimeConverter() DateTime? updatedAt
+@JsonKey(name: '_id') String? sId,@JsonKey(name: 'collegeId') collegeModel? school,@JsonKey(name: 'studId') User? user,@JsonKey(name: 'interviewNote') String? interviewNote,@FormStatusConverter() FormStatus? status,@JsonKey(name: 'applicationId') StudentApplication? application,@JsonKey(name: '__v') int? iV, int? amount,@StringOrPaymentStatusConverter() PaymentStatus? payment, Payment? paymentInfo,@DateTimeConverter() DateTime? createdAt,@DateTimeConverter() DateTime? updatedAt
 });
 
 
@@ -69,7 +69,7 @@ class _$FormCopyWithImpl<$Res>
   return _then(_self.copyWith(
 sId: freezed == sId ? _self.sId : sId // ignore: cast_nullable_to_non_nullable
 as String?,school: freezed == school ? _self.school : school // ignore: cast_nullable_to_non_nullable
-as SchoolModel?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as collegeModel?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User?,interviewNote: freezed == interviewNote ? _self.interviewNote : interviewNote // ignore: cast_nullable_to_non_nullable
 as String?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as FormStatus?,application: freezed == application ? _self.application : application // ignore: cast_nullable_to_non_nullable
@@ -188,7 +188,7 @@ return $default(_that);case _:
 /// }
 /// ```
 
-@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  String? sId, @JsonKey(name: 'schoolId')  SchoolModel? school, @JsonKey(name: 'studId')  User? user, @JsonKey(name: 'interviewNote')  String? interviewNote, @FormStatusConverter()  FormStatus? status, @JsonKey(name: 'applicationId')  StudentApplication? application, @JsonKey(name: '__v')  int? iV,  int? amount, @StringOrPaymentStatusConverter()  PaymentStatus? payment,  Payment? paymentInfo, @DateTimeConverter()  DateTime? createdAt, @DateTimeConverter()  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
+@optionalTypeArgs TResult maybeWhen<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  String? sId, @JsonKey(name: 'collegeId')  collegeModel? school, @JsonKey(name: 'studId')  User? user, @JsonKey(name: 'interviewNote')  String? interviewNote, @FormStatusConverter()  FormStatus? status, @JsonKey(name: 'applicationId')  StudentApplication? application, @JsonKey(name: '__v')  int? iV,  int? amount, @StringOrPaymentStatusConverter()  PaymentStatus? payment,  Payment? paymentInfo, @DateTimeConverter()  DateTime? createdAt, @DateTimeConverter()  DateTime? updatedAt)?  $default,{required TResult orElse(),}) {final _that = this;
 switch (_that) {
 case _Form() when $default != null:
 return $default(_that.sId,_that.school,_that.user,_that.interviewNote,_that.status,_that.application,_that.iV,_that.amount,_that.payment,_that.paymentInfo,_that.createdAt,_that.updatedAt);case _:
@@ -209,7 +209,7 @@ return $default(_that.sId,_that.school,_that.user,_that.interviewNote,_that.stat
 /// }
 /// ```
 
-@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  String? sId, @JsonKey(name: 'schoolId')  SchoolModel? school, @JsonKey(name: 'studId')  User? user, @JsonKey(name: 'interviewNote')  String? interviewNote, @FormStatusConverter()  FormStatus? status, @JsonKey(name: 'applicationId')  StudentApplication? application, @JsonKey(name: '__v')  int? iV,  int? amount, @StringOrPaymentStatusConverter()  PaymentStatus? payment,  Payment? paymentInfo, @DateTimeConverter()  DateTime? createdAt, @DateTimeConverter()  DateTime? updatedAt)  $default,) {final _that = this;
+@optionalTypeArgs TResult when<TResult extends Object?>(TResult Function(@JsonKey(name: '_id')  String? sId, @JsonKey(name: 'collegeId')  collegeModel? school, @JsonKey(name: 'studId')  User? user, @JsonKey(name: 'interviewNote')  String? interviewNote, @FormStatusConverter()  FormStatus? status, @JsonKey(name: 'applicationId')  StudentApplication? application, @JsonKey(name: '__v')  int? iV,  int? amount, @StringOrPaymentStatusConverter()  PaymentStatus? payment,  Payment? paymentInfo, @DateTimeConverter()  DateTime? createdAt, @DateTimeConverter()  DateTime? updatedAt)  $default,) {final _that = this;
 switch (_that) {
 case _Form():
 return $default(_that.sId,_that.school,_that.user,_that.interviewNote,_that.status,_that.application,_that.iV,_that.amount,_that.payment,_that.paymentInfo,_that.createdAt,_that.updatedAt);case _:
@@ -229,7 +229,7 @@ return $default(_that.sId,_that.school,_that.user,_that.interviewNote,_that.stat
 /// }
 /// ```
 
-@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: '_id')  String? sId, @JsonKey(name: 'schoolId')  SchoolModel? school, @JsonKey(name: 'studId')  User? user, @JsonKey(name: 'interviewNote')  String? interviewNote, @FormStatusConverter()  FormStatus? status, @JsonKey(name: 'applicationId')  StudentApplication? application, @JsonKey(name: '__v')  int? iV,  int? amount, @StringOrPaymentStatusConverter()  PaymentStatus? payment,  Payment? paymentInfo, @DateTimeConverter()  DateTime? createdAt, @DateTimeConverter()  DateTime? updatedAt)?  $default,) {final _that = this;
+@optionalTypeArgs TResult? whenOrNull<TResult extends Object?>(TResult? Function(@JsonKey(name: '_id')  String? sId, @JsonKey(name: 'collegeId')  collegeModel? school, @JsonKey(name: 'studId')  User? user, @JsonKey(name: 'interviewNote')  String? interviewNote, @FormStatusConverter()  FormStatus? status, @JsonKey(name: 'applicationId')  StudentApplication? application, @JsonKey(name: '__v')  int? iV,  int? amount, @StringOrPaymentStatusConverter()  PaymentStatus? payment,  Payment? paymentInfo, @DateTimeConverter()  DateTime? createdAt, @DateTimeConverter()  DateTime? updatedAt)?  $default,) {final _that = this;
 switch (_that) {
 case _Form() when $default != null:
 return $default(_that.sId,_that.school,_that.user,_that.interviewNote,_that.status,_that.application,_that.iV,_that.amount,_that.payment,_that.paymentInfo,_that.createdAt,_that.updatedAt);case _:
@@ -244,11 +244,11 @@ return $default(_that.sId,_that.school,_that.user,_that.interviewNote,_that.stat
 @JsonSerializable()
 
 class _Form implements Form {
-  const _Form({@JsonKey(name: '_id') this.sId, @JsonKey(name: 'schoolId') this.school, @JsonKey(name: 'studId') this.user, @JsonKey(name: 'interviewNote') this.interviewNote, @FormStatusConverter() this.status, @JsonKey(name: 'applicationId') this.application, @JsonKey(name: '__v') this.iV, this.amount, @StringOrPaymentStatusConverter() this.payment, this.paymentInfo, @DateTimeConverter() this.createdAt, @DateTimeConverter() this.updatedAt});
+  const _Form({@JsonKey(name: '_id') this.sId, @JsonKey(name: 'collegeId') this.school, @JsonKey(name: 'studId') this.user, @JsonKey(name: 'interviewNote') this.interviewNote, @FormStatusConverter() this.status, @JsonKey(name: 'applicationId') this.application, @JsonKey(name: '__v') this.iV, this.amount, @StringOrPaymentStatusConverter() this.payment, this.paymentInfo, @DateTimeConverter() this.createdAt, @DateTimeConverter() this.updatedAt});
   factory _Form.fromJson(Map<String, dynamic> json) => _$FormFromJson(json);
 
 @override@JsonKey(name: '_id') final  String? sId;
-@override@JsonKey(name: 'schoolId') final  SchoolModel? school;
+@override@JsonKey(name: 'collegeId') final  collegeModel? school;
 @override@JsonKey(name: 'studId') final  User? user;
 @override@JsonKey(name: 'interviewNote') final  String? interviewNote;
 @override@FormStatusConverter() final  FormStatus? status;
@@ -293,7 +293,7 @@ abstract mixin class _$FormCopyWith<$Res> implements $FormCopyWith<$Res> {
   factory _$FormCopyWith(_Form value, $Res Function(_Form) _then) = __$FormCopyWithImpl;
 @override @useResult
 $Res call({
-@JsonKey(name: '_id') String? sId,@JsonKey(name: 'schoolId') SchoolModel? school,@JsonKey(name: 'studId') User? user,@JsonKey(name: 'interviewNote') String? interviewNote,@FormStatusConverter() FormStatus? status,@JsonKey(name: 'applicationId') StudentApplication? application,@JsonKey(name: '__v') int? iV, int? amount,@StringOrPaymentStatusConverter() PaymentStatus? payment, Payment? paymentInfo,@DateTimeConverter() DateTime? createdAt,@DateTimeConverter() DateTime? updatedAt
+@JsonKey(name: '_id') String? sId,@JsonKey(name: 'collegeId') collegeModel? school,@JsonKey(name: 'studId') User? user,@JsonKey(name: 'interviewNote') String? interviewNote,@FormStatusConverter() FormStatus? status,@JsonKey(name: 'applicationId') StudentApplication? application,@JsonKey(name: '__v') int? iV, int? amount,@StringOrPaymentStatusConverter() PaymentStatus? payment, Payment? paymentInfo,@DateTimeConverter() DateTime? createdAt,@DateTimeConverter() DateTime? updatedAt
 });
 
 
@@ -314,7 +314,7 @@ class __$FormCopyWithImpl<$Res>
   return _then(_Form(
 sId: freezed == sId ? _self.sId : sId // ignore: cast_nullable_to_non_nullable
 as String?,school: freezed == school ? _self.school : school // ignore: cast_nullable_to_non_nullable
-as SchoolModel?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
+as collegeModel?,user: freezed == user ? _self.user : user // ignore: cast_nullable_to_non_nullable
 as User?,interviewNote: freezed == interviewNote ? _self.interviewNote : interviewNote // ignore: cast_nullable_to_non_nullable
 as String?,status: freezed == status ? _self.status : status // ignore: cast_nullable_to_non_nullable
 as FormStatus?,application: freezed == application ? _self.application : application // ignore: cast_nullable_to_non_nullable

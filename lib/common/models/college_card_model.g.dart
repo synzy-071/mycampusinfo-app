@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'school_card_model.dart';
+part of 'college_card_model.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-_SchoolCardModel _$SchoolCardModelFromJson(Map<String, dynamic> json) =>
-    _SchoolCardModel(
-      schoolId: json['schoolId'] as String?,
+_CollegeCardModel _$CollegeCardModelFromJson(Map<String, dynamic> json) =>
+    _CollegeCardModel(
+      collegeId: json['collegeId'] as String?,
       ratings: (json['ratings'] as num?)?.toInt(),
       name: json['name'] as String?,
       feeRange: json['feeRange'] as String?,
@@ -28,12 +28,12 @@ _SchoolCardModel _$SchoolCardModelFromJson(Map<String, dynamic> json) =>
       amenities: (json['amenities'] as List<dynamic>?)
           ?.map((e) => e as String)
           .toList(),
-      schoolMode: json['schoolMode'] as String?,
+      collegeMode: json['collegeMode'] as String?,
     );
 
-Map<String, dynamic> _$SchoolCardModelToJson(_SchoolCardModel instance) =>
+Map<String, dynamic> _$CollegeCardModelToJson(_CollegeCardModel instance) =>
     <String, dynamic>{
-      'schoolId': instance.schoolId,
+      'collegeId': instance.collegeId,
       'ratings': instance.ratings,
       'name': instance.name,
       'feeRange': instance.feeRange,
@@ -47,5 +47,5 @@ Map<String, dynamic> _$SchoolCardModelToJson(_SchoolCardModel instance) =>
       'longitude': instance.longitude,
       'shifts': instance.shifts,
       'amenities': instance.amenities,
-      'schoolMode': instance.schoolMode,
+      'collegeMode': instance.collegeMode,
     };

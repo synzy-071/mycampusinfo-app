@@ -3,7 +3,7 @@ import 'package:mycampusinfo_app/core/index.dart';
 import 'package:mycampusinfo_app/features/search/data/entities/search_query.dart';
 
 abstract class SearchDataSource {
-  ResultFuture<List<SchoolCardModel>> search({
+  ResultFuture<List<CollegeCardModel>> search({
     required int page,
     SearchQuery? query,
   });

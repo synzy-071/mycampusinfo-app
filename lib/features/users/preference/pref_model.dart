@@ -6,7 +6,7 @@ class PreferenceModel {
   String? boards;
   String? preferredStandard;
   String? interests;
-  String? schoolType;
+  String? collegeType;
   String? shift;
   String? createdAt;
   String? updatedAt;
@@ -20,7 +20,7 @@ class PreferenceModel {
         this.boards,
         this.preferredStandard,
         this.interests,
-        this.schoolType,
+        this.collegeType,
         this.shift,
         this.createdAt,
         this.updatedAt,
@@ -34,7 +34,7 @@ class PreferenceModel {
     boards = json['boards'];
     preferredStandard = json['preferredStandard'];
     interests = json['interests'];
-    schoolType = json['schoolType'];
+    collegeType = json['collegeType'];
     shift = json['shift'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
@@ -50,7 +50,7 @@ class PreferenceModel {
     data['boards'] = this.boards;
     data['preferredStandard'] = this.preferredStandard;
     data['interests'] = this.interests;
-    data['schoolType'] = this.schoolType;
+    data['collegeType'] = this.collegeType;
     data['shift'] = this.shift;
     data['createdAt'] = this.createdAt;
     data['updatedAt'] = this.updatedAt;

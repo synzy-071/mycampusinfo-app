@@ -1,5 +1,5 @@
 class AmenitiesModel {
-  String? schoolId;
+  String? collegeId;
   List<String>? predefinedAmenities;
   List<String>? customAmenities;
   String? createdAt;
@@ -7,7 +7,7 @@ class AmenitiesModel {
   int? iV;
 
   AmenitiesModel({
-    this.schoolId,
+    this.collegeId,
     this.predefinedAmenities,
     this.customAmenities,
     this.createdAt,
@@ -16,7 +16,7 @@ class AmenitiesModel {
   });
 
   factory AmenitiesModel.fromJson(Map<String, dynamic> json) => AmenitiesModel(
-        schoolId: json['schoolId'] as String?,
+        collegeId: json['collegeId'] as String?,
         predefinedAmenities: (json['predefinedAmenities'] as List?)
                 ?.map((e) => e.toString())
                 .toList() ??
@@ -31,7 +31,7 @@ class AmenitiesModel {
       );
 
   Map<String, dynamic> toJson() => {
-        'schoolId': schoolId,
+        'collegeId': collegeId,
         'predefinedAmenities': predefinedAmenities ?? const [],
         'customAmenities': customAmenities ?? const [],
         'createdAt': createdAt,

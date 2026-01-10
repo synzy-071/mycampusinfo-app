@@ -3,7 +3,7 @@ import 'package:mycampusinfo_app/features/detailPages/technologyAdaption/data/en
 
 
 abstract class AbstractTechnologyAdoptionService {
-  ResultFuture<TechnologyAdoptionModel?> getTechnologyAdoptionBySchoolId({
-    required String schoolId,
+  ResultFuture<TechnologyAdoptionModel?> getTechnologyAdoptionBycollegeId({
+    required String collegeId,
   });
 }
