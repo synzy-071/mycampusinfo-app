@@ -5,7 +5,7 @@ class PrefViewModel extends ViewStateProvider {
   final PrefDataSourceImpl prefDataSourceImpl = PrefDataSourceImpl();
 
   Future<Failure?> addPreferences({
-    required String boards,
+
     required String preferredStandard,
     required String interests,
     required String collegeType,
@@ -16,7 +16,7 @@ class PrefViewModel extends ViewStateProvider {
     setViewState(ViewState.busy);
 
     final result = await prefDataSourceImpl.addPreferences(
-      boards: boards,
+   
       interests: interests,
       preferredStandard: preferredStandard,
       collegeType: collegeType,
@@ -59,7 +59,7 @@ Future<Failure?> fetchPreferences() async {
 }
 
   Future<Failure?> updatePreferences({
-    required String boards,
+
     required String preferredStandard,
     required String interests,
     required String collegeType,
@@ -70,7 +70,7 @@ Future<Failure?> fetchPreferences() async {
     setViewState(ViewState.busy);
 
     final result = await prefDataSourceImpl.updatePreferences(
-      boards: boards,
+ 
       interests: interests,
       preferredStandard: preferredStandard,
       collegeType: collegeType,

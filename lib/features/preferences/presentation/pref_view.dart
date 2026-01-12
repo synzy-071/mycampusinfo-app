@@ -391,7 +391,7 @@ class _PrefViewState extends State<PrefView> {
                         SButton(
                           label: widget.isEdit ? 'Edit' : 'Submit',
                           onPressed: () async {
-                            String boards = boardController.text.trim();
+                           
                             String standard = standardController.text.trim();
                             String frontendInterest = interestController.text
                                 .trim();
@@ -408,8 +408,8 @@ class _PrefViewState extends State<PrefView> {
                             if (standard.isEmpty ||
                                 interest.isEmpty ||
                                 collegeType.isEmpty ||
-                                shifts.isEmpty ||
-                                boards.isEmpty) {
+                                shifts.isEmpty 
+                                ) {
                               Toasts.showErrorToast(
                                 context,
                                 message: 'Please fill all the fields',
@@ -447,7 +447,7 @@ class _PrefViewState extends State<PrefView> {
                                 if (widget.isEdit) {
                                   failure = await prefViewModel
                                       .updatePreferences(
-                                        boards: boards,
+                                    
                                         preferredStandard: standard,
                                         interests: interest,
                                         collegeType: collegeType,
@@ -455,7 +455,7 @@ class _PrefViewState extends State<PrefView> {
                                       );
                                 } else {
                                   failure = await prefViewModel.addPreferences(
-                                    boards: boards,
+                              
                                     preferredStandard: standard,
                                     interests: interest,
                                     collegeType: collegeType,

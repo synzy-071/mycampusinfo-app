@@ -1142,7 +1142,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                    CoursesView(collegeId: widget.collegeId),
                   FacultyView(collegeId: widget.collegeId),
                   InfrastructureView(collegeId: widget.collegeId),
-                  TechnologyAdoptionView(collegeId: widget.collegeId),
+                  // TechnologyAdoptionView(collegeId: widget.collegeId),
                   ActivityView(collegeId: widget.collegeId),
                   SafetyAndSecurityView(collegeId: widget.collegeId),
                   InternationalExposureView(collegeId: widget.collegeId),

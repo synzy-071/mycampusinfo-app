@@ -18,7 +18,7 @@ class PrefDataSourceImpl implements PrefDataSource {
 
   @override
   ResultFuture<UserPref?> addPreferences({
-    required String boards,
+  
     required String preferredStandard,
     required String interests,
     required String collegeType,
@@ -59,7 +59,7 @@ class PrefDataSourceImpl implements PrefDataSource {
 
   @override
   ResultFuture<UserPref?> updatePreferences({
-    required String boards,
+
     required String preferredStandard,
     required String interests,
     required String collegeType,

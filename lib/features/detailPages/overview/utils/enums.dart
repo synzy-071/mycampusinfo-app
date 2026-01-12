@@ -4,7 +4,7 @@ enum DetailTabEnum {
   facultyDetails,
   infrastructure,
 
-  techAdaption,
+  // techAdaption,
   activities,
   safetySecurity,
   internationalExposure,
@@ -29,8 +29,8 @@ extension DetailTabEnumExtension on DetailTabEnum {
         return 'Faculty Details';
       case DetailTabEnum.infrastructure:
         return 'Infrastructure';
-      case DetailTabEnum.techAdaption:
-        return 'Tech Adaption';
+      // case DetailTabEnum.techAdaption:
+      //   return 'Tech Adaption';
       case DetailTabEnum.activities:
         return 'Activities';
       case DetailTabEnum.safetySecurity:
