@@ -1,17 +1,21 @@
-import 'dart:convert';
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
-
 import 'package:mycampusinfo_app/core/index.dart'
-    show ResultFuture, Request, NetworkService, RequestMethod, getIt, APIException;
-
+    show
+        ResultFuture,
+        Request,
+        NetworkService,
+        RequestMethod,
+        getIt,
+        APIException,
+        Endpoints;
 import 'package:mycampusinfo_app/features/application/pdfModule/data/data_source/pdf_data_source.dart';
 
 class StudentPdfDataSourceImpl implements StudentPdfDataSource {
   final NetworkService _network = getIt<NetworkService>();
 
   // BASE URL
-  static const String _baseUrl = 'http://localhost:8080/api/users/';
+  static const String _baseUrl = '${Endpoints.baseUrl}users/';
 
   final Dio _dio = Dio(
     BaseOptions(
@@ -41,18 +45,14 @@ class StudentPdfDataSourceImpl implements StudentPdfDataSource {
     try {
       final endpoint = "${_baseUrl}pdf/generate/$studId/$applicationId";
 
-      final r = Request(
-        method: RequestMethod.post,
-        endpoint: endpoint,
-      );
+      final r = Request(method: RequestMethod.post, endpoint: endpoint);
 
       final res = await _network.request(r);
       final map = res.data as Map<String, dynamic>?;
 
-      final ok = (map?["message"] ?? "")
-          .toString()
-          .toLowerCase()
-          .contains("pdf generated");
+      final ok = (map?["message"] ?? "").toString().toLowerCase().contains(
+        "pdf generated",
+      );
 
       return Right(ok);
     } catch (e) {

@@ -1,80 +1,18 @@
-class AdmissionTimelineModel {
-  final String? id;
-  final String? collegeId;
-  final List<TimelineEntryModel> timelines;
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-  AdmissionTimelineModel({
-    this.id,
-    this.collegeId,
-    this.timelines = const [],
-  });
+import 'timeline.dart';
 
-  factory AdmissionTimelineModel.fromJson(Map<String, dynamic> json) {
-    return AdmissionTimelineModel(
-      id: json['_id'] as String?,
-      collegeId: json['collegeId'] as String?,
-      timelines: (json['timelines'] as List<dynamic>?)
-              ?.map((e) => TimelineEntryModel.fromJson(e as Map<String, dynamic>))
-              .toList() ??
-          const [],
-    );
-  }
-}
+part 'admission-model.freezed.dart';
+part 'admission-model.g.dart';
 
-class TimelineEntryModel {
-  final DateTime? admissionStartDate;
-  final DateTime? admissionEndDate;
-  final String? status;
-  final List<String> documentsRequired;
-  final EligibilityModel? eligibility;
-  final num? applicationFee;
+@freezed
+abstract class AdmissionTimeline with _$AdmissionTimeline {
+  const factory AdmissionTimeline({
+    String? id,
+    String? collegeId,
+    List<TimeLine>? timelines,
+  }) = _AdmissionTimeline;
 
-  TimelineEntryModel({
-    this.admissionStartDate,
-    this.admissionEndDate,
-    this.status,
-    this.documentsRequired = const [],
-    this.eligibility,
-        this.applicationFee,
-  });
-
-  factory TimelineEntryModel.fromJson(Map<String, dynamic> json) {
-    return TimelineEntryModel(
-      admissionStartDate: DateTime.tryParse(json['admissionStartDate'] ?? ''),
-      applicationFee: json['applicationFee'] is num
-          ? json['applicationFee'] as num
-          : (json['applicationFee'] != null ? num.tryParse(json['applicationFee'].toString()) : null),
-    
-      admissionEndDate: DateTime.tryParse(json['admissionEndDate'] ?? ''),
-      
-      status: json['status'] as String?,
-      documentsRequired: (json['documentsRequired'] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          const [],
-      eligibility: json['eligibility'] != null
-          ? EligibilityModel.fromJson(json['eligibility'])
-          : null,
-    );
-  }
-}
-
-class EligibilityModel {
-  final String? admissionLevel;
-  final String? ageCriteria;
-  final String? otherInfo;
-
-  EligibilityModel({
-    this.admissionLevel,
-    this.ageCriteria,
-    this.otherInfo,
-  });
-
-  factory EligibilityModel.fromJson(Map<String, dynamic> json) {
-    return EligibilityModel(
-      admissionLevel: json['admissionLevel'] as String?,
-      ageCriteria: json['ageCriteria'] as String?,
-      otherInfo: json['otherInfo'] as String?,
-    );
-  }
+  factory AdmissionTimeline.fromJson(Map<String, dynamic> json) =>
+      _$AdmissionTimelineFromJson(json);
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:mycampusinfo_app/common/index.dart';
 import 'package:mycampusinfo_app/core/index.dart';
 import 'package:mycampusinfo_app/features/application/forms/presentation/view_models/my_form_view_model.dart';
@@ -10,6 +9,7 @@ import 'package:mycampusinfo_app/features/detailPages/overview/presentation/widg
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/widgets/quick_highlight_widget.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/widgets/recruiter_chip_widget.dart';
 import 'package:mycampusinfo_app/features/users/shortlist/index.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class SchoolDetailView extends StatefulWidget {
@@ -74,9 +74,8 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
   void _handleTabSelection() {
     if (_tabController.indexIsChanging) {
       final name = _vm.school?.name ?? 'School';
-      final id =
-          widget
-              .collegeId; // Using id for clarity, though not strictly needed here
+      final id = widget
+          .collegeId; // Using id for clarity, though not strictly needed here
 
       switch (_tabController.index) {
         // Index 0: "Overview" - typically not routed, handled by default
@@ -209,7 +208,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
   }
 
   int calculateMatchPercentage({
-    required collegeModel school,
+    required CollegeModel school,
     required UserPref userPref,
   }) {
     int totalCriteria =
@@ -235,8 +234,6 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
         matched++;
       }
     }
-
-   
 
     // 4. School Type (UserPref) vs School Tags (collegeModel)
     if (userPref.collegeType != null &&
@@ -303,60 +300,52 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                 onTap: () => context.pop(),
               ),
               title: school?.name ?? "School",
-              actions:
-                  !getIt<AppStateProvider>().isGuest
-                      ? [
-                        ChangeNotifierProvider.value(
-                          value: shortlistViewModel,
-                          child: Selector<ShortlistViewModel, bool>(
-                            selector: (_, vm) => vm.isLoading,
-                            builder: (vmContext, isSaving, _) {
-                              if (isSaving) {
-                                return SLoadingIndicator(
-                                  size: 24,
-                                  thickness: 3,
-                                );
-                              }
+              actions: !getIt<AppStateProvider>().isGuest
+                  ? [
+                      ChangeNotifierProvider.value(
+                        value: shortlistViewModel,
+                        child: Selector<ShortlistViewModel, bool>(
+                          selector: (_, vm) => vm.isLoading,
+                          builder: (vmContext, isSaving, _) {
+                            if (isSaving) {
+                              return SLoadingIndicator(size: 24, thickness: 3);
+                            }
 
-                              return ValueListenableBuilder(
-                                valueListenable: isSaved,
-                                builder:
-                                    (_, vIsSaved, __) => SIcon(
-                                      icon:
-                                          !vIsSaved
-                                              ? Icons.bookmark_outline
-                                              : Icons.bookmark,
-                                      color: SColor.secTextColor,
-                                      size: 28,
-                                      onTap: () async {
-                                        final failure;
-                                        vIsSaved
-                                            ? failure = await shortlistViewModel
-                                                .removeShortlist(
-                                                  collegeId:
-                                                      _vm.school?.id ?? '',
-                                                )
-                                            : failure = await shortlistViewModel
-                                                .addShortlist(
-                                                  collegeId:
-                                                      _vm.school?.id ?? '',
-                                                );
-                                        if (failure == null) {
-                                          isSaved.value = !vIsSaved;
-                                          Toasts.showSuccessToast(
-                                            context,
-                                            message:
-                                                '${!vIsSaved ? 'Added to' : 'Removed from'} Shortlist',
-                                          );
-                                        }
-                                      },
-                                    ),
-                              );
-                            },
-                          ),
+                            return ValueListenableBuilder(
+                              valueListenable: isSaved,
+                              builder: (_, vIsSaved, __) => SIcon(
+                                icon: !vIsSaved
+                                    ? Icons.bookmark_outline
+                                    : Icons.bookmark,
+                                color: SColor.secTextColor,
+                                size: 28,
+                                onTap: () async {
+                                  final failure;
+                                  vIsSaved
+                                      ? failure = await shortlistViewModel
+                                            .removeShortlist(
+                                              collegeId: _vm.school?.id ?? '',
+                                            )
+                                      : failure = await shortlistViewModel
+                                            .addShortlist(
+                                              collegeId: _vm.school?.id ?? '',
+                                            );
+                                  if (failure == null) {
+                                    isSaved.value = !vIsSaved;
+                                    Toasts.showSuccessToast(
+                                      context,
+                                      message:
+                                          '${!vIsSaved ? 'Added to' : 'Removed from'} Shortlist',
+                                    );
+                                  }
+                                },
+                              ),
+                            );
+                          },
                         ),
-                      ]
-                      : [],
+                      ),
+                    ]
+                  : [],
             ),
             body: Builder(
               builder: (_) {
@@ -510,86 +499,87 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                                     ),
                                   ),
                                   const SizedBox(width: 8),
-                                //  
-                                //     child: ChangeNotifierProvider.value(
-                                //       value: myFormViewModel,
-                                //       child: Selector<MyFormViewModel, bool>(
-                                //         selector: (_, vm) => vm.isLoading,
-                                //         builder:
-                                //             (_, isLoading, __) =>
-                                //                 isLoading
-                                //                     ? Center(
-                                //                       child: SLoadingIndicator(
-                                //                         color: Colors.blue,
-                                //                       ),
-                                //                     )
-                                //                     : SButton(
-                                //                       onPressed: () async {
-                                //                         if (appStateProvider
-                                //                             .isGuest) {
-                                //                           Toasts.showInfoToast(
-                                //                             context,
-                                //                             message:
-                                //                                 'Please log in to apply',
-                                //                           );
-                                //                         } else {
-                                //                           if (_vm.isApplied) {
-                                //                             return;
-                                //                           }
-                                //                           final failure =
-                                //                               await myFormViewModel
-                                //                                   .submitForm(
-                                //                                     applicationId:
-                                //                                         '', // You may need to provide a valid ID here
-                                //                                     collegeId:
-                                //                                         widget
-                                //                                             .collegeId,
-                                //                                   );
-                                //                           Toasts.showSuccessOrFailureToast(
-                                //                             context,
-                                //                             failure: failure,
-                                //                             popOnSuccess: false,
-                                //                             hideSuccess: true,
-                                //                             successCallback: () {
-                                //                               _vm.appliedFormModel =
-                                //                                   AppliedFormModel(
-                                //                                     status:
-                                //                                         FormStatus
-                                //                                             .pending,
-                                //                                     isApplied:
-                                //                                         true,
-                                //                                   );
-                                //                             },
-                                //                           );
-                                //                         }
-                                //                       }, // <-- This brace closes the onPressed callback
-                                //                       backgroundColor:
-                                //                           _vm.isApplied
-                                //                               ? Colors.grey
-                                //                               : Colors.blue,
-                                //                       padding:
-                                //                           const EdgeInsets.symmetric(
-                                //                             vertical: 14,
-                                //                           ),
-                                //                       label: '',
-                                //                       max: true,
-                                //                       text: Text(
-                                //                         _vm.isApplied
-                                //                             ? 'Applied'
-                                //                             : "Apply",
-                                //                         style: TextStyle(
-                                //                           fontSize: infoFont,
-                                //                           color: Colors.white,
-                                //                           fontWeight:
-                                //                               FontWeight.bold,
-                                //                         ),
-                                //                       ),
-                                //                     ), // <-- This parenthesis closes the SButton widget
-                                //       ),
-                                //     ),
-                                //   ),
-                                // ],
-                            ],),
+                                  //
+                                  //     child: ChangeNotifierProvider.value(
+                                  //       value: myFormViewModel,
+                                  //       child: Selector<MyFormViewModel, bool>(
+                                  //         selector: (_, vm) => vm.isLoading,
+                                  //         builder:
+                                  //             (_, isLoading, __) =>
+                                  //                 isLoading
+                                  //                     ? Center(
+                                  //                       child: SLoadingIndicator(
+                                  //                         color: Colors.blue,
+                                  //                       ),
+                                  //                     )
+                                  //                     : SButton(
+                                  //                       onPressed: () async {
+                                  //                         if (appStateProvider
+                                  //                             .isGuest) {
+                                  //                           Toasts.showInfoToast(
+                                  //                             context,
+                                  //                             message:
+                                  //                                 'Please log in to apply',
+                                  //                           );
+                                  //                         } else {
+                                  //                           if (_vm.isApplied) {
+                                  //                             return;
+                                  //                           }
+                                  //                           final failure =
+                                  //                               await myFormViewModel
+                                  //                                   .submitForm(
+                                  //                                     applicationId:
+                                  //                                         '', // You may need to provide a valid ID here
+                                  //                                     collegeId:
+                                  //                                         widget
+                                  //                                             .collegeId,
+                                  //                                   );
+                                  //                           Toasts.showSuccessOrFailureToast(
+                                  //                             context,
+                                  //                             failure: failure,
+                                  //                             popOnSuccess: false,
+                                  //                             hideSuccess: true,
+                                  //                             successCallback: () {
+                                  //                               _vm.appliedFormModel =
+                                  //                                   AppliedFormModel(
+                                  //                                     status:
+                                  //                                         FormStatus
+                                  //                                             .pending,
+                                  //                                     isApplied:
+                                  //                                         true,
+                                  //                                   );
+                                  //                             },
+                                  //                           );
+                                  //                         }
+                                  //                       }, // <-- This brace closes the onPressed callback
+                                  //                       backgroundColor:
+                                  //                           _vm.isApplied
+                                  //                               ? Colors.grey
+                                  //                               : Colors.blue,
+                                  //                       padding:
+                                  //                           const EdgeInsets.symmetric(
+                                  //                             vertical: 14,
+                                  //                           ),
+                                  //                       label: '',
+                                  //                       max: true,
+                                  //                       text: Text(
+                                  //                         _vm.isApplied
+                                  //                             ? 'Applied'
+                                  //                             : "Apply",
+                                  //                         style: TextStyle(
+                                  //                           fontSize: infoFont,
+                                  //                           color: Colors.white,
+                                  //                           fontWeight:
+                                  //                               FontWeight.bold,
+                                  //                         ),
+                                  //                       ),
+                                  //                     ), // <-- This parenthesis closes the SButton widget
+                                  //       ),
+                                  //     ),
+                                  //   ),
+                                  // ],
+                                ],
+                              ),
                             ],
                           ),
                         ),
@@ -636,13 +626,13 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                                 child: InfoChip(
                                   topText:
                                       (school.createdAt ?? "")
-                                              .split("T")
-                                              .first
-                                              .isEmpty
-                                          ? "-"
-                                          : (school.createdAt ?? "")
-                                              .split("T")
-                                              .first,
+                                          .split("T")
+                                          .first
+                                          .isEmpty
+                                      ? "-"
+                                      : (school.createdAt ?? "")
+                                            .split("T")
+                                            .first,
                                   bottomText: "Since",
                                   fontSize: infoFont,
                                   isSmallScreen: isSmall,
@@ -695,18 +685,17 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                       child: TabBarView(
                         controller: _tabController,
                         physics: const NeverScrollableScrollPhysics(),
-                        children:
-                            _tabs.map((tab) {
-                              if (tab == "Overview") {
-                                return OverviewTab(school: school);
-                              }
-                              return Center(
-                                child: Text(
-                                  "Tap on '$tab' tab to view details",
-                                  style: TextStyle(fontSize: infoFont),
-                                ),
-                              );
-                            }).toList(),
+                        children: _tabs.map((tab) {
+                          if (tab == "Overview") {
+                            return OverviewTab(school: school);
+                          }
+                          return Center(
+                            child: Text(
+                              "Tap on '$tab' tab to view details",
+                              style: TextStyle(fontSize: infoFont),
+                            ),
+                          );
+                        }).toList(),
                       ),
                     ),
                   ],
@@ -722,8 +711,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
 
 class OverviewTab extends StatelessWidget {
   const OverviewTab({required this.school});
-  final collegeModel school;
-  
+  final CollegeModel school;
 
   @override
   Widget build(BuildContext context) {
@@ -733,17 +721,15 @@ class OverviewTab extends StatelessWidget {
     // Fee parsing
     final feeParts = (school.feeRange ?? "").split(RegExp(r'[-–]'));
     final feeLow = feeParts.isNotEmpty ? feeParts.first.trim() : '-';
-    final feeHigh =
-        feeParts.length > 1
-            ? feeParts.last.trim()
-            : (feeParts.isNotEmpty ? feeParts.first.trim() : '-');
+    final feeHigh = feeParts.length > 1
+        ? feeParts.last.trim()
+        : (feeParts.isNotEmpty ? feeParts.first.trim() : '-');
 
     return SingleChildScrollView(
       padding: const EdgeInsets.all(16.0),
       child: Column(
         children: [
           // --- SOCIAL MEDIA PRESENCE SECTION AT TOP ---
-         
           const SizedBox(height: 5),
 
           // Quick Highlights Section
@@ -813,12 +799,12 @@ class OverviewTab extends StatelessWidget {
                   (school.tags?.isNotEmpty == true
                           ? school.tags!
                           : (school.specialist?.isNotEmpty == true
-                              ? school.specialist!
-                              : const [
-                                "E-Library",
-                                "Science Lab",
-                                "Computer Lab",
-                              ]))
+                                ? school.specialist!
+                                : const [
+                                    "E-Library",
+                                    "Science Lab",
+                                    "Computer Lab",
+                                  ]))
                       .map(
                         (e) => RecruiterChip(label: e, isSmallScreen: isSmall),
                       )
@@ -846,7 +832,7 @@ class FeeRangeDisplay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final colors = context.watch<ThemeProvider>().colors;
+    final colors = context.watch<ThemeProvider>().colors;
     return Material(
       elevation: 4,
       shadowColor: colors.greyShadowColor, // ✅ grey shadow
@@ -878,9 +864,12 @@ class FeeRangeDisplay extends StatelessWidget {
                 Expanded(
                   child: Column(
                     children: [
-                  Text(
+                      Text(
                         'MINIMUM',
-                        style: TextStyle(fontSize: 12, color: colors.greyShadowColor),
+                        style: TextStyle(
+                          fontSize: 12,
+                          color: colors.greyShadowColor,
+                        ),
                       ),
                       Text(
                         feeLow,
@@ -893,11 +882,7 @@ class FeeRangeDisplay extends StatelessWidget {
                     ],
                   ),
                 ),
-                Container(
-                  width: 1,
-                  height: 32,
-                  color: colors.greyShadowColor,
-                ),
+                Container(width: 1, height: 32, color: colors.greyShadowColor),
                 Expanded(
                   child: Column(
                     children: [
@@ -929,9 +914,7 @@ class FeeRangeDisplay extends StatelessWidget {
   }
 }
 
-
 class TitledCard extends StatelessWidget {
-  
   final String title;
   final IconData icon;
   final Widget child;
@@ -947,7 +930,7 @@ class TitledCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-     final colors = context.watch<ThemeProvider>().colors;
+    final colors = context.watch<ThemeProvider>().colors;
     return Material(
       elevation: 6,
       shadowColor: colors.greyShadowColor, // ✅ grey shadow
@@ -969,9 +952,9 @@ class TitledCard extends StatelessWidget {
                 Text(
                   title,
                   style: Theme.of(context).textTheme.titleMedium?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        color: colors.amberColor,
-                      ),
+                    fontWeight: FontWeight.bold,
+                    color: colors.amberColor,
+                  ),
                 ),
               ],
             ),

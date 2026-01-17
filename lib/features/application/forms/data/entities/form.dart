@@ -3,6 +3,7 @@ import 'package:mycampusinfo_app/common/index.dart';
 import 'package:mycampusinfo_app/features/application/applications/data/entities/applications_model.dart';
 import 'package:mycampusinfo_app/features/application/forms/index.dart';
 import 'package:mycampusinfo_app/features/application/forms/presentation/widgets/date_time_converter.dart';
+import 'package:mycampusinfo_app/features/detailPages/admission-timeline/data/entities/index.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_model.dart';
 import 'package:mycampusinfo_app/features/payments/data/entities/payment.dart';
 import 'package:mycampusinfo_app/features/payments/utils/convertor.dart';
@@ -15,7 +16,10 @@ part 'form.g.dart';
 abstract class Form with _$Form {
   const factory Form({
     @JsonKey(name: '_id') String? sId,
-    @JsonKey(name: 'collegeId') collegeModel? school,
+    @JsonKey(name: 'collegeId') CollegeModel? school,
+    @StringOrTimeLineConverter()
+    @JsonKey(name: 'timelineId')
+    TimeLine? timelineId,
     @JsonKey(name: 'studId') User? user,
     @JsonKey(name: 'interviewNote') String? interviewNote,
     @FormStatusConverter() FormStatus? status,

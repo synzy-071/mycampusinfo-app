@@ -1,18 +1,19 @@
 import 'package:dartz/dartz.dart';
 import 'package:mycampusinfo_app/core/network/index.dart';
 import 'package:mycampusinfo_app/features/detailPages/admission-timeline/data/entities/admission-model.dart';
+
 import 'data_source.dart';
 
 class AdmissionTimelineService implements AbstractAdmissionTimelineService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<AdmissionTimelineModel?> getAdmissionTimelineBycollegeId({
+  ResultFuture<AdmissionTimeline?> getAdmissionTimelineBycollegeId({
     required String collegeId,
   }) async {
     // Make sure Endpoints.admissionTimeline is defined
     final endpoint = "${Endpoints.adminAdmissionTimeline}/$collegeId";
-    
+
     Request r = Request(method: RequestMethod.get, endpoint: endpoint);
 
     try {
@@ -20,7 +21,7 @@ class AdmissionTimelineService implements AbstractAdmissionTimelineService {
       final response = result.data as Map<String, dynamic>;
 
       if (response.isNotEmpty && response['data'] != null) {
-        final model = AdmissionTimelineModel.fromJson(response['data']);
+        final model = AdmissionTimeline.fromJson(response['data']);
         return Right(model);
       }
     } catch (e) {

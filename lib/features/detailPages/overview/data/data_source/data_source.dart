@@ -3,7 +3,7 @@ import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/app
 import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_model.dart';
 
 abstract class OverviewDataSource {
-  ResultFuture<collegeModel?> addSchool({
+  ResultFuture<CollegeModel?> addSchool({
     required String name,
     required String description,
     required String board,
@@ -28,7 +28,7 @@ abstract class OverviewDataSource {
     String? linkedinHandle,
   });
 
-  ResultFuture<collegeModel?> updateSchool({
+  ResultFuture<CollegeModel?> updateSchool({
     required String id,
     required String name,
     required String description,
@@ -56,9 +56,11 @@ abstract class OverviewDataSource {
 
   ResultFuture<String?> deleteSchool({required String id});
 
-  ResultFuture<collegeModel?> getSchoolById({required String id});
+  ResultFuture<CollegeModel?> getSchoolById({required String id});
 
-  ResultFuture<List<collegeModel>?> getSchoolsByStatus({required String status});
+  ResultFuture<List<CollegeModel>?> getSchoolsByStatus({
+    required String status,
+  });
 
   ResultFuture<AppliedFormModel?> getIsSchoolApplied({
     required String collegeId,

@@ -7,7 +7,7 @@ class OverviewDataSourceImpl {
   final NetworkService _networkService = NetworkService();
 
   // 🏫 ADD SCHOOL
-  ResultFuture<collegeModel?> addSchool({
+  ResultFuture<CollegeModel?> addSchool({
     required String name,
     required String description,
     required String board,
@@ -63,7 +63,7 @@ class OverviewDataSourceImpl {
       final result = await _networkService.request(r);
       final response = result.data as Map<String, dynamic>;
       if (response.isNotEmpty) {
-        final school = collegeModel.fromJson(response['data']);
+        final school = CollegeModel.fromJson(response['data']);
         return Right(school);
       }
     } catch (e) {
@@ -72,10 +72,8 @@ class OverviewDataSourceImpl {
     return Right(null);
   }
 
-  
-
   // 🏫 UPDATE SCHOOL
-  ResultFuture<collegeModel?> updateSchool({
+  ResultFuture<CollegeModel?> updateSchool({
     required String id,
     required String name,
     required String description,
@@ -132,7 +130,7 @@ class OverviewDataSourceImpl {
       final result = await _networkService.request(r);
       final response = result.data as Map<String, dynamic>;
       if (response.isNotEmpty) {
-        final school = collegeModel.fromJson(response['data']);
+        final school = CollegeModel.fromJson(response['data']);
         return Right(school);
       }
     } catch (e) {
@@ -163,7 +161,7 @@ class OverviewDataSourceImpl {
   }
 
   // 🏫 GET SCHOOL BY ID
-  ResultFuture<collegeModel?> getSchoolById({required String id}) async {
+  ResultFuture<CollegeModel?> getSchoolById({required String id}) async {
     Request r = Request(
       method: RequestMethod.get,
       endpoint: "${Endpoints.adminSchools}/$id",
@@ -173,7 +171,7 @@ class OverviewDataSourceImpl {
       final result = await _networkService.request(r);
       final response = result.data as Map<String, dynamic>;
       if (response.isNotEmpty) {
-        final school = collegeModel.fromJson(response['data']);
+        final school = CollegeModel.fromJson(response['data']);
         return Right(school);
       }
     } catch (e) {
@@ -183,7 +181,7 @@ class OverviewDataSourceImpl {
   }
 
   // 🏫 GET SCHOOLS BY STATUS
-  ResultFuture<List<collegeModel>?> getSchoolsByStatus({
+  ResultFuture<List<CollegeModel>?> getSchoolsByStatus({
     required String status,
   }) async {
     Request r = Request(
@@ -196,8 +194,9 @@ class OverviewDataSourceImpl {
       final response = result.data as Map<String, dynamic>;
       if (response.isNotEmpty) {
         final List<dynamic> schoolsData = response['data'];
-        final List<collegeModel> schools =
-            schoolsData.map((json) => collegeModel.fromJson(json)).toList();
+        final List<CollegeModel> schools = schoolsData
+            .map((json) => CollegeModel.fromJson(json))
+            .toList();
         return Right(schools);
       }
     } catch (e) {
@@ -231,7 +230,4 @@ class OverviewDataSourceImpl {
     }
     return Right(null);
   }
-
-
-
 }

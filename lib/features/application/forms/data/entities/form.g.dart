@@ -10,7 +10,8 @@ _Form _$FormFromJson(Map<String, dynamic> json) => _Form(
   sId: json['_id'] as String?,
   school: json['collegeId'] == null
       ? null
-      : collegeModel.fromJson(json['collegeId'] as Map<String, dynamic>),
+      : CollegeModel.fromJson(json['collegeId'] as Map<String, dynamic>),
+  timelineId: const StringOrTimeLineConverter().fromJson(json['timelineId']),
   user: json['studId'] == null
       ? null
       : User.fromJson(json['studId'] as Map<String, dynamic>),
@@ -40,6 +41,7 @@ _Form _$FormFromJson(Map<String, dynamic> json) => _Form(
 Map<String, dynamic> _$FormToJson(_Form instance) => <String, dynamic>{
   '_id': instance.sId,
   'collegeId': instance.school,
+  'timelineId': const StringOrTimeLineConverter().toJson(instance.timelineId),
   'studId': instance.user,
   'interviewNote': instance.interviewNote,
   'status': _$JsonConverterToJson<String, FormStatus>(

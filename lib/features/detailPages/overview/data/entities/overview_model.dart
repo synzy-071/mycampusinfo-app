@@ -1,6 +1,6 @@
 import 'package:mycampusinfo_app/common/index.dart';
 
-class collegeModel {
+class CollegeModel {
   String? id;
   String? name;
   String? description;
@@ -31,7 +31,7 @@ class collegeModel {
   String? twitterHandle;
   String? linkedinHandle;
 
-  collegeModel({
+  CollegeModel({
     this.id,
     this.name,
     this.description,
@@ -61,63 +61,76 @@ class collegeModel {
     this.linkedinHandle,
   });
 
-  factory collegeModel.fromJson(Map<String, dynamic> json) => collegeModel(
-        id: json['_id'] as String?,
-        name: json['name'] as String?,
-        description: json['description'] as String?,
-        board: json['board'] as String?,
-        state: json['state'] as String?,
-        city: json['city'] as String?,
-        collegeMode: json['collegeMode'] as String?,
-        genderType: json['genderType'] as String?,
-        shifts: (json['shifts'] as List?)?.map((e) => e.toString()).toList() ?? const [],
-        photos: (json['photos'] as List?)?.map((e)=> Photo.fromJson(e as Map<String,dynamic>)).toList() ?? const [],
-        feeRange: json['feeRange'] as String?,
-        upto: json['upto'] as String?,
-        email: json['email'] as String?,
-        specialist: (json['specialist'] as List?)?.map((e) => e.toString()).toList() ?? const [],
-        tags: (json['tags'] as List?)?.map((e) => e.toString()).toList() ?? const [],
-        website: json['website'] as String?,
-        rank: json['rank'] as String?,
-        status: json['status'] as String?,
-        mobileNo: json['mobileNo'] as String?,
-        languageMedium: (json['languageMedium'] as List?)?.map((e) => e.toString()).toList() ?? const [],
-        transportAvailable: json['transportAvailable'] as String?,
-        createdAt: json['createdAt'] as String?,
-        updatedAt: json['updatedAt'] as String?,
-        iV: json['__v'] is int ? json['__v'] as int : int.tryParse('${json['__v'] ?? ''}'),
-        instagramHandle: json['instagramHandle'] as String?,
-        twitterHandle: json['twitterHandle'] as String?,
-        linkedinHandle: json['linkedinHandle'] as String?,
-      );
+  factory CollegeModel.fromJson(Map<String, dynamic> json) => CollegeModel(
+    id: json['_id'] as String?,
+    name: json['name'] as String?,
+    description: json['description'] as String?,
+    board: json['board'] as String?,
+    state: json['state'] as String?,
+    city: json['city'] as String?,
+    collegeMode: json['collegeMode'] as String?,
+    genderType: json['genderType'] as String?,
+    shifts:
+        (json['shifts'] as List?)?.map((e) => e.toString()).toList() ??
+        const [],
+    photos:
+        (json['photos'] as List?)
+            ?.map((e) => Photo.fromJson(e as Map<String, dynamic>))
+            .toList() ??
+        const [],
+    feeRange: json['feeRange'] as String?,
+    upto: json['upto'] as String?,
+    email: json['email'] as String?,
+    specialist:
+        (json['specialist'] as List?)?.map((e) => e.toString()).toList() ??
+        const [],
+    tags:
+        (json['tags'] as List?)?.map((e) => e.toString()).toList() ?? const [],
+    website: json['website'] as String?,
+    rank: json['rank'] as String?,
+    status: json['status'] as String?,
+    mobileNo: json['mobileNo'] as String?,
+    languageMedium:
+        (json['languageMedium'] as List?)?.map((e) => e.toString()).toList() ??
+        const [],
+    transportAvailable: json['transportAvailable'] as String?,
+    createdAt: json['createdAt'] as String?,
+    updatedAt: json['updatedAt'] as String?,
+    iV: json['__v'] is int
+        ? json['__v'] as int
+        : int.tryParse('${json['__v'] ?? ''}'),
+    instagramHandle: json['instagramHandle'] as String?,
+    twitterHandle: json['twitterHandle'] as String?,
+    linkedinHandle: json['linkedinHandle'] as String?,
+  );
 
   Map<String, dynamic> toJson() => {
-        '_id': id,
-        'name': name,
-        'description': description,
-        'board': board,
-        'state': state,
-        'city': city,
-        'collegeMode': collegeMode,
-        'genderType': genderType,
-        'shifts': shifts ?? const [],
-        'feeRange': feeRange,
-        'upto': upto,
-        'email': email,
-        'specialist': specialist ?? const [],
-        'tags': tags ?? const [],
-        'website': website,
-        'rank': rank,
-        'status': status,
-        'mobileNo': mobileNo,
-        'languageMedium': languageMedium ?? const [],
-        'transportAvailable': transportAvailable,
-        'photos': photos,
-        'createdAt': createdAt,
-        'updatedAt': updatedAt,
-        '__v': iV,
-        'instagramHandle': instagramHandle,
-        'twitterHandle': twitterHandle,
-        'linkedinHandle': linkedinHandle,
-      };
+    '_id': id,
+    'name': name,
+    'description': description,
+    'board': board,
+    'state': state,
+    'city': city,
+    'collegeMode': collegeMode,
+    'genderType': genderType,
+    'shifts': shifts ?? const [],
+    'feeRange': feeRange,
+    'upto': upto,
+    'email': email,
+    'specialist': specialist ?? const [],
+    'tags': tags ?? const [],
+    'website': website,
+    'rank': rank,
+    'status': status,
+    'mobileNo': mobileNo,
+    'languageMedium': languageMedium ?? const [],
+    'transportAvailable': transportAvailable,
+    'photos': photos,
+    'createdAt': createdAt,
+    'updatedAt': updatedAt,
+    '__v': iV,
+    'instagramHandle': instagramHandle,
+    'twitterHandle': twitterHandle,
+    'linkedinHandle': linkedinHandle,
+  };
 }

@@ -3,12 +3,11 @@ import 'package:mycampusinfo_app/core/network/app_failure.dart';
 import 'package:mycampusinfo_app/features/detailPages/admission-timeline/data/data_source/data_source_impl.dart';
 import 'package:mycampusinfo_app/features/detailPages/admission-timeline/data/entities/admission-model.dart';
 
-
 class AdmissionTimelineViewModel extends ViewStateProvider {
   final AdmissionTimelineService _svc = AdmissionTimelineService();
 
-  AdmissionTimelineModel? _admissionTimeline;
-  AdmissionTimelineModel? get admissionTimeline => _admissionTimeline;
+  AdmissionTimeline? _admissionTimeline;
+  AdmissionTimeline? get admissionTimeline => _admissionTimeline;
 
   String? _message;
   String? get message => _message;
@@ -19,7 +18,9 @@ class AdmissionTimelineViewModel extends ViewStateProvider {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _svc.getAdmissionTimelineBycollegeId(collegeId: collegeId);
+    final result = await _svc.getAdmissionTimelineBycollegeId(
+      collegeId: collegeId,
+    );
 
     result.fold(
       (exception) {

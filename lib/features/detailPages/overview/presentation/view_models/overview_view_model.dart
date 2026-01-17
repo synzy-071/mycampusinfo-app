@@ -16,15 +16,15 @@ class OverviewViewModel extends ViewStateProvider {
   }
 
   // STATE
-  collegeModel? _school;
-  collegeModel? get school => _school;
-  set school(collegeModel? val) {
+  CollegeModel? _school;
+  CollegeModel? get school => _school;
+  set school(CollegeModel? val) {
     _school = val;
     notifyListeners();
   }
 
-  List<collegeModel> _schoolsByStatus = [];
-  List<collegeModel> get schoolsByStatus => _schoolsByStatus;
+  List<CollegeModel> _schoolsByStatus = [];
+  List<CollegeModel> get schoolsByStatus => _schoolsByStatus;
 
   String? _message;
   String? get message => _message;

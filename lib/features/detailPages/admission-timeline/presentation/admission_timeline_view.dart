@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:mycampusinfo_app/common/index.dart';
 import 'package:mycampusinfo_app/core/index.dart';
+import 'package:mycampusinfo_app/features/application/forms/presentation/view_models/my_form_view_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/admission-timeline/presentation/view_models/admission_view_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/admission-timeline/presentation/widgets/admission_widgets.dart';
-
-
+import 'package:provider/provider.dart';
 
 class AdmissionTimelineView extends StatefulWidget {
   const AdmissionTimelineView({super.key, required this.collegeId});
@@ -17,34 +15,15 @@ class AdmissionTimelineView extends StatefulWidget {
 
 class _AdmissionTimelineViewState extends State<AdmissionTimelineView> {
   final AdmissionTimelineViewModel _vm = AdmissionTimelineViewModel();
-  // String _collegeId = '';
-  // String _schoolName = 'Admission Timeline';
-  // bool _isInitialized = false;
+  final MyFormViewModel _myFormViewModel = getIt<MyFormViewModel>();
+
   @override
-void initState(){
+  void initState() {
     super.initState();
-  WidgetsBinding.instance.addPostFrameCallback((_) {
-        _vm.getAdmissionTimelineBycollegeId(collegeId: widget.collegeId);
-      });
-}
-  // @override
-  // void didChangeDependencies() {
-  //   super.didChangeDependencies();
-  //   if (_isInitialized) return;
-  //   _isInitialized = true;
-
-  //   final extra = GoRouterState.of(context).extra;
-  //   if (extra is Map) {
-  //     _collegeId = extra['collegeId'] as String? ?? '';
-  //     _schoolName = extra['schoolName'] as String? ?? 'Admission Timeline';
-  //   }
-
-  //   if (_collegeId.isNotEmpty) {
-  //     WidgetsBinding.instance.addPostFrameCallback((_) {
-  //       _vm.getAdmissionTimelineBycollegeId(collegeId: _collegeId);
-  //     });
-  //   }
-  // }
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      _vm.getAdmissionTimelineBycollegeId(collegeId: widget.collegeId);
+    });
+  }
 
   Future<void> _refresh() async {
     if (widget.collegeId.isNotEmpty) {
@@ -57,13 +36,6 @@ void initState(){
     return ChangeNotifierProvider.value(
       value: _vm,
       child: Scaffold(
-        // appBar: SAppBar(
-        //   title: _schoolName,
-        //   leading: SIcon(
-        //     icon: Icons.keyboard_arrow_left,
-        //     onTap: () => context.pop(),
-        //   ),
-        // ),
         body: Consumer<AdmissionTimelineViewModel>(
           builder: (context, vm, _) {
             if (vm.viewState == ViewState.busy) {
@@ -73,17 +45,31 @@ void initState(){
             final timelines = vm.admissionTimeline?.timelines ?? [];
 
             if (timelines.isEmpty) {
-              return Center(child: Text(vm.message ?? "No admission timeline data found."));
+              return Center(
+                child: Text(vm.message ?? "No admission timeline data found."),
+              );
             }
 
-            return RefreshIndicator(
-              onRefresh: _refresh,
-              child: ListView.builder(
-                padding: const EdgeInsets.all(16.0),
-                itemCount: timelines.length,
-                itemBuilder: (context, index) {
-                  // --- 2. USE THE PUBLIC WIDGET ---
-                  return TimelineCard(timeline: timelines[index]);
+            return ChangeNotifierProvider<MyFormViewModel>.value(
+              value: _myFormViewModel,
+              child: Consumer<MyFormViewModel>(
+                builder: (vmContext, vm, _) {
+                  if (vm.isLoading) return Center(child: SLoadingIndicator());
+
+                  return RefreshIndicator(
+                    onRefresh: _refresh,
+                    child: ListView.builder(
+                      padding: const EdgeInsets.all(16.0),
+                      itemCount: timelines.length,
+                      itemBuilder: (_, index) {
+                        return TimelineCard(
+                          timeline: timelines[index],
+                          collegeId: widget.collegeId,
+                          contextForSheet: vmContext,
+                        );
+                      },
+                    ),
+                  );
                 },
               ),
             );
@@ -93,6 +79,3 @@ void initState(){
     );
   }
 }
-
-// --- 3. REMOVE THE HELPER WIDGETS FROM THIS FILE ---
-// The _TimelineCard and _InfoRow classes are now in their own file.
