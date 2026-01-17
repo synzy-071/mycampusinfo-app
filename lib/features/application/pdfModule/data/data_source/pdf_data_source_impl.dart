@@ -11,7 +11,7 @@ class StudentPdfDataSourceImpl implements StudentPdfDataSource {
   final NetworkService _network = getIt<NetworkService>();
 
   // BASE URL
-  static const String _baseUrl = 'https://backend-tc-sa-v2.onrender.com/api/users/';
+  static const String _baseUrl = 'http://localhost:8080/api/users/';
 
   final Dio _dio = Dio(
     BaseOptions(

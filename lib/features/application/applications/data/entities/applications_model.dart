@@ -13,7 +13,7 @@ class StudentApplication {
   final bool? speciallyAbled;
   final String? speciallyAbledType;
   final String? nationality;
-  final String? standard;
+
 
 
   final String? religion;
@@ -84,7 +84,6 @@ final String? applicationId;   // APPLICATION ID
     this.location,
     this.dob,
     this.age,
-    this.standard,
     this.gender,
     this.motherTongue,
     this.placeOfBirth,
@@ -145,7 +144,6 @@ final String? applicationId;   // APPLICATION ID
 
       name: json['name']?.toString(),
       location: json['location']?.toString(),
-      standard: json['standard']?.toString(),
       dob: json['dob'] != null ? DateTime.tryParse(json['dob'].toString()) : null,
       age: json['age'] is int ? json['age'] as int : (json['age'] is num ? (json['age'] as num).toInt() : null),
       gender: json['gender']?.toString(),
@@ -224,7 +222,6 @@ final String? applicationId;   // APPLICATION ID
       "placeOfBirth": placeOfBirth,
       "speciallyAbled": speciallyAbled,
       "speciallyAbledType": speciallyAbledType,
-      "standard":standard,
       "nationality": nationality,
 
 '_id': applicationId,
@@ -355,7 +352,6 @@ final String? applicationId;   // APPLICATION ID
       caste: caste ?? this.caste,
       subcaste: subcaste ?? this.subcaste,
       aadharNo: aadharNo ?? this.aadharNo,
-      standard: standard ?? this.standard,
       bloodGroup: bloodGroup ?? this.bloodGroup,
       allergicTo: allergicTo ?? this.allergicTo,
       interest: interest ?? this.interest,

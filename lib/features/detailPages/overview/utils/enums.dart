@@ -16,6 +16,7 @@ enum DetailTabEnum {
   otherDetails,
   photos,
   placement,
+  exam
 }
 
 extension DetailTabEnumExtension on DetailTabEnum {
@@ -53,6 +54,8 @@ extension DetailTabEnumExtension on DetailTabEnum {
         return 'Media';
       case DetailTabEnum.placement:
         return 'Placement';
+      case DetailTabEnum.exam:
+        return 'Eligible Exam';
     }
   }
 }

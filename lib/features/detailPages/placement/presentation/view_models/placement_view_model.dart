@@ -1,13 +1,13 @@
 import 'package:mycampusinfo_app/core/common/view_state_provider.dart';
 import 'package:mycampusinfo_app/core/network/app_failure.dart';
 import 'package:mycampusinfo_app/features/detailPages/placement/data/data_source/data_source_impl.dart';
-import 'package:mycampusinfo_app/features/detailPages/placement/data/entities/placement_model.dart';
+import 'package:mycampusinfo_app/features/detailPages/placement/data/entities/course_placement.dart';
 
 class PlacementViewModel extends ViewStateProvider {
   final PlacementDataSourceImpl _svc = PlacementDataSourceImpl();
 
-  List<PlacementModel>? _placements;
-  List<PlacementModel>? get placements => _placements;
+  List<CoursePlacementGroup>? _placements;
+  List<CoursePlacementGroup>? get placements => _placements;
 
   String? _message;
   String? get message => _message;
@@ -15,15 +15,13 @@ class PlacementViewModel extends ViewStateProvider {
   Future<Failure?> getPlacementsBycollegeId({
     required String collegeId,
   }) async {
-    Failure? failure;
     setViewState(ViewState.busy);
 
     final result = await _svc.getPlacementsBycollegeId(collegeId: collegeId);
 
     result.fold(
       (exception) {
-        failure = APIFailure.fromException(exception: exception);
-        _message = failure?.message;
+        _message = APIFailure.fromException(exception: exception).message;
         _placements = null;
       },
       (res) {
@@ -34,6 +32,6 @@ class PlacementViewModel extends ViewStateProvider {
 
     setViewState(ViewState.complete);
     notifyListeners();
-    return failure;
+    return null;
   }
 }

@@ -20,7 +20,8 @@ class SchoolTabController with ChangeNotifier {
     "Reviews",
     "Other Details",
     'photos',
-    'Placement'
+    'Placement',
+    'Eligibile Exam'
   ];
 
   void initialize(TickerProvider vsync) {

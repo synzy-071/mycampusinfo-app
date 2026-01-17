@@ -426,7 +426,6 @@ class _ApplicationFormViewState extends State<ApplicationFormView> {
       dob: dob,
       gender: _gender,
       motherTongue: _motherTongueCtrl.text.trim(),
-      standard: _standardCtrl.text.trim(),
 
       placeOfBirth:
           _placeOfBirthCtrl.text.trim().isEmpty
@@ -720,41 +719,9 @@ class _ApplicationFormViewState extends State<ApplicationFormView> {
                                   color: SColor.secTextColor,
                                 ),
                               ),
-                              const SizedBox(height: 8),
+                              const SizedBox(height: 10),
                               _input("Full Name", _nameCtrl, req: true),
-                              DropdownButtonFormField<String>(
-                                value: _selectedStandard,
-                                decoration: const InputDecoration(
-                                  labelText: 'Standard / Class Applying For',
-                                  border: OutlineInputBorder(),
-                                ),
-                                items: const [
-                                  DropdownMenuItem(
-                                    value: 'KGs',
-                                    child: Text('KGs'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Grade 1 - 5',
-                                    child: Text('Grade 1 - 5'),
-                                  ),
-                                  DropdownMenuItem(
-                                    value: 'Grade 6 - 10',
-                                    child: Text('Grade 6 - 10'),
-                                  ),
-                                ],
-                                onChanged: (value) {
-                                  setState(() {
-                                    _selectedStandard = value;
-                                  });
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return 'Please select a standard';
-                                  }
-                                  return null;
-                                },
-                              ),
-
+                            const SizedBox(height: 8,),
                               _input("Location", _locationCtrl, req: true),
                               _dateInput(
                                 "DOB (yyyy-MM-dd)",

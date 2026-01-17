@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:mycampusinfo_app/common/widgets/s_loading_indicator.dart';
-import 'package:mycampusinfo_app/features/detailPages/overview/presentation/overview_view.dart';
+import 'package:mycampusinfo_app/features/detailPages/infrastructure/presentation/widgets/title_card.dart';
 import 'package:mycampusinfo_app/features/detailPages/placement/presentation/view_models/placement_view_model.dart';
 import 'package:provider/provider.dart';
 
-import '../../../../core/index.dart';
+import '../../../../core/common/index.dart';
 
 class PlacementView extends StatefulWidget {
   const PlacementView({required this.collegeId, super.key});
@@ -26,9 +26,7 @@ class _PlacementViewState extends State<PlacementView> {
   }
 
   Future<void> _refresh() async {
-    if (widget.collegeId.isNotEmpty) {
-      await _vm.getPlacementsBycollegeId(collegeId: widget.collegeId);
-    }
+    await _vm.getPlacementsBycollegeId(collegeId: widget.collegeId);
   }
 
   @override
@@ -45,42 +43,97 @@ class _PlacementViewState extends State<PlacementView> {
               return const Center(child: SLoadingIndicator());
             }
 
-            final list = vm.placements;
-            if (list == null || list.isEmpty) {
-              return Center(child: Text(vm.message ?? "No placement data found."));
+            final courses = vm.placements;
+            if (courses == null || courses.isEmpty) {
+              return Center(
+                child: Text(vm.message ?? "No placement data found."),
+              );
             }
 
             return RefreshIndicator(
               onRefresh: _refresh,
               child: ListView.separated(
                 padding: const EdgeInsets.all(16),
-                itemCount: list.length,
-                separatorBuilder: (_, __) => const SizedBox(height: 16),
+                itemCount: courses.length,
+                separatorBuilder: (_, __) => const SizedBox(height: 20),
                 itemBuilder: (_, i) {
-                  final p = list[i];
+                  final course = courses[i];
 
-                  return TitledCard(
-                    title: "Placement ${p.year}",
-                    icon: Icons.work,
-                    iconColor: colors.amberColor,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _row("Total Students", p.totalStudents?.toString()),
-                        _row("Placed Students", p.placedStudents?.toString()),
-                        _row("Highest Package", "₹ ${p.highestPackage}"),
-                        _row("Average Package", "₹ ${p.averagePackage}"),
-                        const SizedBox(height: 8),
-                        const Text("Top Recruiters",
-                            style: TextStyle(fontWeight: FontWeight.bold)),
-                        Wrap(
-                          spacing: 8,
-                          children: p.topRecruiters
-                              .map((e) => Chip(label: Text(e)))
-                              .toList(),
-                        )
-                      ],
-                    ),
+                  return Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      /// 🔹 Course Title
+                      Text(
+                        course.courseName,
+                        style: const TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                      const SizedBox(height: 12),
+
+                      /// 🔹 Placements per year
+                      ...course.placements.map((placement) {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 12),
+                          child: TitledCard(
+                            title: "Placement – ${placement.year}",
+                            icon: Icons.work,
+                            iconColor: colors.amberColor,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                _row(
+                                  "Total Students",
+                                  placement.totalStudents?.toString(),
+                                ),
+                                _row(
+                                  "Placed Students",
+                                  placement.placedStudents?.toString(),
+                                ),
+                                _row(
+                                  "Min Package",
+                                  placement.minPackage != null
+                                      ? "₹ ${placement.minPackage}"
+                                      : null,
+                                ),
+                                _row(
+                                  "Max Package",
+                                  placement.maxPackage != null
+                                      ? "₹ ${placement.maxPackage}"
+                                      : null,
+                                ),
+                                _row(
+                                  "Average Package",
+                                  placement.averagePackage != null
+                                      ? "₹ ${placement.averagePackage}"
+                                      : null,
+                                ),
+                                const SizedBox(height: 8),
+                                const Text(
+                                  "Recruiting Companies",
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                                const SizedBox(height: 4),
+                                Wrap(
+                                  spacing: 8,
+                                  runSpacing: 4,
+                                  children: placement.companies
+                                      .map(
+                                        (e) => Chip(
+                                          label: Text(e),
+                                        ),
+                                      )
+                                      .toList(),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      }).toList(),
+                    ],
                   );
                 },
               ),
@@ -96,7 +149,12 @@ class _PlacementViewState extends State<PlacementView> {
         child: Row(
           children: [
             SizedBox(width: 140, child: Text(label)),
-            Expanded(child: Text(val ?? "-", style: const TextStyle(fontWeight: FontWeight.w600))),
+            Expanded(
+              child: Text(
+                val ?? "-",
+                style: const TextStyle(fontWeight: FontWeight.w600),
+              ),
+            ),
           ],
         ),
       );

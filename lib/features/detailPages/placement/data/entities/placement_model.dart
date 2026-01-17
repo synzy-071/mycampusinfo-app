@@ -1,37 +1,34 @@
 class PlacementModel {
-  final String? id;
-  final String? collegeId;
-  final int? year;
+  final String id;
+  final int year;
+  final int? minPackage;
+  final int? maxPackage;
+  final int? averagePackage;
   final int? totalStudents;
   final int? placedStudents;
-  final double? highestPackage;
-  final double? averagePackage;
-  final List<String> topRecruiters;
+  final List<String> companies;
 
   PlacementModel({
-    this.id,
-    this.collegeId,
-    this.year,
+    required this.id,
+    required this.year,
+    this.minPackage,
+    this.maxPackage,
+    this.averagePackage,
     this.totalStudents,
     this.placedStudents,
-    this.highestPackage,
-    this.averagePackage,
-    this.topRecruiters = const [],
+    required this.companies,
   });
 
   factory PlacementModel.fromJson(Map<String, dynamic> json) {
     return PlacementModel(
       id: json['_id'],
-      collegeId: json['collegeId'],
       year: json['year'],
+      minPackage: json['minPackage'],
+      maxPackage: json['maxPackage'],
+      averagePackage: json['averagePackage'],
       totalStudents: json['totalStudents'],
       placedStudents: json['placedStudents'],
-      highestPackage: (json['highestPackage'] as num?)?.toDouble(),
-      averagePackage: (json['averagePackage'] as num?)?.toDouble(),
-      topRecruiters: (json['topRecruiters'] as List<dynamic>?)
-              ?.map((e) => e.toString())
-              .toList() ??
-          [],
+      companies: List<String>.from(json['companies'] ?? []),
     );
   }
 }

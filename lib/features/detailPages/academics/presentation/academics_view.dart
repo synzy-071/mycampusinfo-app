@@ -59,22 +59,20 @@ class _CoursesViewState extends State<CoursesView> {
                 itemBuilder: (_, i) {
                   final c = list[i];
 
-                  return TitledCard(
-                    title: c.courseName ?? '',
-                    icon: Icons.school,
-                    iconColor: colors.amberColor,
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        _row("Duration", c.duration),
-                        _row("Fees", c.fees?.toString()),
-                        _row("Exam Type", c.examType),
-                        _row("Category", c.category),
-                        _row("Rank Type", c.rankType),
-                        _row("Max Rank / %", c.maxRankOrPercentile?.toString()),
-                      ],
-                    ),
-                  );
+                 return TitledCard(
+  title: c.courseName ?? '',
+  icon: Icons.school,
+  iconColor: colors.amberColor,
+  child: Column(
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      _row("Duration", c.duration),
+      _row("Intake", c.intake?.toString()),
+      _row("Category", c.category),
+    ],
+  ),
+);
+
                 },
               ),
             );

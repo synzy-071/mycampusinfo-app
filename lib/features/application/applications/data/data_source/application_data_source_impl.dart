@@ -17,7 +17,7 @@ class ApplicationDataSourceImpl implements ApplicationDataSource {
   final AppStateProvider _app = getIt<AppStateProvider>();
 
   // Use the base URL provided
-  String get _base => 'https://backend-tc-sa-v2.onrender.com/api/applications';
+  String get _base => 'http://localhost:8080/api/application';
 
   String? _resolveStudId(String? studId) =>
       (studId != null && studId.isNotEmpty) ? studId : _app.user?.sId;

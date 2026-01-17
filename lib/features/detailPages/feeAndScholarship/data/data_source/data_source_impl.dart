@@ -1,37 +1,30 @@
-
-
 import 'package:dartz/dartz.dart';
-import 'package:mycampusinfo_app/core/network/endpoints.dart';
-import 'package:mycampusinfo_app/core/network/exceptions.dart';
-import 'package:mycampusinfo_app/core/network/network.dart';
-import 'package:mycampusinfo_app/core/network/request.dart';
-import 'package:mycampusinfo_app/core/network/typedef.dart';
 import 'package:mycampusinfo_app/features/detailPages/feeAndScholarship/data/data_source/data_source.dart';
 import 'package:mycampusinfo_app/features/detailPages/feeAndScholarship/data/entities/feeAndScholarship_model.dart';
 
-class FeesAndScholarshipsService implements AbstractFeesAndScholarshipsService {
+import '../../../../../core/index.dart';
+
+class ScholarshipService implements AbstractScholarshipService {
   final NetworkService _networkService = NetworkService();
 
   @override
-  ResultFuture<FeesAndScholarshipsModel?> getFeesAndScholarshipsBycollegeId({
+  ResultFuture<List<ScholarshipModel>> getScholarshipsByCollegeId({
     required String collegeId,
   }) async {
-    // Make sure Endpoints.feeAndScholarship is defined in your constants
-    final endpoint = "${Endpoints.adminfeeAndScholarship}/$collegeId";
-    
-    Request r = Request(method: RequestMethod.get, endpoint: endpoint);
+    final endpoint =
+        "${Endpoints.scholarshipsByCollege}/$collegeId";
+
+    final request =
+        Request(method: RequestMethod.get, endpoint: endpoint);
 
     try {
-      final result = await _networkService.request(r);
-      final response = result.data as Map<String, dynamic>;
-
-      if (response.isNotEmpty && response['data'] != null) {
-        final model = FeesAndScholarshipsModel.fromJson(response['data']);
-        return Right(model);
-      }
+      final result = await _networkService.request(request);
+      final list = (result.data as List)
+          .map((e) => ScholarshipModel.fromJson(e))
+          .toList();
+      return Right(list);
     } catch (e) {
       return Left(APIException.from(e));
     }
-    return const Right(null);
   }
 }

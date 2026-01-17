@@ -3,22 +3,16 @@ class CourseModel {
   final String? collegeId;
   final String? courseName;
   final String? duration;
-  final double? fees;
-  final String? examType;
+  final int? intake;
   final String? category;
-  final String? rankType;
-  final double? maxRankOrPercentile;
 
   CourseModel({
     this.id,
     this.collegeId,
     this.courseName,
     this.duration,
-    this.fees,
-    this.examType,
+    this.intake,
     this.category,
-    this.rankType,
-    this.maxRankOrPercentile,
   });
 
   factory CourseModel.fromJson(Map<String, dynamic> json) {
@@ -27,11 +21,8 @@ class CourseModel {
       collegeId: json['collegeId'] as String?,
       courseName: json['courseName'] as String?,
       duration: json['duration'] as String?,
-      fees: (json['fees'] as num?)?.toDouble(),
-      examType: json['examType'] as String?,
+      intake: json['intake'] as int?,
       category: json['category'] as String?,
-      rankType: json['rankType'] as String?,
-      maxRankOrPercentile: (json['maxRankOrPercentile'] as num?)?.toDouble(),
     );
   }
 }

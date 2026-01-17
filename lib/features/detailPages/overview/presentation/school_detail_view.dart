@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:mycampusinfo_app/features/detailPages/eligible_exam/presentation/exam_view.dart';
 import 'package:mycampusinfo_app/features/detailPages/placement/presentation/placement_view.dart';
 import 'package:provider/provider.dart';
 import 'package:mycampusinfo_app/core/common/theme_provider.dart';
@@ -130,7 +131,9 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
       // --- NEW: fetch admission timeline for this school so we can show application fees
       try {
         // start fetch
-        admissionVm.getAdmissionTimelineBycollegeId(collegeId: widget.collegeId);
+        admissionVm.getAdmissionTimelineBycollegeId(
+          collegeId: widget.collegeId,
+        );
 
         // attach a listener so UI refreshes when timeline finishes loading
         _admissionVmListener = () {
@@ -194,484 +197,452 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                 onTap: () => context.pop(),
               ),
               title: school.name ?? "School",
-              actions:
-                  !getIt<AppStateProvider>().isGuest
-                      ? [
-                        ChangeNotifierProvider.value(
-                          value: shortlistViewModel,
-                          child: Selector<ShortlistViewModel, bool>(
-                            selector: (_, vm) => vm.isLoading,
-                            builder: (vmContext, isSaving, _) {
-                              if (isSaving) {
-                                return SLoadingIndicator(
-                                  size: 24,
-                                  thickness: 3,
-                                );
-                              }
+              actions: !getIt<AppStateProvider>().isGuest
+                  ? [
+                      ChangeNotifierProvider.value(
+                        value: shortlistViewModel,
+                        child: Selector<ShortlistViewModel, bool>(
+                          selector: (_, vm) => vm.isLoading,
+                          builder: (vmContext, isSaving, _) {
+                            if (isSaving) {
+                              return SLoadingIndicator(size: 24, thickness: 3);
+                            }
 
-                              return ValueListenableBuilder(
-                                valueListenable: isSaved,
-                                builder:
-                                    (_, vIsSaved, __) => SIcon(
-                                      icon:
-                                          !vIsSaved
-                                              ? Icons.bookmark_outline
-                                              : Icons.bookmark,
-                                      color: SColor.secTextColor,
-                                      size: 28,
-                                      onTap: () async {
-                                        final failure;
-                                        vIsSaved
-                                            ? failure = await shortlistViewModel
-                                                .removeShortlist(
-                                                  collegeId: widget.collegeId,
-                                                )
-                                            : failure = await shortlistViewModel
-                                                .addShortlist(
-                                                  collegeId: widget.collegeId,
-                                                );
-                                        if (failure == null) {
-                                          isSaved.value = !vIsSaved;
-                                          Toasts.showSuccessToast(
-                                            context,
-                                            message:
-                                                '${!vIsSaved ? 'Added to' : 'Removed from'} Shortlist',
-                                          );
-                                        }
-                                      },
-                                    ),
-                              );
-                            },
-                          ),
+                            return ValueListenableBuilder(
+                              valueListenable: isSaved,
+                              builder: (_, vIsSaved, __) => SIcon(
+                                icon: !vIsSaved
+                                    ? Icons.bookmark_outline
+                                    : Icons.bookmark,
+                                color: SColor.secTextColor,
+                                size: 28,
+                                onTap: () async {
+                                  final failure;
+                                  vIsSaved
+                                      ? failure = await shortlistViewModel
+                                            .removeShortlist(
+                                              collegeId: widget.collegeId,
+                                            )
+                                      : failure = await shortlistViewModel
+                                            .addShortlist(
+                                              collegeId: widget.collegeId,
+                                            );
+                                  if (failure == null) {
+                                    isSaved.value = !vIsSaved;
+                                    Toasts.showSuccessToast(
+                                      context,
+                                      message:
+                                          '${!vIsSaved ? 'Added to' : 'Removed from'} Shortlist',
+                                    );
+                                  }
+                                },
+                              ),
+                            );
+                          },
                         ),
-                      ]
-                      : [],
+                      ),
+                    ]
+                  : [],
             ),
 
             body: NestedScrollView(
-              headerSliverBuilder:
-                  (_, __) => [
-                    SliverToBoxAdapter(
-                      child: Column(
-                        mainAxisSize: MainAxisSize.min,
+              headerSliverBuilder: (_, __) => [
+                SliverToBoxAdapter(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Stack(
                         children: [
-                          Stack(
-                            children: [
-                              // 📸 Background banner image
-                              Container(
-                                height: bannerHeight,
-                                width: double.infinity,
-                                child:
-                                    (school.photos != null &&
-                                            school.photos!.isNotEmpty)
-                                        ? ClipRRect(
-                                          borderRadius: BorderRadius.circular(
-                                            2.0,
+                          // 📸 Background banner image
+                          Container(
+                            height: bannerHeight,
+                            width: double.infinity,
+                            child:
+                                (school.photos != null &&
+                                    school.photos!.isNotEmpty)
+                                ? ClipRRect(
+                                    borderRadius: BorderRadius.circular(2.0),
+                                    child: Image.network(
+                                      school.photos!.first.url ?? '',
+                                      fit: BoxFit.cover,
+                                      errorBuilder: (_, __, ___) => Container(
+                                        color: Colors.grey[200],
+                                        child: const Icon(
+                                          Icons.broken_image,
+                                          size: 50,
+                                          color: Colors.grey,
+                                        ),
+                                      ),
+                                    ),
+                                  )
+                                : Container(
+                                    color: Colors.grey[200],
+                                    child: const Center(
+                                      child: Icon(
+                                        Icons.school,
+                                        size: 80,
+                                        color: Colors.blue,
+                                      ),
+                                    ),
+                                  ),
+                          ),
+
+                          // 🎯 Positioned social media icons
+                          // 🎯 Positioned social media icons (VERTICAL)
+                          // 🎯 Positioned social media icons (VERTICAL with glow)
+                          Positioned(
+                            top: 8,
+                            right: 18,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.end,
+                              children:
+                                  [
+                                        if (school.website != null &&
+                                            school.website!.isNotEmpty)
+                                          _buildSocialIcon(
+                                            assetPath: 'assets/icons/web.png',
+                                            url: school.website!,
+                                            // glowColor: Colors.yellow,
                                           ),
-                                          child: Image.network(
-                                            school.photos!.first.url ?? '',
-                                            fit: BoxFit.cover,
-                                            errorBuilder:
-                                                (_, __, ___) => Container(
-                                                  color: Colors.grey[200],
-                                                  child: const Icon(
-                                                    Icons.broken_image,
-                                                    size: 50,
-                                                    color: Colors.grey,
-                                                  ),
-                                                ),
+                                        if (school.instagramHandle != null &&
+                                            school.instagramHandle!.isNotEmpty)
+                                          _buildSocialIcon(
+                                            assetPath: 'assets/icons/insta.png',
+                                            url: school.instagramHandle!,
+                                            // glowColor: Colors.yellow,
                                           ),
-                                        )
-                                        : Container(
-                                          color: Colors.grey[200],
-                                          child: const Center(
-                                            child: Icon(
-                                              Icons.school,
-                                              size: 80,
+                                        if (school.twitterHandle != null &&
+                                            school.twitterHandle!.isNotEmpty)
+                                          _buildSocialIcon(
+                                            assetPath:
+                                                'assets/icons/twitter.png',
+                                            url: school.twitterHandle!,
+                                            //  glowColor: Colors.yellow,
+                                          ),
+                                        if (school.linkedinHandle != null &&
+                                            school.linkedinHandle!.isNotEmpty)
+                                          _buildSocialIcon(
+                                            assetPath:
+                                                'assets/icons/linkedIn.png',
+                                            url: school.linkedinHandle!,
+                                            //  glowColor: Colors.yellow,
+                                          ),
+                                      ]
+                                      .expand(
+                                        (widget) => [
+                                          const SizedBox(height: 8),
+                                          widget,
+                                        ],
+                                      )
+                                      .skip(1)
+                                      .toList(),
+                            ),
+                          ),
+                        ],
+                      ),
+                      // Title + location + buttons
+                      Padding(
+                        padding: EdgeInsets.all(pad),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              school.name ?? "-",
+                              style: TextStyle(
+                                fontSize: titleFont,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            const SizedBox(height: 3),
+                            Row(
+                              children: [
+                                const Icon(Icons.location_on, size: 18),
+                                const SizedBox(width: 3),
+                                GestureDetector(
+                                  onTap: () async {
+                                    if (location.isNotEmpty) {
+                                      final query = Uri.encodeComponent(
+                                        location,
+                                      );
+                                      final url = Uri.parse(
+                                        "https://www.google.com/maps/search/?api=1&query=${school.name?.split(' ').join('+')}+$query",
+                                      );
+
+                                      if (!await launchUrl(
+                                        url,
+                                        mode: LaunchMode.externalApplication,
+                                      )) {
+                                        ScaffoldMessenger.of(
+                                          context,
+                                        ).showSnackBar(
+                                          const SnackBar(
+                                            content: Text(
+                                              "Could not open Maps",
+                                            ),
+                                          ),
+                                        );
+                                      }
+                                    }
+                                  },
+                                  child: Text(
+                                    location.isEmpty ? "-" : location,
+                                    style: TextStyle(
+                                      fontSize: infoFont,
+                                      color: Colors.blue,
+                                    ),
+                                  ),
+                                ),
+
+                                if (widget.distance != null) ...[
+                                  const SizedBox(width: 8),
+
+                                  const SizedBox(width: 6),
+
+                                  Text(
+                                    "${widget.distance!} away",
+                                    style: TextStyle(
+                                      fontSize: infoFont - 2,
+                                      color: Colors.grey[700],
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                ],
+                              ],
+                            ),
+                            const SizedBox(height: 10),
+                            Row(
+                              children: [
+                                Expanded(
+                                  child: OutlinedButton(
+                                    onPressed: () {
+                                      context.pushNamed(
+                                        RouteNames.compareWith,
+                                        extra: {
+                                          'id':
+                                              school.id?.toString() ??
+                                              widget.collegeId,
+                                          'name': school.name ?? 'School',
+                                        },
+                                      );
+                                    },
+                                    style: OutlinedButton.styleFrom(
+                                      backgroundColor: Colors.green,
+                                      padding: const EdgeInsets.symmetric(
+                                        vertical: 15,
+                                      ),
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(4),
+                                      ),
+                                      side: const BorderSide(
+                                        color: Colors.green,
+                                      ),
+                                    ),
+                                    child: Text(
+                                      "Compare",
+                                      style: TextStyle(
+                                        fontSize: infoFont,
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                                const SizedBox(width: 8),
+                                Expanded(
+                                  child: ChangeNotifierProvider.value(
+                                    value: myFormViewModel,
+                                    child: Selector<MyFormViewModel, bool>(
+                                      selector: (_, vm) => vm.isLoading,
+                                      builder: (_, isLoading, __) {
+                                        if (isLoading) {
+                                          return const Center(
+                                            child: SLoadingIndicator(
                                               color: Colors.blue,
                                             ),
-                                          ),
-                                        ),
-                              ),
-
-                              // 🎯 Positioned social media icons
-                              // 🎯 Positioned social media icons (VERTICAL)
-                              // 🎯 Positioned social media icons (VERTICAL with glow)
-                              Positioned(
-                                top: 8,
-                                right: 18,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.end,
-                                  children:
-                                      [
-                                            if (school.website != null &&
-                                                school.website!.isNotEmpty)
-                                              _buildSocialIcon(
-                                                assetPath:
-                                                    'assets/icons/web.png',
-                                                url: school.website!,
-                                                // glowColor: Colors.yellow,
-                                              ),
-                                            if (school.instagramHandle !=
-                                                    null &&
-                                                school
-                                                    .instagramHandle!
-                                                    .isNotEmpty)
-                                              _buildSocialIcon(
-                                                assetPath:
-                                                    'assets/icons/insta.png',
-                                                url: school.instagramHandle!,
-                                                // glowColor: Colors.yellow,
-                                              ),
-                                            if (school.twitterHandle != null &&
-                                                school
-                                                    .twitterHandle!
-                                                    .isNotEmpty)
-                                              _buildSocialIcon(
-                                                assetPath:
-                                                    'assets/icons/twitter.png',
-                                                url: school.twitterHandle!,
-                                                //  glowColor: Colors.yellow,
-                                              ),
-                                            if (school.linkedinHandle != null &&
-                                                school
-                                                    .linkedinHandle!
-                                                    .isNotEmpty)
-                                              _buildSocialIcon(
-                                                assetPath:
-                                                    'assets/icons/linkedIn.png',
-                                                url: school.linkedinHandle!,
-                                                //  glowColor: Colors.yellow,
-                                              ),
-                                          ]
-                                          .expand(
-                                            (widget) => [
-                                              const SizedBox(height: 8),
-                                              widget,
-                                            ],
-                                          )
-                                          .skip(1)
-                                          .toList(),
-                                ),
-                              ),
-                            ],
-                          ),
-                          // Title + location + buttons
-                          Padding(
-                            padding: EdgeInsets.all(pad),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  school.name ?? "-",
-                                  style: TextStyle(
-                                    fontSize: titleFont,
-                                    fontWeight: FontWeight.bold,
-                                    color: Colors.black,
-                                  ),
-                                  maxLines: 2,
-                                  overflow: TextOverflow.ellipsis,
-                                ),
-                                const SizedBox(height: 3),
-                                Row(
-                                  children: [
-                                    const Icon(Icons.location_on, size: 18),
-                                    const SizedBox(width: 3),
-                                    GestureDetector(
-                                      onTap: () async {
-                                        if (location.isNotEmpty) {
-                                          final query = Uri.encodeComponent(
-                                            location,
                                           );
-                                          final url = Uri.parse(
-                                            "https://www.google.com/maps/search/?api=1&query=${school.name?.split(' ').join('+')}+$query",
-                                          );
-
-                                          if (!await launchUrl(
-                                            url,
-                                            mode:
-                                                LaunchMode.externalApplication,
-                                          )) {
-                                            ScaffoldMessenger.of(
-                                              context,
-                                            ).showSnackBar(
-                                              const SnackBar(
-                                                content: Text(
-                                                  "Could not open Maps",
-                                                ),
-                                              ),
-                                            );
-                                          }
                                         }
-                                      },
-                                      child: Text(
-                                        location.isEmpty ? "-" : location,
-                                        style: TextStyle(
-                                          fontSize: infoFont,
-                                          color: Colors.blue,
-                                        ),
-                                      ),
-                                    ),
+                                        final isSingleAndApplied =
+                                            (_userApplicationCount == 1) &&
+                                            (vm.isApplied == true);
 
-                                    if (widget.distance != null) ...[
-                                      const SizedBox(width: 8),
+                                        return SButton(
+                                          onPressed: () async {
+                                            if (isSingleAndApplied) {
+                                              // Show dialog that prompts user to add a new application (force new)
+                                              showDialog(
+                                                context: context,
+                                                barrierDismissible: true,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title: const Text(
+                                                      'No additional application available',
+                                                    ),
+                                                    content: const Text(
+                                                      'You have already applied using the only available application. Would you like to add a new application?',
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.of(
+                                                              context,
+                                                            ).pop(),
+                                                        child: const Text(
+                                                          'Cancel',
+                                                        ),
+                                                      ),
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(
+                                                            context,
+                                                          ).pop();
+                                                          context.pushNamed(
+                                                            RouteNames
+                                                                .addApplication,
+                                                            extra: {
+                                                              'forceNew': true,
+                                                            },
+                                                          );
+                                                        },
+                                                        child: const Text(
+                                                          'Fill form',
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                              return;
+                                            }
 
-                                      const SizedBox(width: 6),
+                                            // --- original Apply flow (unchanged) ---
+                                            if (appStateProvider.isGuest) {
+                                              Toasts.showLoginToast(context);
+                                              return;
+                                            }
 
-                                      Text(
-                                        "${widget.distance!} away",
-                                        style: TextStyle(
-                                          fontSize: infoFont - 2,
-                                          color: Colors.grey[700],
-                                          fontWeight: FontWeight.w500,
-                                        ),
-                                      ),
-                                    ],
-                                  ],
-                                ),
-                                const SizedBox(height: 10),
-                                Row(
-                                  children: [
-                                    Expanded(
-                                      child: OutlinedButton(
-                                        onPressed: () {
-                                          context.pushNamed(
-                                            RouteNames.compareWith,
-                                            extra: {
-                                              'id':
-                                                  school.id?.toString() ??
-                                                  widget.collegeId,
-                                              'name': school.name ?? 'School',
-                                            },
-                                          );
-                                        },
-                                        style: OutlinedButton.styleFrom(
-                                          backgroundColor: Colors.green,
-                                          padding: const EdgeInsets.symmetric(
-                                            vertical: 15,
-                                          ),
-                                          shape: RoundedRectangleBorder(
-                                            borderRadius: BorderRadius.circular(
-                                              4,
-                                            ),
-                                          ),
-                                          side: const BorderSide(
-                                            color: Colors.green,
-                                          ),
-                                        ),
-                                        child: Text(
-                                          "Compare",
-                                          style: TextStyle(
-                                            fontSize: infoFont,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    Expanded(
-                                      child: ChangeNotifierProvider.value(
-                                        value: myFormViewModel,
-                                        child: Selector<MyFormViewModel, bool>(
-                                          selector: (_, vm) => vm.isLoading,
-                                          builder: (_, isLoading, __) {
-                                            if (isLoading) {
-                                              return const Center(
-                                                child: SLoadingIndicator(
-                                                  color: Colors.blue,
+                                            final studId =
+                                                getIt<AppStateProvider>()
+                                                    .user
+                                                    ?.sId;
+                                            if (studId == null) {
+                                              ScaffoldMessenger.of(
+                                                context,
+                                              ).showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                    "Missing student ID.",
+                                                  ),
                                                 ),
                                               );
+                                              return;
                                             }
-                                            final isSingleAndApplied =
-                                                (_userApplicationCount == 1) &&
-                                                (vm.isApplied == true);
 
-                                            return SButton(
-                                              onPressed: () async {
-                                                if (isSingleAndApplied) {
-                                                  // Show dialog that prompts user to add a new application (force new)
-                                                  showDialog(
-                                                    context: context,
-                                                    barrierDismissible: true,
-                                                    builder: (context) {
-                                                      return AlertDialog(
-                                                        title: const Text(
-                                                          'No additional application available',
-                                                        ),
-                                                        content: const Text(
-                                                          'You have already applied using the only available application. Would you like to add a new application?',
-                                                        ),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed:
-                                                                () =>
-                                                                    Navigator.of(
-                                                                      context,
-                                                                    ).pop(),
-                                                            child: const Text(
-                                                              'Cancel',
-                                                            ),
-                                                          ),
-                                                          ElevatedButton(
-                                                            onPressed: () {
-                                                              Navigator.of(
-                                                                context,
-                                                              ).pop();
-                                                              context.pushNamed(
-                                                                RouteNames
-                                                                    .addApplication,
-                                                                extra: {
-                                                                  'forceNew':
-                                                                      true,
-                                                                },
-                                                              );
-                                                            },
-                                                            child: const Text(
-                                                              'Fill form',
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                  return;
-                                                }
-
-                                                // --- original Apply flow (unchanged) ---
-                                                if (appStateProvider.isGuest) {
-                                                  Toasts.showLoginToast(
-                                                    context,
-                                                  );
-                                                  return;
-                                                }
-
-                                                final studId =
-                                                    getIt<AppStateProvider>()
-                                                        .user
-                                                        ?.sId;
-                                                if (studId == null) {
-                                                  ScaffoldMessenger.of(
-                                                    context,
-                                                  ).showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                        "Missing student ID.",
-                                                      ),
-                                                    ),
-                                                  );
-                                                  return;
-                                                }
-
-                                                final pdfResult =
-                                                    await myFormViewModel
-                                                        .fetchStudentPdfs(
-                                                          studId: studId,
-                                                        );
-                                                if (pdfResult != null) {
-                                                  Toasts.showErrorToast(
-                                                    context,
-                                                    message:
-                                                        pdfResult.message ??
-                                                        "Failed to fetch PDFs",
-                                                  );
-                                                  return;
-                                                }
-
-                                                final pdfs =
-                                                    myFormViewModel
-                                                        .availablePdfs;
-                                                if (pdfs == null ||
-                                                    pdfs.isEmpty) {
-                                                  showDialog(
-                                                    context: context,
-                                                    barrierDismissible: true,
-                                                    builder: (context) {
-                                                      return AlertDialog(
-                                                        title: const Text(
-                                                          'No form available',
-                                                        ),
-                                                        content: const Text(
-                                                          'No generated PDFs available. Please fill the form first.',
-                                                        ),
-                                                        actions: [
-                                                          TextButton(
-                                                            onPressed:
-                                                                () =>
-                                                                    Navigator.of(
-                                                                      context,
-                                                                    ).pop(),
-                                                            child: const Text(
-                                                              'Cancel',
-                                                            ),
-                                                          ),
-                                                          ElevatedButton(
-                                                            onPressed: () {
-                                                              Navigator.of(
-                                                                context,
-                                                              ).pop();
-
-                                                              context.pushNamed(
-                                                                RouteNames
-                                                                    .addApplication,
-                                                                extra: {
-                                                                  'forceNew':
-                                                                      true,
-                                                                },
-                                                              );
-                                                            },
-                                                            child: const Text(
-                                                              'Fill form',
-                                                            ),
-                                                          ),
-                                                        ],
-                                                      );
-                                                    },
-                                                  );
-                                                  return;
-                                                }
+                                            final pdfResult =
                                                 await myFormViewModel
-                                                    .prefetchApplicationsForPdfs(
-                                                      pdfs,
+                                                    .fetchStudentPdfs(
+                                                      studId: studId,
                                                     );
+                                            if (pdfResult != null) {
+                                              Toasts.showErrorToast(
+                                                context,
+                                                message:
+                                                    pdfResult.message ??
+                                                    "Failed to fetch PDFs",
+                                              );
+                                              return;
+                                            }
 
-                                                // STEP 2: pick desired application PDF
-                                                final chosenPdfIndex = await showModalBottomSheet<
-                                                  int?
-                                                >(
-                                                  context: context,
-                                                  isScrollControlled: true,
-                                                  builder: (ctx) {
-                                                    // <<< PROVIDE myFormViewModel to the modal subtree so Consumer finds it >>>
-                                                    return ChangeNotifierProvider<
-                                                      MyFormViewModel
-                                                    >.value(
-                                                      value: myFormViewModel,
-                                                      child: SafeArea(
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets.all(
-                                                                12,
-                                                              ),
-                                                          child: Column(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              const Text(
-                                                                "Select Application",
-                                                                style: TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w600,
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 10,
-                                                              ),
-                                                              ConstrainedBox(
-                                                                constraints: BoxConstraints(
+                                            final pdfs =
+                                                myFormViewModel.availablePdfs;
+                                            if (pdfs == null || pdfs.isEmpty) {
+                                              showDialog(
+                                                context: context,
+                                                barrierDismissible: true,
+                                                builder: (context) {
+                                                  return AlertDialog(
+                                                    title: const Text(
+                                                      'No form available',
+                                                    ),
+                                                    content: const Text(
+                                                      'No generated PDFs available. Please fill the form first.',
+                                                    ),
+                                                    actions: [
+                                                      TextButton(
+                                                        onPressed: () =>
+                                                            Navigator.of(
+                                                              context,
+                                                            ).pop(),
+                                                        child: const Text(
+                                                          'Cancel',
+                                                        ),
+                                                      ),
+                                                      ElevatedButton(
+                                                        onPressed: () {
+                                                          Navigator.of(
+                                                            context,
+                                                          ).pop();
+
+                                                          context.pushNamed(
+                                                            RouteNames
+                                                                .addApplication,
+                                                            extra: {
+                                                              'forceNew': true,
+                                                            },
+                                                          );
+                                                        },
+                                                        child: const Text(
+                                                          'Fill form',
+                                                        ),
+                                                      ),
+                                                    ],
+                                                  );
+                                                },
+                                              );
+                                              return;
+                                            }
+                                            await myFormViewModel
+                                                .prefetchApplicationsForPdfs(
+                                                  pdfs,
+                                                );
+
+                                            // STEP 2: pick desired application PDF
+                                            final chosenPdfIndex = await showModalBottomSheet<int?>(
+                                              context: context,
+                                              isScrollControlled: true,
+                                              builder: (ctx) {
+                                                // <<< PROVIDE myFormViewModel to the modal subtree so Consumer finds it >>>
+                                                return ChangeNotifierProvider<
+                                                  MyFormViewModel
+                                                >.value(
+                                                  value: myFormViewModel,
+                                                  child: SafeArea(
+                                                    child: Padding(
+                                                      padding:
+                                                          const EdgeInsets.all(
+                                                            12,
+                                                          ),
+                                                      child: Column(
+                                                        mainAxisSize:
+                                                            MainAxisSize.min,
+                                                        children: [
+                                                          const Text(
+                                                            "Select Application",
+                                                            style: TextStyle(
+                                                              fontSize: 16,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w600,
+                                                            ),
+                                                          ),
+                                                          const SizedBox(
+                                                            height: 10,
+                                                          ),
+                                                          ConstrainedBox(
+                                                            constraints:
+                                                                BoxConstraints(
                                                                   maxHeight:
                                                                       MediaQuery.of(
                                                                             ctx,
@@ -680,456 +651,439 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                                                                           .height *
                                                                       0.6,
                                                                 ),
-                                                                child: Consumer<
-                                                                  MyFormViewModel
-                                                                >(
-                                                                  builder: (
-                                                                    cCtx,
-                                                                    mfvm,
-                                                                    __,
-                                                                  ) {
-                                                                    return ListView.separated(
-                                                                      shrinkWrap:
-                                                                          true,
-                                                                      itemCount:
-                                                                          pdfs.length,
-                                                                      separatorBuilder:
-                                                                          (
-                                                                            _,
-                                                                            __,
-                                                                          ) => const Divider(
-                                                                            height:
-                                                                                1,
-                                                                          ),
-                                                                      itemBuilder: (
+                                                            child: Consumer<MyFormViewModel>(
+                                                              builder: (cCtx, mfvm, __) {
+                                                                return ListView.separated(
+                                                                  shrinkWrap:
+                                                                      true,
+                                                                  itemCount: pdfs
+                                                                      .length,
+                                                                  separatorBuilder:
+                                                                      (
                                                                         _,
-                                                                        i,
-                                                                      ) {
-                                                                        final p =
-                                                                            pdfs[i]
-                                                                                as Map<
-                                                                                  String,
-                                                                                  dynamic
-                                                                                >;
-                                                                        final title =
-                                                                            p['applicationName'] ??
-                                                                            'Application ${i + 1}';
-                                                                        final subtitle =
-                                                                            p['createdAt']?.toString().split('T').first ??
-                                                                            '';
+                                                                        __,
+                                                                      ) => const Divider(
+                                                                        height:
+                                                                            1,
+                                                                      ),
+                                                                  itemBuilder: (_, i) {
+                                                                    final p =
+                                                                        pdfs[i]
+                                                                            as Map<
+                                                                              String,
+                                                                              dynamic
+                                                                            >;
+                                                                    final title =
+                                                                        p['applicationName'] ??
+                                                                        'Application ${i + 1}';
+                                                                    final subtitle =
+                                                                        p['createdAt']
+                                                                            ?.toString()
+                                                                            .split(
+                                                                              'T',
+                                                                            )
+                                                                            .first ??
+                                                                        '';
 
-                                                                        // 1) obtain applicationId from pdf object
-                                                                        final applicationId =
-                                                                            (p['applicationId'] ??
-                                                                                    p['_id'] ??
-                                                                                    p['formId'] ??
-                                                                                    '')
-                                                                                .toString();
+                                                                    // 1) obtain applicationId from pdf object
+                                                                    final applicationId =
+                                                                        (p['applicationId'] ??
+                                                                                p['_id'] ??
+                                                                                p['formId'] ??
+                                                                                '')
+                                                                            .toString();
 
-                                                                        // 2) get cached StudentApplication if available
-                                                                        final app =
-                                                                            applicationId.isNotEmpty
-                                                                                ? mfvm.applicationCache[applicationId]
-                                                                                : null;
+                                                                    // 2) get cached StudentApplication if available
+                                                                    final app =
+                                                                        applicationId
+                                                                            .isNotEmpty
+                                                                        ? mfvm.applicationCache[applicationId]
+                                                                        : null;
 
-                                                                        // 3) read the standard from StudentApplication
-                                                                        final pdfStandard =
-                                                                            (app?.standard ??
-                                                                                    '')
-                                                                                .toString()
-                                                                                .trim();
+                                                                    // 3) read the standard from StudentApplication
+                                                                    // final pdfStandard =
+                                                                    //     (app?.standard ??
+                                                                    //             '')
+                                                                    //         .toString()
+                                                                    //         .trim();
 
-                                                                        // 4) get timelines from admissionVm (typed TimelineEntryModel list)
-                                                                        final timelines =
-                                                                            admissionVm.admissionTimeline?.timelines ??
-                                                                            <
-                                                                              TimelineEntryModel
-                                                                            >[];
+                                                                    // 4) get timelines from admissionVm (typed TimelineEntryModel list)
+                                                                    final timelines =
+                                                                        admissionVm
+                                                                            .admissionTimeline
+                                                                            ?.timelines ??
+                                                                        <
+                                                                          TimelineEntryModel
+                                                                        >[];
 
-                                                                        // 5) compute feeText by matching admissionLevel == pdfStandard
-                                                                        try {
-                                                                          if (pdfStandard.isNotEmpty &&
-                                                                              timelines.isNotEmpty) {
-                                                                            TimelineEntryModel?
-                                                                            matched;
-                                                                            for (final t
-                                                                                in timelines) {
-                                                                              final level =
-                                                                                  (t.eligibility?.admissionLevel ??
-                                                                                          '')
-                                                                                      .toLowerCase();
-                                                                              if (level.isNotEmpty &&
-                                                                                  level ==
-                                                                                      pdfStandard.toLowerCase()) {
-                                                                                matched =
-                                                                                    t;
-                                                                                break;
-                                                                              }
-                                                                            }
-                                                                            final feeNum =
-                                                                                matched?.applicationFee;
-                                                                            if (feeNum !=
-                                                                                null) {
-                                                                              if (feeNum %
-                                                                                      1 ==
-                                                                                  0) {
-                                                                                feeText =
-                                                                                    '₹${feeNum.toInt()}';
-                                                                              } else {
-                                                                                feeText =
-                                                                                    '₹${feeNum}';
-                                                                              }
-                                                                            }
+                                                                    // 5) compute feeText by matching admissionLevel == pdfStandard
+                                                                    try {
+                                                                      if (timelines
+                                                                          .isNotEmpty) {
+                                                                        TimelineEntryModel?
+                                                                        matched;
+                                                                        for (final t
+                                                                            in timelines) {
+                                                                          final level =
+                                                                              (t.eligibility?.admissionLevel ??
+                                                                                      '')
+                                                                                  .toLowerCase();
+                                                                          if (level
+                                                                              .isNotEmpty) {
+                                                                            matched =
+                                                                                t;
+                                                                            break;
                                                                           }
-                                                                        } catch (
-                                                                          _
-                                                                        ) {
-                                                                          feeText =
-                                                                              '-';
-                                                                              AlertDialog(
-                  title: const Text("Not Started"),
-                  content: Text(
-                    "Admissions are not started for your standard ($pdfStandard).",
-                  ),);
                                                                         }
+                                                                        final feeNum =
+                                                                            matched?.applicationFee;
+                                                                        if (feeNum !=
+                                                                            null) {
+                                                                          if (feeNum %
+                                                                                  1 ==
+                                                                              0) {
+                                                                            feeText =
+                                                                                '₹${feeNum.toInt()}';
+                                                                          } else {
+                                                                            feeText =
+                                                                                '₹${feeNum}';
+                                                                          }
+                                                                        }
+                                                                      }
+                                                                    } catch (
+                                                                      _
+                                                                    ) {
+                                                                      feeText =
+                                                                          '-';
+                                                                      AlertDialog(
+                                                                        title: const Text(
+                                                                          "Not Started",
+                                                                        ),
+                                                                        // content: Text(
+                                                                        //   "Admissions are not started for your standard ($pdfStandard).",
+                                                                        // ),
+                                                                      );
+                                                                    }
 
-                                                                        final loading =
-                                                                            applicationId.isNotEmpty &&
-                                                                            mfvm.isAppLoading(
-                                                                              applicationId,
-                                                                            );
+                                                                    final loading =
+                                                                        applicationId
+                                                                            .isNotEmpty &&
+                                                                        mfvm.isAppLoading(
+                                                                          applicationId,
+                                                                        );
 
-                                                                        return ListTile(
-                                                                          title: Text(
-                                                                            title.toString(),
-                                                                          ),
-                                                                          subtitle:
-                                                                              subtitle.isNotEmpty
-                                                                                  ? Text(
-                                                                                    subtitle,
-                                                                                  )
-                                                                                  : null,
-                                                                          trailing:
-                                                                              loading
-                                                                                  ? const SizedBox(
-                                                                                    width:
-                                                                                        24,
-                                                                                    height:
-                                                                                        24,
-                                                                                    child: CircularProgressIndicator(
-                                                                                      strokeWidth:
-                                                                                          2,
-                                                                                    ),
-                                                                                  )
-                                                                                  : Text(
-                                                                                    feeText,
-                                                                                    style: const TextStyle(
-                                                                                      fontWeight:
-                                                                                          FontWeight.w600,
-                                                                                    ),
-                                                                                  ),
-                                                                          onTap: () async {
-                                                                            if (applicationId.isNotEmpty &&
-                                                                                mfvm.applicationCache[applicationId] ==
-                                                                                    null) {
-                                                                              final err = await mfvm.fetchApplicationById(
-                                                                                applicationId:
-                                                                                    applicationId,
+                                                                    return ListTile(
+                                                                      title: Text(
+                                                                        title
+                                                                            .toString(),
+                                                                      ),
+                                                                      subtitle:
+                                                                          subtitle
+                                                                              .isNotEmpty
+                                                                          ? Text(
+                                                                              subtitle,
+                                                                            )
+                                                                          : null,
+                                                                      trailing:
+                                                                          loading
+                                                                          ? const SizedBox(
+                                                                              width: 24,
+                                                                              height: 24,
+                                                                              child: CircularProgressIndicator(
+                                                                                strokeWidth: 2,
+                                                                              ),
+                                                                            )
+                                                                          : Text(
+                                                                              feeText,
+                                                                              style: const TextStyle(
+                                                                                fontWeight: FontWeight.w600,
+                                                                              ),
+                                                                            ),
+                                                                      onTap: () async {
+                                                                        if (applicationId.isNotEmpty &&
+                                                                            mfvm.applicationCache[applicationId] ==
+                                                                                null) {
+                                                                          final err = await mfvm.fetchApplicationById(
+                                                                            applicationId:
+                                                                                applicationId,
+                                                                          );
+                                                                          if (err !=
+                                                                              null) {
+                                                                            if (ctx.mounted) {
+                                                                              Toasts.showErrorToast(
+                                                                                ctx,
+                                                                                message:
+                                                                                    err.message ??
+                                                                                    "Failed to load application",
                                                                               );
-                                                                              if (err !=
-                                                                                  null) {
-                                                                                if (ctx.mounted) {
-                                                                                  Toasts.showErrorToast(
-                                                                                    ctx,
-                                                                                    message:
-                                                                                        err.message ??
-                                                                                        "Failed to load application",
-                                                                                  );
-                                                                                }
-                                                                                return;
-                                                                              }
                                                                             }
-                                                                            Navigator.of(
-                                                                              ctx,
-                                                                            ).pop(
-                                                                              i,
-                                                                            );
-                                                                          },
+                                                                            return;
+                                                                          }
+                                                                        }
+                                                                        Navigator.of(
+                                                                          ctx,
+                                                                        ).pop(
+                                                                          i,
                                                                         );
                                                                       },
                                                                     );
                                                                   },
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 12,
-                                                              ),
-                                                              TextButton(
-                                                                onPressed:
-                                                                    () =>
-                                                                        Navigator.of(
-                                                                          ctx,
-                                                                        ).pop(
-                                                                          null,
-                                                                        ),
-                                                                child:
-                                                                    const Text(
-                                                                      "Cancel",
-                                                                    ),
-                                                              ),
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-                                                    );
-                                                  },
-                                                );
-                                                if (chosenPdfIndex == null)
-                                                  return;
-
-                                                final chosen =
-                                                    pdfs[chosenPdfIndex];
-
-                                                final formId =
-                                                    chosen['_id']?.toString() ??
-                                                    "";
-                                                final applicationId =
-                                                    chosen['applicationId']
-                                                        ?.toString() ??
-                                                    "";
-
-                                                if (formId.isEmpty) {
-                                                  ScaffoldMessenger.of(
-                                                    context,
-                                                  ).showSnackBar(
-                                                    const SnackBar(
-                                                      content: Text(
-                                                        "Invalid PDF selected.",
-                                                      ),
-                                                    ),
-                                                  );
-                                                  return;
-                                                }
-
-                                                // STEP 3: submit form
-                                                final failure =
-                                                    await myFormViewModel
-                                                        .submitForm(
-                                                          collegeId:
-                                                              widget.collegeId,
-                                                          applicationId:
-                                                              applicationId,
-                                                          formId: formId,
-                                                          amount: int.parse(
-                                                            feeText.substring(
-                                                              1,
+                                                                );
+                                                              },
                                                             ),
                                                           ),
-                                                        );
+                                                          const SizedBox(
+                                                            height: 12,
+                                                          ),
+                                                          TextButton(
+                                                            onPressed: () =>
+                                                                Navigator.of(
+                                                                  ctx,
+                                                                ).pop(null),
+                                                            child: const Text(
+                                                              "Cancel",
+                                                            ),
+                                                          ),
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                            );
+                                            if (chosenPdfIndex == null) return;
 
-                                                // Debug: check whether this page is still current / mounted
-                                                // (works regardless of go_router version)
-                                                try {
-                                                  final isCurrent =
-                                                      ModalRoute.of(
-                                                        context,
-                                                      )?.isCurrent ??
-                                                      false;
-                                                  // ignore: avoid_print
-                                                  print(
-                                                    '[Apply] after submit: ModalRoute.isCurrent = $isCurrent',
-                                                  );
+                                            final chosen = pdfs[chosenPdfIndex];
 
-                                                  final canPop =
-                                                      Navigator.of(
-                                                        context,
-                                                      ).canPop();
-                                                  // ignore: avoid_print
-                                                  print(
-                                                    '[Apply] after submit: Navigator.canPop = $canPop',
-                                                  );
-                                                } catch (e) {
-                                                  // ignore: avoid_print
-                                                  print(
-                                                    '[Apply] debug check failed: $e',
-                                                  );
-                                                }
+                                            final formId =
+                                                chosen['_id']?.toString() ?? "";
+                                            final applicationId =
+                                                chosen['applicationId']
+                                                    ?.toString() ??
+                                                "";
 
-                                                // Only show UI when still mounted
-                                                if (!context.mounted) {
-                                                  // ignore: avoid_print
-                                                  print(
-                                                    '[Apply] context not mounted after submit — page may have been popped.',
+                                            if (formId.isEmpty) {
+                                              ScaffoldMessenger.of(
+                                                context,
+                                              ).showSnackBar(
+                                                const SnackBar(
+                                                  content: Text(
+                                                    "Invalid PDF selected.",
+                                                  ),
+                                                ),
+                                              );
+                                              return;
+                                            }
+
+                                            // STEP 3: submit form
+                                            final failure =
+                                                await myFormViewModel
+                                                    .submitForm(
+                                                      collegeId:
+                                                          widget.collegeId,
+                                                      applicationId:
+                                                          applicationId,
+                                                      formId: formId,
+                                                      amount: int.parse(
+                                                        feeText.substring(1),
+                                                      ),
+                                                    );
+
+                                            // Debug: check whether this page is still current / mounted
+                                            // (works regardless of go_router version)
+                                            try {
+                                              final isCurrent =
+                                                  ModalRoute.of(
+                                                    context,
+                                                  )?.isCurrent ??
+                                                  false;
+                                              // ignore: avoid_print
+                                              print(
+                                                '[Apply] after submit: ModalRoute.isCurrent = $isCurrent',
+                                              );
+
+                                              final canPop = Navigator.of(
+                                                context,
+                                              ).canPop();
+                                              // ignore: avoid_print
+                                              print(
+                                                '[Apply] after submit: Navigator.canPop = $canPop',
+                                              );
+                                            } catch (e) {
+                                              // ignore: avoid_print
+                                              print(
+                                                '[Apply] debug check failed: $e',
+                                              );
+                                            }
+
+                                            // Only show UI when still mounted
+                                            if (!context.mounted) {
+                                              // ignore: avoid_print
+                                              print(
+                                                '[Apply] context not mounted after submit — page may have been popped.',
+                                              );
+                                              return;
+                                            }
+
+                                            final paymentVM =
+                                                getIt<PaymentViewModel>();
+
+                                            Toasts.showSuccessOrFailureToast(
+                                              context,
+                                              failure: failure,
+                                              hideSuccess: true,
+                                              popOnSuccess: false,
+                                              successCallback: () async {
+                                                if (int.parse(
+                                                      feeText.substring(1),
+                                                    ) ==
+                                                    0) {
+                                                  Toasts.showSuccessToast(
+                                                    context,
+                                                    message:
+                                                        'Form submitted successfully',
                                                   );
                                                   return;
                                                 }
 
-                                                final paymentVM =
-                                                    getIt<PaymentViewModel>();
-
+                                                final failure = await paymentVM
+                                                    .createOrder();
                                                 Toasts.showSuccessOrFailureToast(
                                                   context,
                                                   failure: failure,
-                                                  hideSuccess: true,
                                                   popOnSuccess: false,
-                                                  successCallback: () async {
-                                                    if (int.parse(
-                                                          feeText.substring(1),
-                                                        ) ==
-                                                        0) {
-                                                      Toasts.showSuccessToast(
-                                                        context,
-                                                        message:
-                                                            'Form submitted successfully',
-                                                      );
-                                                      return;
-                                                    }
-
-                                                    final failure =
-                                                        await paymentVM
-                                                            .createOrder();
-                                                    Toasts.showSuccessOrFailureToast(
-                                                      context,
-                                                      failure: failure,
-                                                      popOnSuccess: false,
-                                                      hideSuccess: true,
-                                                      successCallback: () {
-                                                        context.pushNamed(
-                                                          RouteNames.payments,
-                                                        );
-                                                      },
+                                                  hideSuccess: true,
+                                                  successCallback: () {
+                                                    context.pushNamed(
+                                                      RouteNames.payments,
                                                     );
                                                   },
                                                 );
                                               },
-                                              backgroundColor: Colors.blue,
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                    vertical: 14,
-                                                  ),
-                                              label: '',
-                                              max: true,
-                                              text: Text(
-                                                isSingleAndApplied
-                                                    ? "Apply for other"
-                                                    : "Apply",
-                                                style: TextStyle(
-                                                  fontSize: infoFont,
-                                                  color: Colors.white,
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
                                             );
                                           },
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                          // Chips
-                          Padding(
-                            padding: EdgeInsets.symmetric(
-                              horizontal: pad,
-                              vertical: 6,
-                            ),
-                            child: Row(
-                              spacing: 8,
-                              children: [
-                                Expanded(
-                                  child: Builder(
-                                    builder: (_) {
-                                      final userPref =
-                                          getIt<AppStateProvider>().userPref;
-                                      int matchPercentage = 0;
-                                      if (userPref != null) {
-                                        matchPercentage =
-                                            calculateMatchPercentage(
-                                              school: school,
-                                              userPref: userPref,
-                                            );
-                                      }
-                                      return InfoChip(
-                                        topText: "$matchPercentage%",
-                                        bottomText: "Preferences",
-                                        fontSize: infoFont,
-                                        isSmallScreen: isSmall,
-                                      );
-                                    },
-                                  ),
-                                ),
-                                Expanded(
-                                  child: InfoChip(
-                                    topText: school.board ?? "-",
-                                    bottomText: "Board",
-                                    fontSize: infoFont,
-                                    isSmallScreen: isSmall,
-                                  ),
-                                ),
-                                Expanded(
-                                  child: InfoChip(
-                                    topText:
-                                        school.createdAt?.split('-').first ??
-                                        '-',
-                                    bottomText: "Since",
-                                    fontSize: infoFont,
-                                    isSmallScreen: isSmall,
-                                  ),
-                                ),
-                              ],
-                            ),
-                          ),
-                          const SizedBox(height: 15),
-                          Container(
-                            decoration: const BoxDecoration(
-                              border: Border(
-                                top: BorderSide(color: Colors.grey, width: 0.4),
-                                bottom: BorderSide(
-                                  color: Colors.grey,
-                                  width: 0.4,
-                                ),
-                              ),
-                            ),
-                            child: SingleChildScrollView(
-                              padding: EdgeInsets.symmetric(
-                                vertical: 4,
-                                horizontal: 8,
-                              ),
-                              scrollDirection: Axis.horizontal,
-                              controller: _tabScrollController,
-
-                              child: Row(
-                                children: [
-                                  ...DetailTabEnum.values.map((tab) {
-                                    return GestureDetector(
-                                      key: _tabKeys[tab.index],
-
-                                      onTap: () {
-                                        vm.currentPageIndex = tab.index;
-                                        pageController.animateToPage(
-                                          tab.index,
-                                          duration: Duration(milliseconds: 500),
-                                          curve: Curves.ease,
+                                          backgroundColor: Colors.blue,
+                                          padding: const EdgeInsets.symmetric(
+                                            vertical: 14,
+                                          ),
+                                          label: '',
+                                          max: true,
+                                          text: Text(
+                                            isSingleAndApplied
+                                                ? "Apply for other"
+                                                : "Apply",
+                                            style: TextStyle(
+                                              fontSize: infoFont,
+                                              color: Colors.white,
+                                              fontWeight: FontWeight.bold,
+                                            ),
+                                          ),
                                         );
-                                        _scrollToTab(tab.index);
                                       },
-                                      child: CustomTab(
-                                        tabName: tab.label,
-                                        isSelected:
-                                            tab.index == vm.currentPageIndex,
-                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                      ),
+                      // Chips
+                      Padding(
+                        padding: EdgeInsets.symmetric(
+                          horizontal: pad,
+                          vertical: 6,
+                        ),
+                        child: Row(
+                          spacing: 8,
+                          children: [
+                            Expanded(
+                              child: Builder(
+                                builder: (_) {
+                                  final userPref =
+                                      getIt<AppStateProvider>().userPref;
+                                  int matchPercentage = 0;
+                                  if (userPref != null) {
+                                    matchPercentage = calculateMatchPercentage(
+                                      school: school,
+                                      userPref: userPref,
                                     );
-                                  }),
-                                ],
+                                  }
+                                  return InfoChip(
+                                    topText: "$matchPercentage%",
+                                    bottomText: "Preferences",
+                                    fontSize: infoFont,
+                                    isSmallScreen: isSmall,
+                                  );
+                                },
                               ),
                             ),
-                          ),
-                        ],
+                            Expanded(
+                              child: InfoChip(
+                                topText: school.board ?? "-",
+                                bottomText: "Board",
+                                fontSize: infoFont,
+                                isSmallScreen: isSmall,
+                              ),
+                            ),
+                            Expanded(
+                              child: InfoChip(
+                                topText:
+                                    school.createdAt?.split('-').first ?? '-',
+                                bottomText: "Since",
+                                fontSize: infoFont,
+                                isSmallScreen: isSmall,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                      const SizedBox(height: 15),
+                      Container(
+                        decoration: const BoxDecoration(
+                          border: Border(
+                            top: BorderSide(color: Colors.grey, width: 0.4),
+                            bottom: BorderSide(color: Colors.grey, width: 0.4),
+                          ),
+                        ),
+                        child: SingleChildScrollView(
+                          padding: EdgeInsets.symmetric(
+                            vertical: 4,
+                            horizontal: 8,
+                          ),
+                          scrollDirection: Axis.horizontal,
+                          controller: _tabScrollController,
+
+                          child: Row(
+                            children: [
+                              ...DetailTabEnum.values.map((tab) {
+                                return GestureDetector(
+                                  key: _tabKeys[tab.index],
+
+                                  onTap: () {
+                                    vm.currentPageIndex = tab.index;
+                                    pageController.animateToPage(
+                                      tab.index,
+                                      duration: Duration(milliseconds: 500),
+                                      curve: Curves.ease,
+                                    );
+                                    _scrollToTab(tab.index);
+                                  },
+                                  child: CustomTab(
+                                    tabName: tab.label,
+                                    isSelected:
+                                        tab.index == vm.currentPageIndex,
+                                  ),
+                                );
+                              }),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
 
               body: PageView(
                 controller: pageController,
@@ -1139,7 +1093,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                 },
                 children: [
                   OverviewTab(school: vm.school as collegeModel),
-                   CoursesView(collegeId: widget.collegeId),
+                  CoursesView(collegeId: widget.collegeId),
                   FacultyView(collegeId: widget.collegeId),
                   InfrastructureView(collegeId: widget.collegeId),
                   // TechnologyAdoptionView(collegeId: widget.collegeId),
@@ -1156,7 +1110,8 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                   ReviewsView(collegeId: widget.collegeId),
                   OtherDetailsView(collegeId: widget.collegeId),
                   PhotosView(photos: vm.school?.photos ?? []),
-                  PlacementView(collegeId: widget.collegeId)
+                  PlacementView(collegeId: widget.collegeId),
+                       ExamView(collegeId: widget.collegeId),
                 ],
               ),
             ),
@@ -1211,12 +1166,8 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
             width: size,
             height: size,
             fit: BoxFit.cover,
-            errorBuilder:
-                (_, __, ___) => const Icon(
-                  Icons.broken_image,
-                  color: Colors.grey,
-                  size: 28,
-                ),
+            errorBuilder: (_, __, ___) =>
+                const Icon(Icons.broken_image, color: Colors.grey, size: 28),
           ),
         ),
       ),
@@ -1293,8 +1244,6 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
         matched++;
       }
     }
-
-  
 
     // 4. School Type (UserPref) vs School Tags (collegeModel)
     if (userPref.collegeType != null &&
