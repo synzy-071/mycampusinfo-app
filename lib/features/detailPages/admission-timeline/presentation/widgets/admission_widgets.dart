@@ -181,8 +181,9 @@ class TimelineCard extends StatelessWidget {
       return false;
     }
 
-    bool started = currentDate.isBefore(timeline.admissionStartDate!);
-    bool ended = currentDate.isAfter(timeline.admissionEndDate!);
+    bool started = currentDate.isAfter(timeline.admissionStartDate!);
+
+    bool ended = currentDate.isBefore(timeline.admissionEndDate!);
 
     return started && ended;
   }
