@@ -20,7 +20,7 @@ class PrefDataSourceImpl implements PrefDataSource {
   ResultFuture<UserPref?> addPreferences({
   
     required String preferredStandard,
-    required String interests,
+ 
     required String collegeType,
     required String shift,
   }) async {
@@ -36,7 +36,7 @@ class PrefDataSourceImpl implements PrefDataSource {
             preferredStandard == 'PlaySchool'
                 ? 'playSchool'
                 : preferredStandard.toLowerCase(),
-        "interests": interests,
+      
         "collegeType": collegeType.toLowerCase(),
         "shift": shift.toLowerCase(),
       },
@@ -61,7 +61,7 @@ class PrefDataSourceImpl implements PrefDataSource {
   ResultFuture<UserPref?> updatePreferences({
 
     required String preferredStandard,
-    required String interests,
+  
     required String collegeType,
     required String shift,
   }) async {
@@ -74,7 +74,7 @@ class PrefDataSourceImpl implements PrefDataSource {
         "city": _appStateProvider.user?.city,
     
         "preferredStream": preferredStandard,
-        "interests": interests,
+     
         "collegeType": collegeType,
         "shift": shift,
       },

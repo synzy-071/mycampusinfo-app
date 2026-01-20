@@ -5,7 +5,6 @@ abstract class PrefDataSource {
   ResultFuture<UserPref?> addPreferences({
 
     required String preferredStandard,
-    required String interests,
     required String collegeType,
     required String shift,
   });
@@ -13,7 +12,6 @@ abstract class PrefDataSource {
   ResultFuture<UserPref?> updatePreferences({
    
     required String preferredStandard,
-    required String interests,
     required String collegeType,
     required String shift,
   });

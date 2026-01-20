@@ -1,7 +1,7 @@
 class Endpoints {
   // // static const String baseUrl = 'https://backend-tc-sa-v2.onrender.com/api/';
-  static const String baseUrl = 'https://mycampusinfo-server.onrender.com/api/';
-  // static const String baseUrl = 'http://localhost:8080/api/';
+  //static const String baseUrl = 'https://mycampusinfo-server.onrender.com/api/';
+   static const String baseUrl = 'http://localhost:8080/api/';
 
   //Authentication Endpoints
   static const String auth = 'auth';
@@ -54,7 +54,7 @@ class Endpoints {
   static const String feesByCollege = 'colleges/course-fee';
   static const String adminAdmissionTimeline = 'colleges/admission';
   static const String reviewsBySchoolAdmin = 'colleges/reviews';
-
+ static const String collegeHostels = 'colleges/hostel/add';
   static const String adminBlogs = 'colleges/blogs';
   static const String adminCompare = 'colleges/compare';
 

@@ -13,6 +13,7 @@ import 'package:mycampusinfo_app/features/detailPages/amenity/presentation/ameni
 import 'package:mycampusinfo_app/features/detailPages/eligible_exam/presentation/exam_view.dart';
 import 'package:mycampusinfo_app/features/detailPages/faculty/presentation/faculty_view.dart';
 import 'package:mycampusinfo_app/features/detailPages/feeAndScholarship/presentation/fees_scholarship_view.dart';
+import 'package:mycampusinfo_app/features/detailPages/hostel/presentation/hostel_view.dart';
 import 'package:mycampusinfo_app/features/detailPages/infrastructure/presentation/infrastructure_view.dart';
 import 'package:mycampusinfo_app/features/detailPages/internationalExposure/presentation/international_view.dart';
 import 'package:mycampusinfo_app/features/detailPages/otherDetails/presentation/other_details_view.dart';
@@ -590,15 +591,16 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
               body: PageView(
                 controller: pageController,
                 onPageChanged: (index) {
-                  vm.currentPageIndex = index;
-                  _scrollToTab(index);
+                  if (index < _tabKeys.length) {
+                    vm.currentPageIndex = index;
+                    _scrollToTab(index);
+                  }
                 },
                 children: [
                   OverviewTab(school: vm.school as CollegeModel),
                   CoursesView(collegeId: widget.collegeId),
                   FacultyView(collegeId: widget.collegeId),
                   InfrastructureView(collegeId: widget.collegeId),
-                  // TechnologyAdoptionView(collegeId: widget.collegeId),
                   ActivityView(collegeId: widget.collegeId),
                   SafetyAndSecurityView(collegeId: widget.collegeId),
                   InternationalExposureView(collegeId: widget.collegeId),
@@ -614,6 +616,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                   PhotosView(photos: vm.school?.photos ?? []),
                   PlacementView(collegeId: widget.collegeId),
                   ExamView(collegeId: widget.collegeId),
+                  HostelView(collegeId: widget.collegeId),
                 ],
               ),
             ),
@@ -677,22 +680,25 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
   }
 
   void _scrollToTab(int index) {
+    // ✅ Guard 1: index safety
+    if (index < 0 || index >= _tabKeys.length) return;
+
+    // ✅ Guard 2: controller attached
+    if (!_tabScrollController.hasClients) return;
+
     final keyContext = _tabKeys[index].currentContext;
     if (keyContext == null) return;
 
-    // Get the RenderBox for the tab
     final box = keyContext.findRenderObject() as RenderBox?;
     if (box == null) return;
 
-    // ✅ Correct way: use RenderObject of the scroll view as ancestor
-    final scrollBox =
-        _tabScrollController.position.context.notificationContext
-                ?.findRenderObject()
-            as RenderBox?;
+    final scrollContext =
+        _tabScrollController.position.context.notificationContext;
+    if (scrollContext == null) return;
 
+    final scrollBox = scrollContext.findRenderObject() as RenderBox?;
     if (scrollBox == null) return;
 
-    // Get tab’s position relative to the scrollable area
     final position = box.localToGlobal(Offset.zero, ancestor: scrollBox);
 
     final tabLeft = position.dx;
@@ -701,12 +707,9 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
 
     double targetOffset = _tabScrollController.offset;
 
-    // Scroll left if hidden on the left
     if (tabLeft < 0) {
       targetOffset += tabLeft - 16;
-    }
-    // Scroll right if hidden on the right
-    else if (tabRight > viewportWidth) {
+    } else if (tabRight > viewportWidth) {
       targetOffset += (tabRight - viewportWidth) + 16;
     }
 

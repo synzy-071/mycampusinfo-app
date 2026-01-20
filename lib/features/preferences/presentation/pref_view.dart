@@ -21,7 +21,7 @@ class PrefView extends StatefulWidget {
 class _PrefViewState extends State<PrefView> {
   final AppStateProvider appStateProvider = getIt<AppStateProvider>();
   final standardController = TextEditingController();
-  final interestController = TextEditingController();
+  // final interestController = TextEditingController();
   final schoolTypeController = TextEditingController();
   final shiftController = TextEditingController();
   final boardController = TextEditingController();
@@ -41,27 +41,27 @@ class _PrefViewState extends State<PrefView> {
     "Market",
   ];
   // 🧩 Mapping of frontend (short) values to backend (enum) strings
-  final Map<String, String> interestMap = {
-    'Academics': 'Focusing on Academics',
-    'Practical Learning': 'Focuses on Practical Learning',
-    'Theoretical Learning': 'Focuses on Theoretical Learning',
-    'Sports': 'Empowering in Sports',
-    'Arts': 'Empowering in Arts',
-    'Mathematics': 'Special Focus on Mathematics',
-    'Science': 'Special Focus on Science',
-    'Physical Education': 'Special Focus on Physical Education',
-    'Leadership Development': 'Leadership Development',
-    'STEM Activities': 'STEM Activities',
-    'Cultural Education': 'Cultural Education',
-    'Technology Integration': 'Technology Integration',
-    'Environmental Awareness': 'Environmental Awareness',
-  };
+  // final Map<String, String> interestMap = {
+  //   'Academics': 'Focusing on Academics',
+  //   'Practical Learning': 'Focuses on Practical Learning',
+  //   'Theoretical Learning': 'Focuses on Theoretical Learning',
+  //   'Sports': 'Empowering in Sports',
+  //   'Arts': 'Empowering in Arts',
+  //   'Mathematics': 'Special Focus on Mathematics',
+  //   'Science': 'Special Focus on Science',
+  //   'Physical Education': 'Special Focus on Physical Education',
+  //   'Leadership Development': 'Leadership Development',
+  //   'STEM Activities': 'STEM Activities',
+  //   'Cultural Education': 'Cultural Education',
+  //   'Technology Integration': 'Technology Integration',
+  //   'Environmental Awareness': 'Environmental Awareness',
+  // };
 
   @override
   void initState() {
     standardController.text =
         appStateProvider.userPref?.preferredStream?.toCapitalise ?? '';
-    interestController.text = appStateProvider.userPref?.interests ?? '';
+    // interestController.text = appStateProvider.userPref?.interests ?? '';
     schoolTypeController.text =
         appStateProvider.userPref?.collegeType?.toCapitalise ?? '';
     shiftController.text = appStateProvider.userPref?.shift?.toCapitalise ?? '';
@@ -96,16 +96,16 @@ class _PrefViewState extends State<PrefView> {
 
     setState(() {
       standardController.text = pref.preferredStream?.toCapitalise ?? '';
-      final backendInterest = pref.interests ?? '';
-      final frontendInterest = interestMap.entries
-          .firstWhere(
-            (entry) => entry.value == backendInterest,
-            orElse: () => const MapEntry('', ''),
-          )
-          .key;
-      interestController.text = frontendInterest.isNotEmpty
-          ? frontendInterest
-          : backendInterest;
+      // final backendInterest = pref.interests ?? '';
+      // final frontendInterest = interestMap.entries
+      //     .firstWhere(
+      //       (entry) => entry.value == backendInterest,
+      //       orElse: () => const MapEntry('', ''),
+      //     )
+      //     .key;
+      // interestController.text = frontendInterest.isNotEmpty
+      //     ? frontendInterest
+      //     : backendInterest;
 
       schoolTypeController.text = pref.collegeType?.toCapitalise ?? '';
       shiftController.text = pref.shift?.toCapitalise ?? '';
@@ -260,20 +260,20 @@ class _PrefViewState extends State<PrefView> {
                                 label: 'Preferred Streams',
                                 hint: 'Select Stream',
                               ),
-                              STextField.dropdown(
-                                controller: interestController,
-                                items: interestMap.keys
-                                    .toList(), // show short values only
-                                label: 'Interests',
-                                hint: 'Focuses On',
-                                onChanged: (value) {
-                                  if (value != null &&
-                                      interestMap.containsKey(value)) {
-                                    interestController.text =
-                                        value; // frontend text
-                                  }
-                                },
-                              ),
+                              // STextField.dropdown(
+                              //   controller: interestController,
+                              //   items: interestMap.keys
+                              //       .toList(), // show short values only
+                              //   label: 'Interests',
+                              //   hint: 'Focuses On',
+                              //   onChanged: (value) {
+                              //     if (value != null &&
+                              //         interestMap.containsKey(value)) {
+                              //       interestController.text =
+                              //           value; // frontend text
+                              //     }
+                              //   },
+                              // ),
 
                               STextField.dropdown(
                                 controller: schoolTypeController,
@@ -393,11 +393,11 @@ class _PrefViewState extends State<PrefView> {
                           onPressed: () async {
                            
                             String standard = standardController.text.trim();
-                            String frontendInterest = interestController.text
-                                .trim();
-                            String interest =
-                                interestMap[frontendInterest] ??
-                                frontendInterest;
+                            // String frontendInterest = interestController.text
+                            //     .trim();
+                            // String interest =
+                            //     interestMap[frontendInterest] ??
+                            //     frontendInterest;
 
                             String collegeType = schoolTypeController.text
                                 .trim();
@@ -406,7 +406,7 @@ class _PrefViewState extends State<PrefView> {
                             String gender = genderController.text.trim();
 
                             if (standard.isEmpty ||
-                                interest.isEmpty ||
+                              
                                 collegeType.isEmpty ||
                                 shifts.isEmpty 
                                 ) {
@@ -438,7 +438,7 @@ class _PrefViewState extends State<PrefView> {
                                   );
                                   appStateProvider.userPref = UserPref(
                                     preferredStream: standard,
-                                    interests: interest,
+                                  
                                     collegeType: collegeType,
                                     shift: shifts,
                                   );
@@ -449,7 +449,6 @@ class _PrefViewState extends State<PrefView> {
                                       .updatePreferences(
                                     
                                         preferredStandard: standard,
-                                        interests: interest,
                                         collegeType: collegeType,
                                         shift: shifts,
                                       );
@@ -457,7 +456,7 @@ class _PrefViewState extends State<PrefView> {
                                   failure = await prefViewModel.addPreferences(
                               
                                     preferredStandard: standard,
-                                    interests: interest,
+                                  
                                     collegeType: collegeType,
                                     shift: shifts,
                                   );

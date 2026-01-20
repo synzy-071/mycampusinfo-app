@@ -9,7 +9,6 @@ class SchoolTabController with ChangeNotifier {
     'academics',
     'faculty details',
     "Infrastructure",
-    'techAdaption',
     "Activities",
     'safetySecurity',
     'internationalExposure',
@@ -21,7 +20,8 @@ class SchoolTabController with ChangeNotifier {
     "Other Details",
     'photos',
     'Placement',
-    'Eligibile Exam'
+    'Eligibile Exam',
+    'Hostel',
   ];
 
   void initialize(TickerProvider vsync) {

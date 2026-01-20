@@ -1,84 +1,51 @@
 import 'dart:convert';
 
 class StudentApplication {
-  // Core
+  final String? applicationId;
   final String? studId;
+
+  // Core
   final String? name;
   final String? location;
   final DateTime? dob;
   final int? age;
-  final String? gender; // Male | Female | Other
+  final String? gender;
   final String? motherTongue;
   final String? placeOfBirth;
   final bool? speciallyAbled;
   final String? speciallyAbledType;
   final String? nationality;
+  final String? category;
 
-
-
-  final String? religion;
-  final String? caste;
-  final String? subcaste;
-  final String? aadharNo;
-  final String? bloodGroup;
-  final String? allergicTo;
-  final String? interest;
-
-  DateTime? createdAt;
-  DateTime? updatedAt;
-  // Last school
-  final String? lastSchoolName;
-  final String? classCompleted;
-  final String? lastAcademicYear;
-  final String? reasonForLeaving;
-  final String? board;
-
-  // Father
+  // Parent details
   final String? fatherName;
   final int? fatherAge;
   final String? fatherQualification;
   final String? fatherProfession;
   final String? fatherAnnualIncome;
   final String? fatherPhoneNo;
-  final String? fatherAadharNo;
   final String? fatherEmail;
 
-final String? applicationId;   // APPLICATION ID
-
-  // Mother
   final String? motherName;
   final int? motherAge;
   final String? motherQualification;
   final String? motherProfession;
   final String? motherAnnualIncome;
   final String? motherPhoneNo;
-  final String? motherAadharNo;
   final String? motherEmail;
 
-  // Relationship
-  final String? relationshipStatus; // Married | Divorced | Single Mother | Single Father | Widowed | Other
-
-  // Guardian (if divorced etc.)
-  final String? guardianName;
-  final String? guardianContactNo;
-  final String? guardianRelationToStudent;
-  final String? guardianQualification;
-  final String? guardianProfession;
-  final String? guardianEmail;
-  final String? guardianAadharNo;
-
-  // Addresses
-  final String? presentAddress;
-  final String? permanentAddress;
-
-  // Siblings
-  final List<Sibling>? siblings;
-
-  // Other
-  final String? homeLanguage;
   final String? yearlyBudget;
 
+  // College application data
+  final List<CoursePreference>? coursePreferences;
+  final LatestQualification? latestQualification;
+  final AcademicDetails? academicDetails;
+
+  final DateTime? createdAt;
+  final DateTime? updatedAt;
+
   StudentApplication({
+    this.applicationId,
     this.studId,
     this.name,
     this.location,
@@ -90,28 +57,13 @@ final String? applicationId;   // APPLICATION ID
     this.speciallyAbled,
     this.speciallyAbledType,
     this.nationality,
-    this.applicationId,
-    this.religion,
-    this.caste,
-    this.subcaste,
-    this.aadharNo,
-    this.bloodGroup,
-    this.allergicTo,
-    this.interest,
-    this.createdAt,
-    this.updatedAt,
-    this.lastSchoolName,
-    this.classCompleted,
-    this.lastAcademicYear,
-    this.reasonForLeaving,
-    this.board,
+    this.category,
     this.fatherName,
     this.fatherAge,
     this.fatherQualification,
     this.fatherProfession,
     this.fatherAnnualIncome,
     this.fatherPhoneNo,
-    this.fatherAadharNo,
     this.fatherEmail,
     this.motherName,
     this.motherAge,
@@ -119,173 +71,22 @@ final String? applicationId;   // APPLICATION ID
     this.motherProfession,
     this.motherAnnualIncome,
     this.motherPhoneNo,
-    this.motherAadharNo,
     this.motherEmail,
-    this.relationshipStatus,
-    this.guardianName,
-    this.guardianContactNo,
-    this.guardianRelationToStudent,
-    this.guardianQualification,
-    this.guardianProfession,
-    this.guardianEmail,
-    this.guardianAadharNo,
-    this.presentAddress,
-    this.permanentAddress,
-    this.siblings,
-    this.homeLanguage,
     this.yearlyBudget,
+    this.coursePreferences,
+    this.latestQualification,
+    this.academicDetails,
+    this.createdAt,
+    this.updatedAt,
   });
 
-  /// Safe factory with null checks and DateTime parsing
-  factory StudentApplication.fromJson(Map<String, dynamic> json) {
-    return StudentApplication(
-      studId: json['studId']?.toString(),
-      applicationId: json['_id']?.toString(),
-
-      name: json['name']?.toString(),
-      location: json['location']?.toString(),
-      dob: json['dob'] != null ? DateTime.tryParse(json['dob'].toString()) : null,
-      age: json['age'] is int ? json['age'] as int : (json['age'] is num ? (json['age'] as num).toInt() : null),
-      gender: json['gender']?.toString(),
-      motherTongue: json['motherTongue']?.toString(),
-      placeOfBirth: json['placeOfBirth']?.toString(),
-      speciallyAbled: json['speciallyAbled'] is bool ? json['speciallyAbled'] as bool : null,
-      speciallyAbledType: json['speciallyAbledType']?.toString(),
-      nationality: json['nationality']?.toString(),
-      religion: json['religion']?.toString(),
-      caste: json['caste']?.toString(),
-      subcaste: json['subcaste']?.toString(),
-      aadharNo: json['aadharNo']?.toString(),
-      bloodGroup: json['bloodGroup']?.toString(),
-
-          createdAt: json['createdAt'] != null
-        ? DateTime.tryParse(json['createdAt'])
-        : null,
-    updatedAt: json['updatedAt'] != null
-        ? DateTime.tryParse(json['updatedAt'])
-        : null,
-
-
-      allergicTo: json['allergicTo']?.toString(),
-      interest: json['interest']?.toString(),
-      lastSchoolName: json['lastSchoolName']?.toString(),
-      classCompleted: json['classCompleted']?.toString(),
-      lastAcademicYear: json['lastAcademicYear']?.toString(),
-      reasonForLeaving: json['reasonForLeaving']?.toString(),
-      board: json['board']?.toString(),
-      fatherName: json['fatherName']?.toString(),
-      fatherAge: json['fatherAge'] is int ? json['fatherAge'] as int : (json['fatherAge'] is num ? (json['fatherAge'] as num).toInt() : null),
-      fatherQualification: json['fatherQualification']?.toString(),
-      fatherProfession: json['fatherProfession']?.toString(),
-      fatherAnnualIncome: json['fatherAnnualIncome']?.toString(),
-      fatherPhoneNo: json['fatherPhoneNo']?.toString(),
-      fatherAadharNo: json['fatherAadharNo']?.toString(),
-      fatherEmail: json['fatherEmail']?.toString(),
-      motherName: json['motherName']?.toString(),
-      motherAge: json['motherAge'] is int ? json['motherAge'] as int : (json['motherAge'] is num ? (json['motherAge'] as num).toInt() : null),
-      motherQualification: json['motherQualification']?.toString(),
-      motherProfession: json['motherProfession']?.toString(),
-      motherAnnualIncome: json['motherAnnualIncome']?.toString(),
-      motherPhoneNo: json['motherPhoneNo']?.toString(),
-      motherAadharNo: json['motherAadharNo']?.toString(),
-      motherEmail: json['motherEmail']?.toString(),
-      relationshipStatus: json['relationshipStatus']?.toString(),
-      guardianName: json['guardianName']?.toString(),
-      guardianContactNo: json['guardianContactNo']?.toString(),
-      guardianRelationToStudent: json['guardianRelationToStudent']?.toString(),
-      guardianQualification: json['guardianQualification']?.toString(),
-      guardianProfession: json['guardianProfession']?.toString(),
-      guardianEmail: json['guardianEmail']?.toString(),
-      guardianAadharNo: json['guardianAadharNo']?.toString(),
-      presentAddress: json['presentAddress']?.toString(),
-      permanentAddress: json['permanentAddress']?.toString(),
-      siblings: (json['siblings'] is List)
-          ? (json['siblings'] as List)
-              .map((e) => Sibling.fromJson(e as Map<String, dynamic>))
-              .toList()
-          : null,
-      homeLanguage: json['homeLanguage']?.toString(),
-      yearlyBudget: json['yearlyBudget']?.toString(),
-    );
-  }
-
-  Map<String, dynamic> toJson() {
-    return {
-      "studId": studId,
-      "name": name,
-      "location": location,
-      // >>> IMPORTANT: send ISO string for backend Date type
-      "dob": dob?.toIso8601String(),
-      "age": age,
-      "gender": gender,
-      "motherTongue": motherTongue,
-      "placeOfBirth": placeOfBirth,
-      "speciallyAbled": speciallyAbled,
-      "speciallyAbledType": speciallyAbledType,
-      "nationality": nationality,
-
-'_id': applicationId,
-
-          'createdAt': createdAt?.toIso8601String(),
-    'updatedAt': updatedAt?.toIso8601String(),
-
-
-      "religion": religion,
-      "caste": caste,
-      "subcaste": subcaste,
-      "aadharNo": aadharNo,
-      "bloodGroup": bloodGroup,
-      "allergicTo": allergicTo,
-      "interest": interest,
-      "lastSchoolName": lastSchoolName,
-      "classCompleted": classCompleted,
-      "lastAcademicYear": lastAcademicYear,
-      "reasonForLeaving": reasonForLeaving,
-      "board": board,
-      "fatherName": fatherName,
-      "fatherAge": fatherAge,
-      "fatherQualification": fatherQualification,
-      "fatherProfession": fatherProfession,
-      "fatherAnnualIncome": fatherAnnualIncome,
-      "fatherPhoneNo": fatherPhoneNo,
-      "fatherAadharNo": fatherAadharNo,
-      "fatherEmail": fatherEmail,
-      "motherName": motherName,
-      "motherAge": motherAge,
-      "motherQualification": motherQualification,
-      "motherProfession": motherProfession,
-      "motherAnnualIncome": motherAnnualIncome,
-      "motherPhoneNo": motherPhoneNo,
-      "motherAadharNo": motherAadharNo,
-      "motherEmail": motherEmail,
-      "relationshipStatus": relationshipStatus,
-      "guardianName": guardianName,
-      "guardianContactNo": guardianContactNo,
-      "guardianRelationToStudent": guardianRelationToStudent,
-      "guardianQualification": guardianQualification,
-      "guardianProfession": guardianProfession,
-      "guardianEmail": guardianEmail,
-      "guardianAadharNo": guardianAadharNo,
-      "presentAddress": presentAddress,
-      "permanentAddress": permanentAddress,
-      "siblings": siblings?.map((e) => e.toJson()).toList(),
-      "homeLanguage": homeLanguage,
-      "yearlyBudget": yearlyBudget,
-    };
-  }
-
-  static StudentApplication fromJsonStr(String source) =>
-      StudentApplication.fromJson(json.decode(source) as Map<String, dynamic>);
-
-  String toJsonStr() => json.encode(toJson());
-
+  /// ✅ COPY WITH (FIXES YOUR ERROR)
   StudentApplication copyWith({
+    String? applicationId,
     String? studId,
     String? name,
     String? location,
     DateTime? dob,
-    String? standard,
-    String? applicationId,
     int? age,
     String? gender,
     String? motherTongue,
@@ -293,25 +94,13 @@ final String? applicationId;   // APPLICATION ID
     bool? speciallyAbled,
     String? speciallyAbledType,
     String? nationality,
-    String? religion,
-    String? caste,
-    String? subcaste,
-    String? aadharNo,
-    String? bloodGroup,
-    String? allergicTo,
-    String? interest,
-    String? lastSchoolName,
-    String? classCompleted,
-    String? lastAcademicYear,
-    String? reasonForLeaving,
-    String? board,
+    String? category,
     String? fatherName,
     int? fatherAge,
     String? fatherQualification,
     String? fatherProfession,
     String? fatherAnnualIncome,
     String? fatherPhoneNo,
-    String? fatherAadharNo,
     String? fatherEmail,
     String? motherName,
     int? motherAge,
@@ -319,25 +108,17 @@ final String? applicationId;   // APPLICATION ID
     String? motherProfession,
     String? motherAnnualIncome,
     String? motherPhoneNo,
-    String? motherAadharNo,
     String? motherEmail,
-    String? relationshipStatus,
-    String? guardianName,
-    String? guardianContactNo,
-    String? guardianRelationToStudent,
-    String? guardianQualification,
-    String? guardianProfession,
-    String? guardianEmail,
-    String? guardianAadharNo,
-    String? presentAddress,
-    String? permanentAddress,
-    List<Sibling>? siblings,
-    String? homeLanguage,
     String? yearlyBudget,
+    List<CoursePreference>? coursePreferences,
+    LatestQualification? latestQualification,
+    AcademicDetails? academicDetails,
+    DateTime? createdAt,
+    DateTime? updatedAt,
   }) {
     return StudentApplication(
-      studId: studId ?? this.studId,
       applicationId: applicationId ?? this.applicationId,
+      studId: studId ?? this.studId,
       name: name ?? this.name,
       location: location ?? this.location,
       dob: dob ?? this.dob,
@@ -348,25 +129,13 @@ final String? applicationId;   // APPLICATION ID
       speciallyAbled: speciallyAbled ?? this.speciallyAbled,
       speciallyAbledType: speciallyAbledType ?? this.speciallyAbledType,
       nationality: nationality ?? this.nationality,
-      religion: religion ?? this.religion,
-      caste: caste ?? this.caste,
-      subcaste: subcaste ?? this.subcaste,
-      aadharNo: aadharNo ?? this.aadharNo,
-      bloodGroup: bloodGroup ?? this.bloodGroup,
-      allergicTo: allergicTo ?? this.allergicTo,
-      interest: interest ?? this.interest,
-      lastSchoolName: lastSchoolName ?? this.lastSchoolName,
-      classCompleted: classCompleted ?? this.classCompleted,
-      lastAcademicYear: lastAcademicYear ?? this.lastAcademicYear,
-      reasonForLeaving: reasonForLeaving ?? this.reasonForLeaving,
-      board: board ?? this.board,
+      category: category ?? this.category,
       fatherName: fatherName ?? this.fatherName,
       fatherAge: fatherAge ?? this.fatherAge,
       fatherQualification: fatherQualification ?? this.fatherQualification,
       fatherProfession: fatherProfession ?? this.fatherProfession,
       fatherAnnualIncome: fatherAnnualIncome ?? this.fatherAnnualIncome,
       fatherPhoneNo: fatherPhoneNo ?? this.fatherPhoneNo,
-      fatherAadharNo: fatherAadharNo ?? this.fatherAadharNo,
       fatherEmail: fatherEmail ?? this.fatherEmail,
       motherName: motherName ?? this.motherName,
       motherAge: motherAge ?? this.motherAge,
@@ -374,57 +143,215 @@ final String? applicationId;   // APPLICATION ID
       motherProfession: motherProfession ?? this.motherProfession,
       motherAnnualIncome: motherAnnualIncome ?? this.motherAnnualIncome,
       motherPhoneNo: motherPhoneNo ?? this.motherPhoneNo,
-      motherAadharNo: motherAadharNo ?? this.motherAadharNo,
       motherEmail: motherEmail ?? this.motherEmail,
-      relationshipStatus: relationshipStatus ?? this.relationshipStatus,
-      guardianName: guardianName ?? this.guardianName,
-      guardianContactNo: guardianContactNo ?? this.guardianContactNo,
-      guardianRelationToStudent: guardianRelationToStudent ?? this.guardianRelationToStudent,
-      guardianQualification: guardianQualification ?? this.guardianQualification,
-      guardianProfession: guardianProfession ?? this.guardianProfession,
-      guardianEmail: guardianEmail ?? this.guardianEmail,
-      guardianAadharNo: guardianAadharNo ?? this.guardianAadharNo,
-      presentAddress: presentAddress ?? this.presentAddress,
-      permanentAddress: permanentAddress ?? this.permanentAddress,
-      siblings: siblings ?? this.siblings,
-      homeLanguage: homeLanguage ?? this.homeLanguage,
       yearlyBudget: yearlyBudget ?? this.yearlyBudget,
+      coursePreferences: coursePreferences ?? this.coursePreferences,
+      latestQualification: latestQualification ?? this.latestQualification,
+      academicDetails: academicDetails ?? this.academicDetails,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
     );
   }
-}
 
-class Sibling {
-  final String? name;
-  final int? age;
-  final String? sex;
-  final String? nameOfInstitute;
-  final String? className;
-
-  Sibling({
-    this.name,
-    this.age,
-    this.sex,
-    this.nameOfInstitute,
-    this.className,
-  });
-
-  factory Sibling.fromJson(Map<String, dynamic> json) {
-    return Sibling(
-      name: json['name']?.toString(),
-      age: json['age'] is int ? json['age'] as int : (json['age'] is num ? (json['age'] as num).toInt() : null),
-      sex: json['sex']?.toString(),
-      nameOfInstitute: json['nameOfInstitute']?.toString(),
-      className: json['className']?.toString(),
+  factory StudentApplication.fromJson(Map<String, dynamic> json) {
+    return StudentApplication(
+      applicationId: json['_id']?.toString(),
+      studId: json['studId']?.toString(),
+      name: json['name'],
+      location: json['location'],
+      dob: json['dob'] != null ? DateTime.tryParse(json['dob']) : null,
+      age: json['age'],
+      gender: json['gender'],
+      motherTongue: json['motherTongue'],
+      placeOfBirth: json['placeOfBirth'],
+      speciallyAbled: json['speciallyAbled'],
+      speciallyAbledType: json['speciallyAbledType'],
+      nationality: json['nationality'],
+      category: json['category'],
+      fatherName: json['fatherName'],
+      fatherAge: json['fatherAge'],
+      fatherQualification: json['fatherQualification'],
+      fatherProfession: json['fatherProfession'],
+      fatherAnnualIncome: json['fatherAnnualIncome'],
+      fatherPhoneNo: json['fatherPhoneNo'],
+      fatherEmail: json['fatherEmail'],
+      motherName: json['motherName'],
+      motherAge: json['motherAge'],
+      motherQualification: json['motherQualification'],
+      motherProfession: json['motherProfession'],
+      motherAnnualIncome: json['motherAnnualIncome'],
+      motherPhoneNo: json['motherPhoneNo'],
+      motherEmail: json['motherEmail'],
+      yearlyBudget: json['yearlyBudget'],
+      coursePreferences: (json['coursePreferences'] as List?)
+          ?.map((e) => CoursePreference.fromJson(e))
+          .toList(),
+      latestQualification: json['latestQualification'] != null
+          ? LatestQualification.fromJson(json['latestQualification'])
+          : null,
+      academicDetails: json['academicDetails'] != null
+          ? AcademicDetails.fromJson(json['academicDetails'])
+          : null,
+      createdAt: json['createdAt'] != null
+          ? DateTime.tryParse(json['createdAt'])
+          : null,
+      updatedAt: json['updatedAt'] != null
+          ? DateTime.tryParse(json['updatedAt'])
+          : null,
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
+      "studId": studId,
       "name": name,
+      "location": location,
+      "dob": dob?.toIso8601String(),
       "age": age,
-      "sex": sex,
-      "nameOfInstitute": nameOfInstitute,
-      "className": className,
+      "gender": gender,
+      "motherTongue": motherTongue,
+      "placeOfBirth": placeOfBirth,
+      "speciallyAbled": speciallyAbled,
+      "speciallyAbledType": speciallyAbledType,
+      "nationality": nationality,
+      "category": category,
+      "fatherName": fatherName,
+      "fatherAge": fatherAge,
+      "fatherQualification": fatherQualification,
+      "fatherProfession": fatherProfession,
+      "fatherAnnualIncome": fatherAnnualIncome,
+      "fatherPhoneNo": fatherPhoneNo,
+      "fatherEmail": fatherEmail,
+      "motherName": motherName,
+      "motherAge": motherAge,
+      "motherQualification": motherQualification,
+      "motherProfession": motherProfession,
+      "motherAnnualIncome": motherAnnualIncome,
+      "motherPhoneNo": motherPhoneNo,
+      "motherEmail": motherEmail,
+      "yearlyBudget": yearlyBudget,
+      "coursePreferences":
+          coursePreferences?.map((e) => e.toJson()).toList(),
+      "latestQualification": latestQualification?.toJson(),
+      "academicDetails": academicDetails?.toJson(),
+    };
+  }
+
+  static StudentApplication fromJsonStr(String source) =>
+      StudentApplication.fromJson(json.decode(source));
+
+  String toJsonStr() => json.encode(toJson());
+}
+
+class SubjectMark {
+  final String subjectName;
+  final double marksObtained;
+  final double maxMarks;
+
+  SubjectMark({
+    required this.subjectName,
+    required this.marksObtained,
+    required this.maxMarks,
+  });
+
+  factory SubjectMark.fromJson(Map<String, dynamic> json) {
+    return SubjectMark(
+      subjectName: json['subjectName'],
+      marksObtained: (json['marksObtained'] as num).toDouble(),
+      maxMarks: (json['maxMarks'] as num).toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "subjectName": subjectName,
+      "marksObtained": marksObtained,
+      "maxMarks": maxMarks,
+    };
+  }
+}
+class AcademicDetails {
+  final String stream;
+  final List<SubjectMark> subjects;
+  final double? overallPercentage;
+
+  AcademicDetails({
+    required this.stream,
+    required this.subjects,
+    this.overallPercentage,
+  });
+
+  factory AcademicDetails.fromJson(Map<String, dynamic> json) {
+    return AcademicDetails(
+      stream: json['stream'],
+      subjects: (json['subjects'] as List)
+          .map((e) => SubjectMark.fromJson(e))
+          .toList(),
+      overallPercentage: json['overallPercentage'] != null
+          ? (json['overallPercentage'] as num).toDouble()
+          : null,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "stream": stream,
+      "subjects": subjects.map((e) => e.toJson()).toList(),
+      "overallPercentage": overallPercentage,
+    };
+  }
+}
+class LatestQualification {
+  final String level;
+  final String boardOrUniversity;
+  final int passingYear;
+  final double percentage;
+
+  LatestQualification({
+    required this.level,
+    required this.boardOrUniversity,
+    required this.passingYear,
+    required this.percentage,
+  });
+
+  factory LatestQualification.fromJson(Map<String, dynamic> json) {
+    return LatestQualification(
+      level: json['level'],
+      boardOrUniversity: json['boardOrUniversity'],
+      passingYear: json['passingYear'],
+      percentage: (json['percentage'] as num).toDouble(),
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "level": level,
+      "boardOrUniversity": boardOrUniversity,
+      "passingYear": passingYear,
+      "percentage": percentage,
+    };
+  }
+}
+class CoursePreference {
+  final int priority;
+  final String courseName;
+
+  CoursePreference({
+    required this.priority,
+    required this.courseName,
+  });
+
+  factory CoursePreference.fromJson(Map<String, dynamic> json) {
+    return CoursePreference(
+      priority: json['priority'],
+      courseName: json['courseName'],
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {
+      "priority": priority,
+      "courseName": courseName,
     };
   }
 }

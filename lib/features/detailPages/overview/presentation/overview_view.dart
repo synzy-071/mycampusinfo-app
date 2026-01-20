@@ -32,23 +32,23 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
   late final OverviewViewModel _vm;
 
   final List<String> _tabs = const [
-    "Overview",
-    'academics',
-    'faculty details',
-    "Infrastructure",
-    'techAdaption',
-    "Activities",
-    'safetySecurity',
-    'internationalExposure',
-    "Fees And Scholarship",
-
-    'admission Timeline',
-    "Amenities",
-
-    "Aluminis",
-    "Reviews",
-
-    "Other Details",
+    "overview",
+  "academics",
+  "facultyDetails",
+  "infrastructure",
+  "activities",
+  "safetySecurity",
+  "internationalExposure",
+  "feesAndScholarship",
+  "admissionTimeline",
+  "amenities",
+  "aluminis",
+  "reviews",
+  "otherDetails",
+  "photos",
+  "placement",
+  "exam",
+  'hostel'
   ];
 
   final MyFormViewModel myFormViewModel = MyFormViewModel();

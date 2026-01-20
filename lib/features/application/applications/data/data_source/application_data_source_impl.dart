@@ -16,7 +16,6 @@ class ApplicationDataSourceImpl implements ApplicationDataSource {
   final NetworkService _network = getIt<NetworkService>();
   final AppStateProvider _app = getIt<AppStateProvider>();
 
-  // Use the base URL provided
   String get _base => '${Endpoints.baseUrl}application';
 
   String? _resolveStudId(String? studId) =>
@@ -33,13 +32,12 @@ class ApplicationDataSourceImpl implements ApplicationDataSource {
 
       final req = Request(
         method: RequestMethod.post,
-        endpoint: "$_base/",
+        endpoint: _base,
         body: effectivePayload.toJson(),
       );
 
       final resp = await _network.request(req);
-      final map = (resp.data as Map<String, dynamic>);
-      final data = map['data'] as Map<String, dynamic>?;
+      final data = (resp.data as Map<String, dynamic>)['data'];
       return Right(data == null ? null : StudentApplication.fromJson(data));
     } catch (e) {
       return Left(APIException.from(e));
@@ -47,43 +45,40 @@ class ApplicationDataSourceImpl implements ApplicationDataSource {
   }
 
   @override
-  Future<Either<APIException, List<StudentApplication>>>
-  getAllApplications() async {
+  Future<Either<APIException, List<StudentApplication>>> getAllApplications() async {
     try {
       final req = Request(method: RequestMethod.get, endpoint: _base);
       final resp = await _network.request(req);
-      final map = (resp.data as Map<String, dynamic>);
-      final list = (map['data'] as List?) ?? const [];
-      final apps = list
-          .whereType<Map<String, dynamic>>()
-          .map(StudentApplication.fromJson)
-          .toList();
-      return Right(apps);
+      final list = (resp.data as Map<String, dynamic>)['data'] as List? ?? [];
+      return Right(
+        list.map((e) => StudentApplication.fromJson(e)).toList(),
+      );
     } catch (e) {
       return Left(APIException.from(e));
     }
   }
 
   @override
-  Future<Either<APIException, List<StudentApplication>>>
-  getStudApplicationsByStudId({required String studId}) async {
+  Future<Either<APIException, List<StudentApplication>>> getStudApplicationsByStudId({
+    required String studId,
+  }) async {
     try {
-      final id = _resolveStudId(studId) ?? studId;
+      final id = _resolveStudId(studId);
       if (id == null || id.isEmpty) {
         return Left(APIException.from("Missing studId"));
       }
+
       final req = Request(
         method: RequestMethod.get,
         endpoint: "$_base/stud/$id",
       );
+
       final resp = await _network.request(req);
-      final map = (resp.data as Map<String, dynamic>);
-      final list = (map['data'] as List?) ?? const [];
-      final apps = list
-          .whereType<Map<String, dynamic>>()
-          .map(StudentApplication.fromJson)
-          .toList();
-      return Right(apps);
+      final list = (resp.data as Map<String, dynamic>)['data'] as List? ?? [];
+
+      return Right(
+        list.map((e) => StudentApplication.fromJson(e)).toList(),
+      );
     } catch (e) {
       return Left(APIException.from(e));
     }
@@ -94,15 +89,18 @@ class ApplicationDataSourceImpl implements ApplicationDataSource {
     required String applicationId,
   }) async {
     try {
-      if (applicationId.isEmpty)
+      if (applicationId.isEmpty) {
         return Left(APIException.from("Missing applicationId"));
+      }
+
       final req = Request(
         method: RequestMethod.get,
         endpoint: "$_base/$applicationId",
       );
+
       final resp = await _network.request(req);
-      final map = (resp.data as Map<String, dynamic>);
-      final data = map['data'] as Map<String, dynamic>?;
+      final data = (resp.data as Map<String, dynamic>)['data'];
+
       return Right(data == null ? null : StudentApplication.fromJson(data));
     } catch (e) {
       return Left(APIException.from(e));
@@ -115,16 +113,19 @@ class ApplicationDataSourceImpl implements ApplicationDataSource {
     required StudentApplication payload,
   }) async {
     try {
-      if (applicationId.isEmpty)
+      if (applicationId.isEmpty) {
         return Left(APIException.from("Missing applicationId"));
+      }
+
       final req = Request(
         method: RequestMethod.put,
         endpoint: "$_base/$applicationId",
         body: payload.toJson(),
       );
+
       final resp = await _network.request(req);
-      final map = (resp.data as Map<String, dynamic>);
-      final data = map['data'] as Map<String, dynamic>?;
+      final data = (resp.data as Map<String, dynamic>)['data'];
+
       return Right(data == null ? null : StudentApplication.fromJson(data));
     } catch (e) {
       return Left(APIException.from(e));
@@ -136,12 +137,15 @@ class ApplicationDataSourceImpl implements ApplicationDataSource {
     required String applicationId,
   }) async {
     try {
-      if (applicationId.isEmpty)
+      if (applicationId.isEmpty) {
         return Left(APIException.from("Missing applicationId"));
+      }
+
       final req = Request(
         method: RequestMethod.delete,
         endpoint: "$_base/$applicationId",
       );
+
       await _network.request(req);
       return const Right(true);
     } catch (e) {

@@ -7,7 +7,7 @@ class PrefViewModel extends ViewStateProvider {
   Future<Failure?> addPreferences({
 
     required String preferredStandard,
-    required String interests,
+   
     required String collegeType,
     required String shift,
   }) async {
@@ -17,7 +17,6 @@ class PrefViewModel extends ViewStateProvider {
 
     final result = await prefDataSourceImpl.addPreferences(
    
-      interests: interests,
       preferredStandard: preferredStandard,
       collegeType: collegeType,
       shift: shift,
@@ -61,7 +60,7 @@ Future<Failure?> fetchPreferences() async {
   Future<Failure?> updatePreferences({
 
     required String preferredStandard,
-    required String interests,
+
     required String collegeType,
     required String shift,
   }) async {
@@ -71,7 +70,6 @@ Future<Failure?> fetchPreferences() async {
 
     final result = await prefDataSourceImpl.updatePreferences(
  
-      interests: interests,
       preferredStandard: preferredStandard,
       collegeType: collegeType,
       shift: shift,

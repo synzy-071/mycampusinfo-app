@@ -3,8 +3,6 @@ enum DetailTabEnum {
   academics,
   facultyDetails,
   infrastructure,
-
-  // techAdaption,
   activities,
   safetySecurity,
   internationalExposure,
@@ -16,7 +14,8 @@ enum DetailTabEnum {
   otherDetails,
   photos,
   placement,
-  exam
+  exam,
+  hostel
 }
 
 extension DetailTabEnumExtension on DetailTabEnum {
@@ -30,8 +29,7 @@ extension DetailTabEnumExtension on DetailTabEnum {
         return 'Faculty Details';
       case DetailTabEnum.infrastructure:
         return 'Infrastructure';
-      // case DetailTabEnum.techAdaption:
-      //   return 'Tech Adaption';
+
       case DetailTabEnum.activities:
         return 'Activities';
       case DetailTabEnum.safetySecurity:
@@ -56,6 +54,8 @@ extension DetailTabEnumExtension on DetailTabEnum {
         return 'Placement';
       case DetailTabEnum.exam:
         return 'Eligible Exam';
+      case DetailTabEnum.hostel:
+        return 'Hostel';
     }
   }
 }

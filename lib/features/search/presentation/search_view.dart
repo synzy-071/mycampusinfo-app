@@ -40,7 +40,7 @@ class _SearchPageState extends State<SearchPage> {
     'humanities',
   ];
 
-  final List<String> genders = ["boy", "girl", "co-ed"];
+ 
 
   final List<String> collegeModes = ["government", "private", "convent"];
 
@@ -89,7 +89,7 @@ class _SearchPageState extends State<SearchPage> {
         controller.selectedStates.isNotEmpty ||
         controller.selectedCities.isNotEmpty ||
         controller.selectedStreams.isNotEmpty ||
-        controller.selectedGenders.isNotEmpty ||
+ 
         controller.selectedModes.isNotEmpty ||
         controller.selectedFeeRange.isNotEmpty) {
       context.pushNamed(
@@ -99,7 +99,7 @@ class _SearchPageState extends State<SearchPage> {
           state: controller.selectedStates.toList(),
           city: controller.selectedCities.toList(),
           streams: controller.selectedStreams.toList(),
-          genderType: controller.selectedGenders.toList(),
+      
           collegeMode: controller.selectedModes.toList(),
           feeRange: controller.selectedFeeRange.toList(),
         ),
@@ -202,23 +202,7 @@ class _SearchPageState extends State<SearchPage> {
             ),
           ),
           const SizedBox(height: 24),
-          // Gender
-          Container(
-            padding: const EdgeInsets.all(12),
-            decoration: BoxDecoration(
-              color: Colors.grey[100],
-              borderRadius: BorderRadius.circular(6),
-            ),
-            child: SearchGridSection(
-              title: "Search by Gender",
-              items: genders,
-              selectedItems: controller.selectedGenders,
-              onTap: controller.toggleGender,
-              selectedColor: filterSelectedColor,
-              isGreyBox: true,
-            ),
-          ),
-          const SizedBox(height: 24),
+        
 
           // College Mode
           Container(
