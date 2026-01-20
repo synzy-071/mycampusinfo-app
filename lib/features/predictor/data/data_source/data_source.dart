@@ -4,7 +4,7 @@ import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/ove
 abstract class PredictorDataSource {
   /// Predicts schools based on the provided filters
   /// Returns either an APIException or a list of predicted collegeModel objects
-  ResultFuture<List<CollegeModel>?> predictSchools(
+  ResultFuture<List<CollegeModel>?> predictColleges(
     Map<String, dynamic> filters,
   );
 }

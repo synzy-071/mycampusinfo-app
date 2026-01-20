@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
-import 'package:provider/provider.dart';
 import 'package:mycampusinfo_app/common/index.dart';
 import 'package:mycampusinfo_app/core/index.dart';
 import 'package:mycampusinfo_app/features/predictor/presentation/view_models/predictor_view_model.dart';
+import 'package:provider/provider.dart';
 
 class SchoolResultsPage extends StatefulWidget {
   const SchoolResultsPage({super.key});
@@ -24,7 +24,6 @@ class _SchoolResultPageState extends State<SchoolResultsPage> {
         filters: {
           'state': appStateProvider.user?.state,
           'city': appStateProvider.user?.city,
-
           'collegeMode': appStateProvider.userPref?.collegeType,
           'genderType': appStateProvider.user?.gender,
         },
@@ -36,7 +35,7 @@ class _SchoolResultPageState extends State<SchoolResultsPage> {
 
   @override
   Widget build(BuildContext context) {
-                    final colors = context.watch<ThemeProvider>().colors;
+    final colors = context.watch<ThemeProvider>().colors;
 
     return ChangeNotifierProvider.value(
       value: prefViewModel,
@@ -52,100 +51,95 @@ class _SchoolResultPageState extends State<SchoolResultsPage> {
         ),
         body: SafeArea(
           child: Consumer<PrefViewModel>(
-            builder:
-                (vmContext, vm, child) =>
-                    vm.isLoading
-                        ? Center(child: SLoadingIndicator())
-                        : SingleChildScrollView(
-                          padding: const EdgeInsets.symmetric(
-                            horizontal: 20,
-                            vertical: 12,
-                          ),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                "Predict Your Rank. Find Your School.",
-                                style: STextStyles.s14W400.copyWith(
-                                  color: colors.primaryColor,
-                                ),
-                              ),
-                              const SizedBox(height: 6),
-                              Text(
-                                "School Predictor",
-                                style: STextStyles.s28W800.copyWith(
-                                  color: colors.primaryColor,
-                                ),
-                              ),
-                              const SizedBox(height: 10),
-                              Text(
-                                "Your personalized School recommendations based on your preferences.",
-                                style: STextStyles.s14W400.copyWith(
-                                  color: colors.amberColor,
-                                ),
-                              ),
-                              const SizedBox(height: 24),
-
-                              // Show results
-                              if (vm.predictedSchools.isEmpty)
-                                Center(
-                                  child: Text(
-                                    "No schools found matching your criteria",
-                                    style: STextStyles.s16W400.copyWith(
-                                      color: colors.amberColor,
-                                    ),
-                                  ),
-                                )
-                              else
-                                // School cards list
-                                ListView.separated(
-                                  itemBuilder: (context, index) {
-                                    final school = vm.predictedSchools[index];
-                                    return SchoolCard(school: school);
-                                  },
-                                  separatorBuilder:
-                                      (context, index) =>
-                                          const SizedBox(height: 16),
-                                  itemCount: vm.predictedSchools.length,
-                                  shrinkWrap: true,
-                                  physics: const NeverScrollableScrollPhysics(),
-                                ),
-
-                              const SizedBox(height: 28),
-
-                              // Edit Preferences button
-                              Center(
-                                child: SizedBox(
-                                  height: 40,
-                                  child: ElevatedButton(
-                                    onPressed: () {
-                                      context.goNamed(
-                                        RouteNames.preferences,
-                                        extra: true,
-                                      );
-                                    },
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: Colors.black,
-                                      shape: const RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.zero,
-                                      ),
-                                    ),
-                                    child: const Padding(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: 15,
-                                      ),
-                                      child: Text(
-                                        "Edit Preferences",
-                                        style: TextStyle(color: Colors.white),
-                                      ),
-                                    ),
-                                  ),
-                                ),
-                              ),
-                              const SizedBox(height: 20),
-                            ],
+            builder: (vmContext, vm, child) => vm.isLoading
+                ? Center(child: SLoadingIndicator())
+                : SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 12,
+                    ),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          "Predict Your Rank. Find Your School.",
+                          style: STextStyles.s14W400.copyWith(
+                            color: colors.primaryColor,
                           ),
                         ),
+                        const SizedBox(height: 6),
+                        Text(
+                          "School Predictor",
+                          style: STextStyles.s28W800.copyWith(
+                            color: colors.primaryColor,
+                          ),
+                        ),
+                        const SizedBox(height: 10),
+                        Text(
+                          "Your personalized School recommendations based on your preferences.",
+                          style: STextStyles.s14W400.copyWith(
+                            color: colors.amberColor,
+                          ),
+                        ),
+                        const SizedBox(height: 24),
+
+                        // Show results
+                        if (vm.predictedSchools.isEmpty)
+                          Center(
+                            child: Text(
+                              "No schools found matching your criteria",
+                              style: STextStyles.s16W400.copyWith(
+                                color: colors.amberColor,
+                              ),
+                            ),
+                          )
+                        else
+                          // School cards list
+                          ListView.separated(
+                            itemBuilder: (context, index) {
+                              final school = vm.predictedSchools[index];
+                              return SchoolCard(school: school);
+                            },
+                            separatorBuilder: (context, index) =>
+                                const SizedBox(height: 16),
+                            itemCount: vm.predictedSchools.length,
+                            shrinkWrap: true,
+                            physics: const NeverScrollableScrollPhysics(),
+                          ),
+
+                        const SizedBox(height: 28),
+
+                        // Edit Preferences button
+                        Center(
+                          child: SizedBox(
+                            height: 40,
+                            child: ElevatedButton(
+                              onPressed: () {
+                                context.goNamed(
+                                  RouteNames.preferences,
+                                  extra: true,
+                                );
+                              },
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.black,
+                                shape: const RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.zero,
+                                ),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.symmetric(horizontal: 15),
+                                child: Text(
+                                  "Edit Preferences",
+                                  style: TextStyle(color: Colors.white),
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                        const SizedBox(height: 20),
+                      ],
+                    ),
+                  ),
           ),
         ),
       ),

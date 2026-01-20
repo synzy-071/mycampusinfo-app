@@ -9,12 +9,12 @@ import 'package:mycampusinfo_app/core/network/typedef.dart';
 class PredictorDataSourceImpl {
   final NetworkService _networkService = NetworkService();
 
-  ResultFuture<List<CollegeCardModel>?> predictSchools(
+  ResultFuture<List<CollegeCardModel>?> predictColleges(
     Map<String, dynamic> filters,
   ) async {
     Request r = Request(
       method: RequestMethod.post,
-      endpoint: Endpoints.adminPredictSchools,
+      endpoint: Endpoints.collegesPredictColleges,
       body: filters,
     );
 
@@ -24,8 +24,9 @@ class PredictorDataSourceImpl {
 
       if (response.isNotEmpty) {
         final List<dynamic> schoolsData = response['data'];
-        final List<CollegeCardModel> schools =
-            schoolsData.map((json) => CollegeCardModel.fromJson(json)).toList();
+        final List<CollegeCardModel> schools = schoolsData
+            .map((json) => CollegeCardModel.fromJson(json))
+            .toList();
 
         return Right(schools);
       }

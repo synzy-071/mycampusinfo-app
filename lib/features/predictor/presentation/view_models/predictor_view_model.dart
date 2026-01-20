@@ -16,7 +16,7 @@ class PrefViewModel extends ViewStateProvider {
     Failure? failure;
     setViewState(ViewState.busy);
 
-    final result = await _predictorService.predictSchools(filters);
+    final result = await _predictorService.predictColleges(filters);
 
     result.fold(
       (exception) {
