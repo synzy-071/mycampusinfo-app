@@ -12,8 +12,6 @@ class StudentApplication {
   final String? gender;
   final String? motherTongue;
   final String? placeOfBirth;
-  final bool? speciallyAbled;
-  final String? speciallyAbledType;
   final String? nationality;
   final String? category;
 
@@ -54,8 +52,6 @@ class StudentApplication {
     this.gender,
     this.motherTongue,
     this.placeOfBirth,
-    this.speciallyAbled,
-    this.speciallyAbledType,
     this.nationality,
     this.category,
     this.fatherName,
@@ -63,6 +59,7 @@ class StudentApplication {
     this.fatherQualification,
     this.fatherProfession,
     this.fatherAnnualIncome,
+
     this.fatherPhoneNo,
     this.fatherEmail,
     this.motherName,
@@ -91,8 +88,6 @@ class StudentApplication {
     String? gender,
     String? motherTongue,
     String? placeOfBirth,
-    bool? speciallyAbled,
-    String? speciallyAbledType,
     String? nationality,
     String? category,
     String? fatherName,
@@ -126,8 +121,6 @@ class StudentApplication {
       gender: gender ?? this.gender,
       motherTongue: motherTongue ?? this.motherTongue,
       placeOfBirth: placeOfBirth ?? this.placeOfBirth,
-      speciallyAbled: speciallyAbled ?? this.speciallyAbled,
-      speciallyAbledType: speciallyAbledType ?? this.speciallyAbledType,
       nationality: nationality ?? this.nationality,
       category: category ?? this.category,
       fatherName: fatherName ?? this.fatherName,
@@ -164,8 +157,6 @@ class StudentApplication {
       gender: json['gender'],
       motherTongue: json['motherTongue'],
       placeOfBirth: json['placeOfBirth'],
-      speciallyAbled: json['speciallyAbled'],
-      speciallyAbledType: json['speciallyAbledType'],
       nationality: json['nationality'],
       category: json['category'],
       fatherName: json['fatherName'],
@@ -211,8 +202,6 @@ class StudentApplication {
       "gender": gender,
       "motherTongue": motherTongue,
       "placeOfBirth": placeOfBirth,
-      "speciallyAbled": speciallyAbled,
-      "speciallyAbledType": speciallyAbledType,
       "nationality": nationality,
       "category": category,
       "fatherName": fatherName,
@@ -304,13 +293,11 @@ class AcademicDetails {
 class LatestQualification {
   final String level;
   final String boardOrUniversity;
-  final int passingYear;
   final double percentage;
 
   LatestQualification({
     required this.level,
     required this.boardOrUniversity,
-    required this.passingYear,
     required this.percentage,
   });
 
@@ -318,7 +305,6 @@ class LatestQualification {
     return LatestQualification(
       level: json['level'],
       boardOrUniversity: json['boardOrUniversity'],
-      passingYear: json['passingYear'],
       percentage: (json['percentage'] as num).toDouble(),
     );
   }
@@ -327,7 +313,6 @@ class LatestQualification {
     return {
       "level": level,
       "boardOrUniversity": boardOrUniversity,
-      "passingYear": passingYear,
       "percentage": percentage,
     };
   }

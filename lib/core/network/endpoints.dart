@@ -54,7 +54,7 @@ class Endpoints {
   static const String feesByCollege = 'colleges/course-fee';
   static const String adminAdmissionTimeline = 'colleges/admission';
   static const String reviewsBySchoolAdmin = 'colleges/reviews';
-  static const String collegeHostels = 'colleges/hostel/add';
+ static const String collegeHostels = 'colleges/hostel';
   static const String adminBlogs = 'colleges/blogs';
   static const String adminCompare = 'colleges/compare';
 

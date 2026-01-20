@@ -1,22 +1,22 @@
-// features/detailPages/hostel/data/entities/hostel_model.dart
-
 class HostelModel {
   final String id;
   final String hostelName;
-  final String type; // Boys / Girls / Both
+  final String type;
   final int capacity;
-  final bool acAvailable;
-  final bool messAvailable;
-  final int? annualFee;
+  final int availableSeats;
+  final int feePerYear;
+  final List<String> facilities;
+  final String? rules;
 
   HostelModel({
     required this.id,
     required this.hostelName,
     required this.type,
     required this.capacity,
-    required this.acAvailable,
-    required this.messAvailable,
-    this.annualFee,
+    required this.availableSeats,
+    required this.feePerYear,
+    required this.facilities,
+    this.rules,
   });
 
   factory HostelModel.fromJson(Map<String, dynamic> json) {
@@ -25,9 +25,10 @@ class HostelModel {
       hostelName: json['hostelName'],
       type: json['type'],
       capacity: json['capacity'],
-      acAvailable: json['acAvailable'],
-      messAvailable: json['messAvailable'],
-      annualFee: json['annualFee'],
+      availableSeats: json['availableSeats'],
+      feePerYear: json['feePerYear'],
+      facilities: List<String>.from(json['facilities'] ?? []),
+      rules: json['rules'],
     );
   }
 }

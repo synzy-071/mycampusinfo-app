@@ -13,7 +13,7 @@ class HostelDataSourceImpl implements HostelDataSource {
     required String collegeId,
   }) async {
     // Define endpoint
-    final endpoint = "${Endpoints.collegeHostels}/college/$collegeId";
+    final endpoint = "${Endpoints.collegeHostels}/$collegeId";
 
     Request request = Request(
       method: RequestMethod.get,
