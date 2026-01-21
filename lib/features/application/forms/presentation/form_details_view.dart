@@ -138,13 +138,13 @@ class _FormDetailsViewState extends State<FormDetailsView> {
                     children: [
                       Expanded(
                         child: _buildLabelValue(
-                          label: 'School Shifts:',
+                          label: 'College Shifts:',
                           value: form?.school?.shifts?.join(', ') ?? '-',
                         ),
                       ),
                       Expanded(
                         child: _buildLabelValue(
-                          label: 'School Location:',
+                          label: 'College Location:',
                           value:
                               '${form?.school?.state?.toCapitalise ?? ''}, ${form?.school?.city?.toCapitalise ?? ''}',
                         ),

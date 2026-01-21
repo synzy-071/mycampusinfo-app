@@ -69,7 +69,7 @@ class _InfrastructureViewState extends State<InfrastructureView> {
             final otherModel = otherVm.otherDetails;
 
             if (widget.collegeId.isEmpty) {
-              return const Center(child: Text("School ID was not provided."));
+              return const Center(child: Text("College ID was not provided."));
             }
 
             if (infraModel == null && otherModel == null) {

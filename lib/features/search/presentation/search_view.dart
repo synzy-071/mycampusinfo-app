@@ -30,14 +30,14 @@ class _SearchPageState extends State<SearchPage> {
   ];
 
   final List<String> streams = [
-    'engineering',
-    'management',
-    'arts',
-    'science',
-    'law',
-    'medical',
-    'design',
-    'humanities',
+    'Engineering',
+    'Management',
+    'Arts',
+    'Science',
+    'Law',
+    'Medical',
+    'Design',
+    'Humanities',
   ];
 
  

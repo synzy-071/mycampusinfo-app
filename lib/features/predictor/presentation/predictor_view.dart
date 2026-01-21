@@ -52,7 +52,7 @@ class _PredictorPageState extends State<PredictorPage> {
                 ),
                 const SizedBox(height: 10),
                 Text(
-                  "School Predictor",
+                  "College Predictor",
                   style: STextStyles.s30W900.copyWith(
                     color: colors.primaryColor,
                   ),
