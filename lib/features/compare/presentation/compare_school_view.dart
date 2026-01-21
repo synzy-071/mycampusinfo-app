@@ -46,7 +46,7 @@ class _CompareSchoolsState extends State<CompareSchools> {
             icon: Icons.keyboard_arrow_left,
             onTap: () => context.pop(),
           ),
-          title: 'School Comparison',
+          title: 'College Comparison',
         ),
 
         body: Consumer<CompareViewModel>(

@@ -271,16 +271,17 @@ class AcademicDetails {
   });
 
   factory AcademicDetails.fromJson(Map<String, dynamic> json) {
-    return AcademicDetails(
-      stream: json['stream'],
-      subjects: (json['subjects'] as List)
-          .map((e) => SubjectMark.fromJson(e))
-          .toList(),
-      overallPercentage: json['overallPercentage'] != null
-          ? (json['overallPercentage'] as num).toDouble()
-          : null,
-    );
-  }
+  return AcademicDetails(
+    stream: json['stream']?.toString() ?? '',
+    subjects: (json['subjects'] as List? ?? [])
+        .map((e) => SubjectMark.fromJson(e))
+        .toList(),
+    overallPercentage: json['overallPercentage'] != null
+        ? (json['overallPercentage'] as num).toDouble()
+        : null,
+  );
+}
+
 
   Map<String, dynamic> toJson() {
     return {
@@ -300,14 +301,15 @@ class LatestQualification {
     required this.boardOrUniversity,
     required this.percentage,
   });
-
-  factory LatestQualification.fromJson(Map<String, dynamic> json) {
-    return LatestQualification(
-      level: json['level'],
-      boardOrUniversity: json['boardOrUniversity'],
-      percentage: (json['percentage'] as num).toDouble(),
-    );
-  }
+factory LatestQualification.fromJson(Map<String, dynamic> json) {
+  return LatestQualification(
+    level: json['level']?.toString() ?? '',
+    boardOrUniversity: json['boardOrUniversity']?.toString() ?? '',
+    percentage: json['percentage'] != null
+        ? (json['percentage'] as num).toDouble()
+        : 0.0,
+  );
+}
 
   Map<String, dynamic> toJson() {
     return {
@@ -325,13 +327,12 @@ class CoursePreference {
     required this.priority,
     required this.courseName,
   });
-
-  factory CoursePreference.fromJson(Map<String, dynamic> json) {
-    return CoursePreference(
-      priority: json['priority'],
-      courseName: json['courseName'],
-    );
-  }
+factory CoursePreference.fromJson(Map<String, dynamic> json) {
+  return CoursePreference(
+    priority: json['priority'] ?? 0,
+    courseName: json['courseName']?.toString() ?? '',
+  );
+}
 
   Map<String, dynamic> toJson() {
     return {

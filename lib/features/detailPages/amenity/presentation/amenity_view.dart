@@ -95,7 +95,7 @@ class _AmenitiesViewState extends State<AmenitiesView> {
                         const SizedBox(height: 10),
 
                         _TitledCard(
-                          title: "School Amenities",
+                          title: "College Amenities",
                           icon: Icons.widgets_outlined,
                           iconColor: colors.amberDarkColor,
                           child: (amenityChips.isEmpty)

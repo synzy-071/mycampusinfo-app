@@ -15,6 +15,8 @@ class ActivityIconMapper {
     "Cultural Education": Icons.theater_comedy,
     "Technology Integration": Icons.computer,
     "Environmental Awareness": Icons.eco,
+    "Robotics Club" : Icons.group_outlined,
+    "Startup Incubation" : Icons.business
   };
 
   static IconData getIconFor(String activity) {

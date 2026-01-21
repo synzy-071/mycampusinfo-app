@@ -8,6 +8,7 @@ class CollegeModel {
   String? state;
   String? city;
   String? collegeMode;
+  String? estYear;
   String? genderType;
   List<Photo>? photos;
   List<String>? shifts;
@@ -17,7 +18,7 @@ class CollegeModel {
   List<String>? specialist;
   List<String>? tags;
   String? website;
-  String? rank;
+  String? ranking;
   String? status;
   String? mobileNo;
   List<String>? languageMedium;
@@ -38,6 +39,7 @@ class CollegeModel {
     this.board,
     this.state,
     this.city,
+    this.estYear,
     this.collegeMode,
     this.genderType,
     this.shifts,
@@ -48,7 +50,7 @@ class CollegeModel {
     this.photos,
     this.tags,
     this.website,
-    this.rank,
+    this.ranking,
     this.status,
     this.mobileNo,
     this.languageMedium,
@@ -69,6 +71,7 @@ class CollegeModel {
     state: json['state'] as String?,
     city: json['city'] as String?,
     collegeMode: json['collegeMode'] as String?,
+    estYear: json['estYear'] as String?,
     genderType: json['genderType'] as String?,
     shifts:
         (json['shifts'] as List?)?.map((e) => e.toString()).toList() ??
@@ -87,7 +90,7 @@ class CollegeModel {
     tags:
         (json['tags'] as List?)?.map((e) => e.toString()).toList() ?? const [],
     website: json['website'] as String?,
-    rank: json['rank'] as String?,
+    ranking: json['ranking'] as String?,
     status: json['status'] as String?,
     mobileNo: json['mobileNo'] as String?,
     languageMedium:
@@ -113,6 +116,7 @@ class CollegeModel {
     'city': city,
     'collegeMode': collegeMode,
     'genderType': genderType,
+    'estYear' : estYear,
     'shifts': shifts ?? const [],
     'feeRange': feeRange,
     'upto': upto,
@@ -120,7 +124,7 @@ class CollegeModel {
     'specialist': specialist ?? const [],
     'tags': tags ?? const [],
     'website': website,
-    'rank': rank,
+    'ranking': ranking,
     'status': status,
     'mobileNo': mobileNo,
     'languageMedium': languageMedium ?? const [],

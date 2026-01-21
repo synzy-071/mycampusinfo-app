@@ -132,7 +132,7 @@ class CompareWithWidgets {
                   children: [
                     Expanded(
                       child: Text(
-                        s.name ?? 'School Name',
+                        s.name ?? 'College Name',
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.bold,

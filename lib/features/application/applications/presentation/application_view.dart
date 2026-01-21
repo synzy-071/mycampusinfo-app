@@ -389,7 +389,7 @@ final academicDetails = AcademicDetails(
       fatherEmail: _fatherEmailCtrl.text.trim(),
 
       // mother
-      motherName: _motherNameCtrl.text.trim(),
+      motherName: _motherNameCtrl?.text.trim(),
       motherAge: motherAge,
       motherQualification: _motherQualCtrl.text.trim(),
       motherProfession: _motherProfCtrl.text.trim(),
@@ -938,7 +938,7 @@ SizedBox(height: 15),
                               _input(
                                 "Yearly Budget",
                                 _yearlyBudgetCtrl,
-                                req: true,
+                                
                               ),
 
                               const SizedBox(height: 24),

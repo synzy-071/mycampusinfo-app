@@ -69,7 +69,7 @@ class _SchoolResultPageState extends State<SchoolResultsPage> {
                         ),
                         const SizedBox(height: 6),
                         Text(
-                          "School Predictor",
+                          "College Predictor",
                           style: STextStyles.s28W800.copyWith(
                             color: colors.primaryColor,
                           ),

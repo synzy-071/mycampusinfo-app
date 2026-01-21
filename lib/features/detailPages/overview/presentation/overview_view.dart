@@ -299,7 +299,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                 icon: Icons.keyboard_arrow_left,
                 onTap: () => context.pop(),
               ),
-              title: school?.name ?? "School",
+              title: school?.name ?? "College",
               actions: !getIt<AppStateProvider>().isGuest
                   ? [
                       ChangeNotifierProvider.value(
@@ -616,23 +616,15 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                               ),
                               Expanded(
                                 child: InfoChip(
-                                  topText: school.board ?? "-",
-                                  bottomText: "Board",
+                                  topText: school.ranking?? "-",
+                                  bottomText: "NIRF Rank",
                                   fontSize: infoFont,
                                   isSmallScreen: isSmall,
                                 ),
                               ),
                               Expanded(
                                 child: InfoChip(
-                                  topText:
-                                      (school.createdAt ?? "")
-                                          .split("T")
-                                          .first
-                                          .isEmpty
-                                      ? "-"
-                                      : (school.createdAt ?? "")
-                                            .split("T")
-                                            .first,
+                                  topText:school.estYear??"-",                        
                                   bottomText: "Since",
                                   fontSize: infoFont,
                                   isSmallScreen: isSmall,

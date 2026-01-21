@@ -31,7 +31,7 @@ class NotFoundView extends StatelessWidget {
           children: [
             Lottie.asset(Assets.animations.noFoundPage, width: 250),
             Text(
-              '${isSchool ? 'School' : 'Page'} Not Found',
+              '${isSchool ? 'College' : 'Page'} Not Found',
               style: STextStyles.s20W600.copyWith(color: SColor.secTextColor),
             ),
           ],
