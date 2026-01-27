@@ -256,7 +256,7 @@ class _PrefViewState extends State<PrefView> {
                              
                               STextField.dropdown(
                                 controller: standardController,
-                                items: ['Engineering', 'Medical'],
+                                items: ['Engineering', 'Management', 'Arts', 'Science', 'Law', 'Medical', 'Design', 'Humanities'],
                                 label: 'Preferred Streams',
                                 hint: 'Select Stream',
                               ),
