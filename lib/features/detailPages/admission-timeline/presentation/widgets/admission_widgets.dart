@@ -13,6 +13,7 @@ import 'package:provider/provider.dart';
 import '../../../../../core/services/service_locator.dart';
 import '../../../../../core/utils/toast.dart';
 import '../../../../application/forms/presentation/view_models/my_form_view_model.dart';
+import '../../../../payments/presentation/view_model/payment_view_model.dart';
 
 class TimelineCard extends StatelessWidget {
   final TimeLine timeline;
@@ -194,7 +195,7 @@ class TimelineCard extends StatelessWidget {
   ) async {
     final appStateProvider = getIt<AppStateProvider>();
     final MyFormViewModel myFormViewModel = getIt<MyFormViewModel>();
-    String feeText = '-';
+    String feeText = timeline.applicationFee.toString();
 
     if (isSingleAndApplied) {
       // Show dialog that prompts user to add a new application (force new)
@@ -428,7 +429,7 @@ class TimelineCard extends StatelessWidget {
       applicationId: applicationId,
       formId: formId,
       timelineId: timeline.sId ?? '',
-      amount: int.tryParse(feeText.substring(1)) ?? 0,
+      amount: (timeline.applicationFee ?? 0).toInt(),
     );
 
     // Debug: check whether this page is still current / mounted
@@ -455,7 +456,7 @@ class TimelineCard extends StatelessWidget {
       return;
     }
 
-    // final paymentVM = getIt<PaymentViewModel>();
+    final paymentVM = getIt<PaymentViewModel>();
 
     Toasts.showSuccessOrFailureToast(
       sheetContext,
@@ -463,23 +464,18 @@ class TimelineCard extends StatelessWidget {
       hideSuccess: true,
       popOnSuccess: false,
       successCallback: () async {
-        Toasts.showSuccessToast(
-          sheetContext,
-          message: 'Form submitted successfully',
+        if (int.tryParse(feeText.substring(1)) == 0) {}
+
+        final failure = await paymentVM.createOrder();
+        Toasts.showSuccessOrFailureToast(
+          contextForSheet,
+          failure: failure,
+          popOnSuccess: false,
+          hideSuccess: true,
+          successCallback: () {
+            contextForSheet.pushNamed(RouteNames.payments);
+          },
         );
-        return;
-        // if (int.tryParse(feeText.substring(1)) == 0) {}
-        //
-        // final failure = await paymentVM.createOrder();
-        // Toasts.showSuccessOrFailureToast(
-        //   context,
-        //   failure: failure,
-        //   popOnSuccess: false,
-        //   hideSuccess: true,
-        //   successCallback: () {
-        //     context.pushNamed(RouteNames.payments);
-        //   },
-        // );
       },
     );
   }
