@@ -40,6 +40,7 @@ class _PrefViewState extends State<PrefView> {
     "Station Road",
     "Market",
   ];
+  
   // 🧩 Mapping of frontend (short) values to backend (enum) strings
   // final Map<String, String> interestMap = {
   //   'Academics': 'Focusing on Academics',

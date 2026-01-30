@@ -2,19 +2,19 @@ import 'package:mycampusinfo_app/core/common/view_state_provider.dart';
 import 'package:mycampusinfo_app/core/network/app_failure.dart';
 import 'package:mycampusinfo_app/features/predictor/data/data_source/data_source_impl.dart';
 
-import '../../../../common/models/college_card_model.dart';
-
 class PrefViewModel extends ViewStateProvider {
-  final PredictorDataSourceImpl _predictorService = PredictorDataSourceImpl();
-  List<CollegeCardModel> _predictedSchools = [];
+  final PredictorDataSourceImpl _predictorService =
+      PredictorDataSourceImpl();
 
-  List<CollegeCardModel> get predictedSchools => _predictedSchools;
+  List<String> _predictedColleges = [];
+  List<String> get predictedColleges => _predictedColleges;
 
   Future<Failure?> predictSchools({
     required Map<String, dynamic> filters,
   }) async {
     Failure? failure;
-    setViewState(ViewState.busy);
+
+    setViewState(ViewState.busy); // 🔄 START LOADER
 
     final result = await _predictorService.predictColleges(filters);
 
@@ -22,12 +22,12 @@ class PrefViewModel extends ViewStateProvider {
       (exception) {
         failure = APIFailure.fromException(exception: exception);
       },
-      (schools) {
-        _predictedSchools = schools ?? [];
+      (colleges) {
+        _predictedColleges = colleges ?? [];
       },
     );
 
-    setViewState(ViewState.complete);
+    setViewState(ViewState.complete); // ✅ STOP LOADER
     return failure;
   }
 }

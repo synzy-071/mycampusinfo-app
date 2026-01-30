@@ -145,24 +145,29 @@ class AppRouter {
         },
       ),
 
-      // ✅ Predictor
-      GoRoute(
-        path: '/predictor',
-        name: RouteNames.predictor,
-        pageBuilder: (context, state) {
-          return MaterialPage(
-            child: ChangeNotifierProvider(
-              create: (context) => PrefViewModel(),
-              child: const PredictorPage(),
-            ),
-          );
-        },
+  // ✅ Predictor form page
+GoRoute(
+  path: '/predictor',
+  name: RouteNames.predictor,
+  builder: (context, state) => const PredictorPage(),
+),
+
+// ✅ Predictor result page
+GoRoute(
+  path: '/predictor-result',
+  name: RouteNames.predictorResult,
+  pageBuilder: (context, state) {
+    final colleges = state.extra as List<String>? ?? [];
+
+    return MaterialPage(
+      child: ChangeNotifierProvider(
+        create: (_) => PrefViewModel(),
+        child: SchoolResultsPage(),
       ),
-      GoRoute(
-        path: '/services',
-        name: RouteNames.services,
-        builder: (context, state) => SchoolResultsPage(),
-      ),
+    );
+  },
+),
+
       // GoRoute(
       //   path: '/predictor-result',
       //   name: RouteNames.predictorResult,

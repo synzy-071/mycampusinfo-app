@@ -15,8 +15,11 @@ class SchoolResultsPage extends StatefulWidget {
 class _SchoolResultPageState extends State<SchoolResultsPage> {
   final PrefViewModel prefViewModel = PrefViewModel();
   late AppStateProvider appStateProvider;
+
   @override
   void initState() {
+    super.initState();
+
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       appStateProvider = getIt();
 
@@ -28,9 +31,9 @@ class _SchoolResultPageState extends State<SchoolResultsPage> {
           'genderType': appStateProvider.user?.gender,
         },
       );
+
       failure?.showError(context);
     });
-    super.initState();
   }
 
   @override
@@ -44,102 +47,141 @@ class _SchoolResultPageState extends State<SchoolResultsPage> {
           title: 'Predicted Colleges',
           leading: SIcon(
             icon: Icons.keyboard_arrow_left,
-            onTap: () {
-              context.pop();
-            },
+            color: colors.amberColor,
+            onTap: () => context.pop(),
           ),
         ),
         body: SafeArea(
           child: Consumer<PrefViewModel>(
-            builder: (vmContext, vm, child) => vm.isLoading
-                ? Center(child: SLoadingIndicator())
-                : SingleChildScrollView(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 12,
+            builder: (context, vm, child) {
+              if (vm.isLoading) {
+                return const Center(child: SLoadingIndicator());
+              }
+
+              return SingleChildScrollView(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      "Predict Your Rank. Find Your College.",
+                      style: STextStyles.s14W400.copyWith(
+                        color: colors.amberColor,
+                      ),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          "Predict Your Rank. Find Your School.",
-                          style: STextStyles.s14W400.copyWith(
-                            color: colors.primaryColor,
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(
-                          "College Predictor",
-                          style: STextStyles.s28W800.copyWith(
-                            color: colors.primaryColor,
-                          ),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          "Your personalized School recommendations based on your preferences.",
-                          style: STextStyles.s14W400.copyWith(
+                    const SizedBox(height: 6),
+                    Text(
+                      "College Predictor",
+                      style: STextStyles.s28W800.copyWith(
+                        color: colors.amberColor,
+                      ),
+                    ),
+                    const SizedBox(height: 10),
+                    Text(
+                      "Personalized college recommendations based on your preferences.",
+                      style: STextStyles.s14W400.copyWith(
+                        color: colors.amberColor,
+                      ),
+                    ),
+                    const SizedBox(height: 24),
+
+                    /// ===== RESULTS =====
+                    if (vm.predictedColleges.isEmpty)
+                      Center(
+                        child: Text(
+                          "No colleges found matching your criteria",
+                          style: STextStyles.s16W400.copyWith(
                             color: colors.amberColor,
                           ),
                         ),
-                        const SizedBox(height: 24),
+                      )
+                    else
+                      ListView.separated(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: vm.predictedColleges.length,
+                        separatorBuilder: (_, __) =>
+                            const SizedBox(height: 12),
+                        itemBuilder: (context, index) {
+                          final collegeName =
+                              vm.predictedColleges[index];
 
-                        // Show results
-                        if (vm.predictedSchools.isEmpty)
-                          Center(
-                            child: Text(
-                              "No schools found matching your criteria",
-                              style: STextStyles.s16W400.copyWith(
-                                color: colors.amberColor,
+                          return Card(
+                            elevation: 2,
+                            child: Padding(
+                              padding: const EdgeInsets.all(16),
+                              child: Row(
+                                children: [
+                                  CircleAvatar(
+                                    backgroundColor:
+                                        colors.amberColor,
+                                    child: Text(
+                                      '${index + 1}',
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 12),
+                                  Expanded(
+                                    child: Text(
+                                      collegeName,
+                                      style:
+                                          STextStyles.s16W600.copyWith(
+                                        color: colors.amberColor,
+                                      ),
+                                    ),
+                                  ),
+                                ],
                               ),
                             ),
-                          )
-                        else
-                          // School cards list
-                          ListView.separated(
-                            itemBuilder: (context, index) {
-                              final school = vm.predictedSchools[index];
-                              return SchoolCard(school: school);
-                            },
-                            separatorBuilder: (context, index) =>
-                                const SizedBox(height: 16),
-                            itemCount: vm.predictedSchools.length,
-                            shrinkWrap: true,
-                            physics: const NeverScrollableScrollPhysics(),
+                          );
+                        },
+                      ),
+
+                    const SizedBox(height: 28),
+
+                    /// ===== EDIT PREFERENCES =====
+                    Center(
+                      child: SizedBox(
+                        height: 40,
+                        child: ElevatedButton(
+                          onPressed: () {
+                            context.goNamed(
+                              RouteNames.preferences,
+                              extra: true,
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: colors.amberColor,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.zero,
+                            ),
                           ),
-
-                        const SizedBox(height: 28),
-
-                        // Edit Preferences button
-                        Center(
-                          child: SizedBox(
-                            height: 40,
-                            child: ElevatedButton(
-                              onPressed: () {
-                                context.goNamed(
-                                  RouteNames.preferences,
-                                  extra: true,
-                                );
-                              },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.black,
-                                shape: const RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.zero,
-                                ),
-                              ),
-                              child: const Padding(
-                                padding: EdgeInsets.symmetric(horizontal: 15),
-                                child: Text(
-                                  "Edit Preferences",
-                                  style: TextStyle(color: Colors.white),
-                                ),
+                          child: const Padding(
+                            padding:
+                                EdgeInsets.symmetric(horizontal: 15),
+                            child: Text(
+                              "Edit Preferences",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontWeight: FontWeight.w600,
                               ),
                             ),
                           ),
                         ),
-                        const SizedBox(height: 20),
-                      ],
+                      ),
                     ),
-                  ),
+
+                    const SizedBox(height: 20),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ),

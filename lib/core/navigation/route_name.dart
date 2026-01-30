@@ -10,7 +10,6 @@ class RouteNames {
   //navigation bar
   static const String home = 'home';
   static const String blogs = 'blogs';
-  static const String services = 'services';
   static const String shortlist = 'shortlist';
 
   static const String blogResult = 'blog-result';
@@ -46,8 +45,9 @@ class RouteNames {
   static const String search = 'search';
   static const String searchRes = 'search-res';
   static const String notification = 'notifications';
-  static const String predictor = 'predictor';
-  static const String predictorResult = 'predictor-result';
+static const predictor = 'predictor';
+  static const predictorResult = 'predictor-result';
+  static const services = 'services';
   static const String aiPredictor = 'ai-predictor';
   static const String apply = 'apply';
 
