@@ -79,7 +79,7 @@ class _SchoolsViewState extends State<SchoolsView> {
                                 title: 'Which Colleges match your preferences?',
                                 buttonText: 'Predict Now',
                                 onPressed: () {
-                                  context.pushNamed(RouteNames.services);
+                                  context.pushNamed(RouteNames.predictor);
                                 },
                               ),
                               Selector<SchoolViewModel, List<CollegeCardModel>>(
