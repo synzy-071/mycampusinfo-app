@@ -17,6 +17,7 @@ import 'package:mycampusinfo_app/features/detailPages/hostel/presentation/hostel
 import 'package:mycampusinfo_app/features/detailPages/infrastructure/presentation/infrastructure_view.dart';
 import 'package:mycampusinfo_app/features/detailPages/internationalExposure/presentation/international_view.dart';
 import 'package:mycampusinfo_app/features/detailPages/otherDetails/presentation/other_details_view.dart';
+import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_response_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/overview_view.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/view_models/overview_view_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/widgets/custom_tab.dart';
@@ -597,7 +598,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView2> {
                   }
                 },
                 children: [
-                  OverviewTab(school: vm.school as CollegeModel),
+                  OverviewTab(school: vm.collegeDetail as CollegeDetailsData),
                   CoursesView(collegeId: widget.collegeId),
                   FacultyView(collegeId: widget.collegeId),
                   InfrastructureView(collegeId: widget.collegeId),

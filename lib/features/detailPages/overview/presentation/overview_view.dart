@@ -4,6 +4,7 @@ import 'package:mycampusinfo_app/common/index.dart';
 import 'package:mycampusinfo_app/core/index.dart';
 import 'package:mycampusinfo_app/features/application/forms/presentation/view_models/my_form_view_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_model.dart';
+import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_response_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/view_models/overview_view_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/widgets/info_chip_widget.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/presentation/widgets/quick_highlight_widget.dart';
@@ -33,22 +34,22 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
 
   final List<String> _tabs = const [
     "overview",
-  "academics",
-  "facultyDetails",
-  "infrastructure",
-  "activities",
-  "safetySecurity",
-  "internationalExposure",
-  "feesAndScholarship",
-  "admissionTimeline",
-  "amenities",
-  "aluminis",
-  "reviews",
-  "otherDetails",
-  "photos",
-  "placement",
-  "exam",
-  'hostel'
+    "academics",
+    "facultyDetails",
+    "infrastructure",
+    "activities",
+    "safetySecurity",
+    "internationalExposure",
+    "feesAndScholarship",
+    "admissionTimeline",
+    "amenities",
+    "aluminis",
+    "reviews",
+    "otherDetails",
+    "photos",
+    "placement",
+    "exam",
+    'hostel',
   ];
 
   final MyFormViewModel myFormViewModel = MyFormViewModel();
@@ -616,7 +617,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                               ),
                               Expanded(
                                 child: InfoChip(
-                                  topText: school.ranking?? "-",
+                                  topText: school.ranking ?? "-",
                                   bottomText: "NIRF Rank",
                                   fontSize: infoFont,
                                   isSmallScreen: isSmall,
@@ -624,7 +625,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                               ),
                               Expanded(
                                 child: InfoChip(
-                                  topText:school.estYear??"-",                        
+                                  topText: school.estYear ?? "-",
                                   bottomText: "Since",
                                   fontSize: infoFont,
                                   isSmallScreen: isSmall,
@@ -679,7 +680,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
                         physics: const NeverScrollableScrollPhysics(),
                         children: _tabs.map((tab) {
                           if (tab == "Overview") {
-                            return OverviewTab(school: school);
+                            return OverviewTab(school: vm.collegeDetail!);
                           }
                           return Center(
                             child: Text(
@@ -703,7 +704,7 @@ class _SchoolDetailViewState extends State<SchoolDetailView>
 
 class OverviewTab extends StatelessWidget {
   const OverviewTab({required this.school});
-  final CollegeModel school;
+  final CollegeDetailsData school;
 
   @override
   Widget build(BuildContext context) {
@@ -711,7 +712,7 @@ class OverviewTab extends StatelessWidget {
     final isSmall = size.width < 600;
 
     // Fee parsing
-    final feeParts = (school.feeRange ?? "").split(RegExp(r'[-–]'));
+    final feeParts = (school.college.feeRange ?? "").split(RegExp(r'[-–]'));
     final feeLow = feeParts.isNotEmpty ? feeParts.first.trim() : '-';
     final feeHigh = feeParts.length > 1
         ? feeParts.last.trim()
@@ -739,32 +740,24 @@ class OverviewTab extends StatelessWidget {
                 QuickHighlights(
                   icon: Icons.school_outlined,
                   title: "College Mode",
-                  value: school.collegeMode ?? "-",
+                  value: school.college.collegeMode ?? "-",
                 ),
                 QuickHighlights(
-                  icon: Icons.wc_outlined,
-                  title: "Gender",
-                  value: school.genderType ?? "-",
+                  icon: Icons.book,
+                  title: "No. of courses",
+                  value: school.courseCount.toString(),
+                ),
+                
+               
+                QuickHighlights(
+                  icon: Icons.money,
+                  title: "Highest Package",
+                  value: "${school.highestPackage} LPA",
                 ),
                 QuickHighlights(
-                  icon: Icons.directions_bus_outlined,
-                  title: "Transport",
-                  value: school.transportAvailable ?? "-",
-                ),
-                QuickHighlights(
-                  icon: Icons.translate_outlined,
-                  title: "Medium",
-                  value: school.languageMedium?.join(", ") ?? "-",
-                ),
-                QuickHighlights(
-                  icon: Icons.access_time_outlined,
-                  title: "Shifts",
-                  value: school.shifts?.join(", ") ?? "-",
-                ),
-                QuickHighlights(
-                  icon: Icons.label_outline,
-                  title: "Type",
-                  value: school.tags?.join(", ") ?? "---",
+                  icon: Icons.book,
+                  title: "Median Salary",
+                  value:  "${school.highestPackage/12} L",
                 ),
               ],
             ),
@@ -775,35 +768,37 @@ class OverviewTab extends StatelessWidget {
           FeeRangeDisplay(
             feeLow: feeLow,
             feeHigh: feeHigh,
-            feeRange: school.feeRange ?? "-",
+            feeRange: school.college.feeRange ?? "-",
           ),
           const SizedBox(height: 20),
 
           // Top Amenities Section
           TitledCard(
-            title: "Top Tags",
+            title: "Top Companies",
             icon: Icons.widgets_outlined,
             iconColor: Colors.amber,
             child: Wrap(
               spacing: 8,
               runSpacing: 8,
-              children:
-                  (school.tags?.isNotEmpty == true
-                          ? school.tags!
-                          : (school.specialist?.isNotEmpty == true
-                                ? school.specialist!
-                                : const [
-                                    "E-Library",
-                                    "Science Lab",
-                                    "Computer Lab",
-                                  ]))
-                      .map(
-                        (e) => RecruiterChip(label: e, isSmallScreen: isSmall),
-                      )
-                      .toList(),
+              children: (school.topCompanies.isNotEmpty? school.topCompanies : [])
+                  .map((e) => RecruiterChip(label: e, isSmallScreen: isSmall))
+                  .toList(),
             ),
           ),
           const SizedBox(height: 20),
+           // Top Amenities Section
+          TitledCard(
+            title: "Exams Type",
+            icon: Icons.widgets_outlined,
+            iconColor: Colors.amber,
+            child: Wrap(
+              spacing: 8,
+              runSpacing: 8,
+              children: (school.allExams.toString().isNotEmpty? school.allExams : [])
+                  .map((e) => RecruiterChip(label: e, isSmallScreen: isSmall))
+                  .toList(),
+            ),
+          ),
         ],
       ),
     );

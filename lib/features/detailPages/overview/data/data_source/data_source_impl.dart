@@ -2,6 +2,7 @@ import 'package:dartz/dartz.dart';
 import 'package:mycampusinfo_app/core/index.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/applied_form_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_model.dart';
+import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_response_model.dart';
 
 class OverviewDataSourceImpl {
   final NetworkService _networkService = NetworkService();
@@ -169,7 +170,7 @@ class OverviewDataSourceImpl {
   }
 
   // 🏫 GET SCHOOL BY ID
-  ResultFuture<CollegeModel?> getSchoolById({required String id}) async {
+  ResultFuture<CollegeDetailsData?> getSchoolById({required String id}) async {
     Request r = Request(
       method: RequestMethod.get,
       endpoint: "${Endpoints.adminSchools}/$id",
@@ -179,7 +180,7 @@ class OverviewDataSourceImpl {
       final result = await _networkService.request(r);
       final response = result.data as Map<String, dynamic>;
       if (response.isNotEmpty) {
-        final school = CollegeModel.fromJson(response['data']);
+        final school = CollegeDetailsData.fromJson(response['data']);
         return Right(school);
       }
     } catch (e) {

@@ -14,11 +14,10 @@ class PredictorPage extends StatefulWidget {
 }
 
 class _PredictorPageState extends State<PredictorPage> {
-  final TextEditingController _feeRangeController = TextEditingController();
-  final TextEditingController _collegeModeController = TextEditingController();
-  final TextEditingController _genderTypeController = TextEditingController();
+  //  ONLY REQUIRED CONTROLLERS
   final TextEditingController _streamController = TextEditingController();
-  final TextEditingController _activitiesController = TextEditingController();
+  final TextEditingController _examTypeController = TextEditingController();
+  final TextEditingController _examRankController = TextEditingController();
 
   final PrefViewModel viewModel = PrefViewModel();
 
@@ -44,7 +43,7 @@ class _PredictorPageState extends State<PredictorPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
-                  "Your Options. Your College.",
+                  "Your Rank. Your Future.",
                   style: STextStyles.s18W600.copyWith(
                     color: colors.amberColor,
                   ),
@@ -58,36 +57,15 @@ class _PredictorPageState extends State<PredictorPage> {
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  "Discover colleges that match your exact requirements.",
+                  "Find colleges you can realistically get based on your exam and rank.",
                   style: STextStyles.s15W400.copyWith(
                     color: colors.amberColor,
                   ),
                 ),
-                const SizedBox(height: 23),
+                const SizedBox(height: 28),
 
-                _buildLabel("Select your preferred fee range"),
-                const SizedBox(height: 8),
-                STextField.dropdown(
-                  controller: _feeRangeController,
-                  items: const [
-                    "1000 - 10000",
-                    "10000 - 25000",
-                    "25000 - 50000",
-                    "50000 - 75000",
-                    "75000 - 100000",
-                    "1 Lakh - 2 Lakh",
-                    "2 Lakh - 3 Lakh",
-                    "3 Lakh - 4 Lakh",
-                    "4 Lakh - 5 Lakh",
-                    "More than 5 Lakh",
-                  ],
-                  label: "Fee Range",
-                  hint: "Select fee range",
-                ),
-
-                const SizedBox(height: 16),
-
-                _buildLabel("Select your preferred college stream"),
+                /// STREAM
+                _buildLabel("Select your stream"),
                 const SizedBox(height: 8),
                 STextField.dropdown(
                   controller: _streamController,
@@ -106,49 +84,38 @@ class _PredictorPageState extends State<PredictorPage> {
                   hint: "Select stream",
                 ),
 
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
 
-                _buildLabel("College is famous for"),
+                /// EXAM TYPE
+                _buildLabel("Select exam type"),
                 const SizedBox(height: 8),
                 STextField.dropdown(
-                  controller: _activitiesController,
+                  controller: _examTypeController,
                   items: const [
-                    "Sports",
-                    "Research",
-                    "Placements",
-                    "Cultural Activities",
-                    "Innovation",
-                    "Entrepreneurship",
-                    "Coding Culture",
-                    "International Exposure",
+                    "JEE Main",
+                    "JEE Advanced",
+                    "NEET",
+                    "CUET",
+                    "BITSAT",
+                    "COMEDK",
+                    "State Entrance Exam",
                   ],
-                  label: "Activities / Famous For",
-                  hint: "Select speciality",
+                  label: "Exam Type",
+                  hint: "Select exam",
                 ),
 
-                const SizedBox(height: 16),
+                const SizedBox(height: 20),
 
-                _buildLabel("Select your preferred college mode"),
+                /// EXAM RANK
+                _buildLabel("Enter your exam rank"),
                 const SizedBox(height: 8),
-                STextField.dropdown(
-                  controller: _collegeModeController,
-                  items: const ['convent', 'private', 'government'],
-                  label: "College Mode",
-                  hint: "Select mode",
+                STextField(
+                  controller: _examRankController,
+                  label: "Exam Rank",
+                  hint: "Enter rank",
                 ),
 
-                const SizedBox(height: 16),
-
-                _buildLabel("Select preferred gender type"),
-                const SizedBox(height: 8),
-                STextField.dropdown(
-                  controller: _genderTypeController,
-                  items: const ['boy', 'girl', 'co-ed'],
-                  label: "Gender Type",
-                  hint: "Select gender",
-                ),
-
-                const SizedBox(height: 24),
+                const SizedBox(height: 32),
 
                 /// 🔄 BUTTON / LOADER
                 Consumer<PrefViewModel>(
@@ -162,19 +129,17 @@ class _PredictorPageState extends State<PredictorPage> {
                     return Center(
                       child: SButton(
                         max: true,
-                        label: "Get Colleges",
+                        label: "Predict Colleges",
                         onPressed: () async {
+                          // ✅ ONLY 3 FIELDS SENT
                           final filters = {
-                            if (_feeRangeController.text.isNotEmpty)
-                              'feeRange': _feeRangeController.text,
                             if (_streamController.text.isNotEmpty)
                               'stream': _streamController.text,
-                            if (_activitiesController.text.isNotEmpty)
-                              'activities': [_activitiesController.text],
-                            if (_collegeModeController.text.isNotEmpty)
-                              'collegeMode': _collegeModeController.text,
-                            if (_genderTypeController.text.isNotEmpty)
-                              'genderType': _genderTypeController.text,
+                            if (_examTypeController.text.isNotEmpty)
+                              'examType': _examTypeController.text,
+                            if (_examRankController.text.isNotEmpty)
+                              'examRank': int.tryParse(
+                                  _examRankController.text),
                           };
 
                           final failure =
@@ -190,8 +155,9 @@ class _PredictorPageState extends State<PredictorPage> {
                               SnackBar(
                                 content: Text(
                                   'Error: ${failure.message}',
-                                  style:
-                                      TextStyle(color: colors.amberColor),
+                                  style: TextStyle(
+                                    color: colors.amberColor,
+                                  ),
                                 ),
                               ),
                             );
@@ -202,9 +168,9 @@ class _PredictorPageState extends State<PredictorPage> {
                   },
                 ),
 
-                const SizedBox(height: 12),
+                const SizedBox(height: 14),
                 Text(
-                  "Predictions are AI-generated and may not reflect actual outcomes.",
+                  "Predictions are AI-generated and based on past admission trends.",
                   style: STextStyles.s10W400.copyWith(
                     color: colors.amberColor,
                   ),

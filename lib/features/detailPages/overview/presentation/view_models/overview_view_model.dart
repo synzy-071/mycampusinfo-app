@@ -2,6 +2,7 @@ import 'package:mycampusinfo_app/core/index.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/data/data_source/data_source_impl.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/applied_form_model.dart';
 import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_model.dart';
+import 'package:mycampusinfo_app/features/detailPages/overview/data/entities/overview_response_model.dart';
 
 class OverviewViewModel extends ViewStateProvider {
   final OverviewDataSourceImpl _service = OverviewDataSourceImpl();
@@ -16,6 +17,12 @@ class OverviewViewModel extends ViewStateProvider {
   }
 
   // STATE
+  CollegeDetailsData? _collegeDetail;
+    CollegeDetailsData? get collegeDetail => _collegeDetail;
+    set collegeDetail(CollegeDetailsData? val) {
+    _collegeDetail = val;
+    notifyListeners();
+  }
   CollegeModel? _school;
   CollegeModel? get school => _school;
   set school(CollegeModel? val) {
@@ -61,7 +68,9 @@ class OverviewViewModel extends ViewStateProvider {
         school = null;
       },
       (res) {
-        school = res;
+        collegeDetail = res;
+
+        school = res?.college;
         _message = null;
       },
     );
