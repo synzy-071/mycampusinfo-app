@@ -37,7 +37,7 @@ class LandingPage extends StatelessWidget {
                 children: [
                   Image.asset(Assets.images.cropAppLogo.path, width: 250),
                   Text(
-                    'AI-Powered School Discovery App',
+                    'AI-Powered College Discovery App',
                     textAlign: TextAlign.center,
                     style: STextStyles.s14W600.copyWith(
                       color: SColor.secTextColor,
