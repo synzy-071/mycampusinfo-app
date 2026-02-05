@@ -461,22 +461,22 @@ class TimelineCard extends StatelessWidget {
     Toasts.showSuccessOrFailureToast(
       sheetContext,
       failure: failure,
-      hideSuccess: true,
       popOnSuccess: false,
-      successCallback: () async {
-        if (int.tryParse(feeText.substring(1)) == 0) {}
-
-        final failure = await paymentVM.createOrder();
-        Toasts.showSuccessOrFailureToast(
-          contextForSheet,
-          failure: failure,
-          popOnSuccess: false,
-          hideSuccess: true,
-          successCallback: () {
-            contextForSheet.pushNamed(RouteNames.payments);
-          },
-        );
-      },
+      successMsg: "Form Submitted Successfully",
+      // successCallback: () async {
+      //   if (int.tryParse(feeText.substring(1)) == 0) {}
+      //
+      //   final failure = await paymentVM.createOrder();
+      //   Toasts.showSuccessOrFailureToast(
+      //     contextForSheet,
+      //     failure: failure,
+      //     popOnSuccess: false,
+      //     hideSuccess: true,
+      //     successCallback: () {
+      //       contextForSheet.pushNamed(RouteNames.payments);
+      //     },
+      //   );
+      // },
     );
   }
 }
